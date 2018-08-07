@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wf.friendlink.mapper.LinkMapper">
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, link_name AS linkName ,link_url AS linkUrl,link_status AS linkStatus, create_time AS createTime,modify_time AS modifyTime
+	</sql>
+
+	<select id="selectLinkPage" resultType="Map">
+		SELECT
+		t.id, t.link_name AS linkName, t.link_url AS linkUrl,link_status AS linkStatus,
+		t.create_time AS createTime,t.modify_time AS modifyTime
+		FROM link t where true
+		<if test=" linkName != null and linkName != '' ">
+			and t.link_name like  concat('%',#{linkName},'%')
+		</if>
+		<if test=" linkStatus != null and linkStatus != '' ">
+			and t.link_status= #{linkStatus}
+		</if>
+	</select>
+
+</mapper>

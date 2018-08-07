@@ -1,0 +1,120 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.slide_box{
+    width: 100%;
+    height: 340px;
+
+    position: relative;
+}
+
+.slide_list{
+    width: 1200px;
+    height: 300px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -600px;
+}
+.slide_list h3{
+    width: 100%;
+    background-color: #ffffff;
+    position: absolute;
+    height: 5vh;
+    color:#333333;
+    line-height: 5vh;
+    bottom: 5vh;
+    text-align: center;
+
+}
+.slide_btn{
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    width: 60px;
+    height: 100px;
+    line-height: 100px;
+    font-size: 30px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    background: rgba(84, 153, 255, 0.42);
+    cursor: pointer;
+}
+.slide_next{
+    right: 0;
+}
+
+.slide_list li{
+    position: absolute;
+    top: 0;
+    left: 0;
+    list-style: none;
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+.slide_list img{
+    width: 751px;
+    height: 300px;
+    border:none;
+    float: left;
+}
+.slide_list .slide_p1{
+    transform:translate3d(-224px,0,0) scale(0.81);
+}
+.slide_list .slide_p2{
+    transform:translate3d(0px,0,0) scale(0.81);
+    transform-origin:0 50%;
+    opacity: 0.8;
+    z-index: 2;
+}
+.slide_list .slide_p3{
+    transform:translate3d(224px,0,0) scale(1);
+    z-index: 3;
+    opacity: 1;
+}
+.slide_list .slide_p4{
+    transform:translate3d(449px,0,0) scale(0.81);
+    transform-origin:100% 50%;
+    opacity: 0.8;
+    z-index: 2;
+}
+.slide_list .slide_p5{
+    transform:translate3d(672px,0,0) scale(0.81);
+}
+.slide_list .slide_p6{
+    transform:translate3d(896px,0,0) scale(0.81);
+}
+.slide_list .slide_p7{
+    transform:translate3d(1120px,0,0) scale(0.81);
+}
+
+.slide_buttons{
+    position: absolute;
+    width: 1200px;
+    height: 30px;
+    bottom: 0;
+    left: 50%;
+    margin-left: -600px;
+    text-align: center;
+    padding-top: 10px;
+}
+.slide_buttons a{
+    display: inline-block;
+    width: 35px;
+    height: 5px;
+    padding-top: 4px;
+    cursor: pointer;
+}
+.slide_list span{
+    display: block;
+    width: 35px;
+    height: 1px;
+    background: red;
+}
+.slide_blue{
+    background: blue;
+}
