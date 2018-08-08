@@ -42,7 +42,7 @@ public class CollectHeadController {
 	@ResponseBody
 	public PageInfo collectListData(String title,@RequestParam(value = "sort", defaultValue = "collect_time")String sort,@RequestParam(value = "order", defaultValue = "desc")String order,Integer pageIndex, Integer pageSize) {
 		PageInfo pageInfo = new PageInfo(pageIndex, pageSize, sort, order);
-		Map<String, Object> condition = new HashMap<String, Object>();
+		Map<String, Object> condition = new HashMap<>();
 
 		if (StringUtils.isNotBlank(title)) {
 			condition.put("title", title);
@@ -58,7 +58,7 @@ public class CollectHeadController {
 	@ResponseBody
 	public PageInfo topTenData(String title,Integer nowpage,Integer pageSize, @RequestParam(value = "sort", defaultValue = "collect_time")String sort,@RequestParam(value = "order", defaultValue = "desc")String order) {
 		PageInfo pageInfo = new PageInfo(nowpage, pageSize, sort, order);
-		Map<String, Object> condition = new HashMap<String, Object>();
+		Map<String, Object> condition = new HashMap<>();
 
 		if (StringUtils.isNotBlank(title)) {
 			condition.put("title", title);
