@@ -16,7 +16,8 @@
 	<script src="${staticPath }/static/lsportal/js/formValidator_min.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="${staticPath }/static/lsportal/js/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="${staticPath }/static/lsportal/js/main.js"></script>
-	<script type="text/javascript" src="${staticPath }/static/lsportal/js/modernizr-1.js"></script>
+	<script type="text/javascrsipt" src="${staticPath }/static/lsportal/js/modernizr-1.js"></script>
+	<script type="text/javascript" src="${staticPath }/static/js/main.js?v=${version}"></script>
 
 	<link rel="stylesheet" type="text/css" href="${staticPath }/static/lsportal/css/style.css" />
 	<link rel="stylesheet" href="${staticPath }/static/lsportal/css/all.css" type="text/css"/>
@@ -44,7 +45,7 @@
 <shiro:user>
 		<!--######  2018-08-06  ######-->
 		<div class="LS2018_home_top">
-			<span>当前用户：<b><shiro:principal property='name'/></b><a href="${staticPath }/forehead/personal/center">个人中心</a></span><a href="#" onclick="logout();">退出登录</a>
+			<span>当前用户：<b><shiro:principal property='name'/></b><a href="${staticPath }/forehead/personal/center" target="_blank">个人中心</a></span><a href="#" onclick="logout();">退出登录</a>
 		</div>
 </shiro:user>
 		<div class="title active">

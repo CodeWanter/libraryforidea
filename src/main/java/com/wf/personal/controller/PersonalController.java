@@ -3,9 +3,23 @@
  */
 package com.wf.personal.controller;
 
+import com.wf.commons.result.PageInfo;
+import com.wf.commons.utils.StringUtils;
+import com.wf.model.Role;
+import com.wf.model.vo.UserVo;
+import com.wf.user.service.IUserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhanghuaiyu
@@ -18,11 +32,18 @@ public class PersonalController {
 	/*
 	 * 个人中心
 	 */
+	@Autowired
+	private IUserService userService;
 	@GetMapping("center")
-	public String center() {
-		if (SecurityUtils.getSubject().isAuthenticated()) {
+	public String center(Model model,HttpServletRequest request) {
+		Long currentUserId1 = (Long) request.getSession().getAttribute("Id");
+		Long currentUserId = (Long) SecurityUtils.getSubject().getSession().getAttribute("id");
+		UserVo userVo = userService.selectVoById(currentUserId);
+		model.addAttribute("user", userVo);
+		//if (SecurityUtils.getSubject().isAuthenticated()) {
 			return "website/personal/center";
-		}
-		return "redirect:/forehead/index";
+		//};
+		//return "redirect:/forehead/index";
 	}
+
 }
