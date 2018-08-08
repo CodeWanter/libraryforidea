@@ -23,11 +23,11 @@
         <table>
             <tr>
                 <td>用户名：</td>
-                <td><input type="text" id="name" value="name"></td>
+                <td><input type="text" id="name" value="${user.name}"></td>
             </tr>
             <tr>
                 <td>年龄：</td>
-                <td> <input type="text" id="age" name="age"></td>
+                <td> <input type="text" id="age" name="age" value="${user.age}"></td>
             </tr>
         </table>
     </div>

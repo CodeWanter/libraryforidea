@@ -4,6 +4,7 @@
 package com.wf.personal.controller;
 
 import com.wf.commons.result.PageInfo;
+import com.wf.commons.shiro.ShiroUser;
 import com.wf.commons.utils.StringUtils;
 import com.wf.model.Role;
 import com.wf.model.vo.UserVo;
@@ -24,7 +25,7 @@ import java.util.Map;
 /**
  * @author zhanghuaiyu
  * @version create time：2018年8月4日 上午11:31:10
- * 类说明 前台文章相关请求控制器
+ * 类说明 前台个人中心相关请求控制器
  */
 @Controller
 @RequestMapping("/forehead/personal")
@@ -36,14 +37,9 @@ public class PersonalController {
 	private IUserService userService;
 	@GetMapping("center")
 	public String center(Model model,HttpServletRequest request) {
-		Long currentUserId1 = (Long) request.getSession().getAttribute("Id");
-		Long currentUserId = (Long) SecurityUtils.getSubject().getSession().getAttribute("id");
-		UserVo userVo = userService.selectVoById(currentUserId);
+		ShiroUser user =  (ShiroUser)SecurityUtils.getSubject().getPrincipal();
+		UserVo userVo = userService.selectVoById(user.getId());
 		model.addAttribute("user", userVo);
-		//if (SecurityUtils.getSubject().isAuthenticated()) {
 			return "website/personal/center";
-		//};
-		//return "redirect:/forehead/index";
 	}
-
 }
