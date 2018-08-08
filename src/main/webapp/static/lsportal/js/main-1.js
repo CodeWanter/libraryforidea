@@ -1,5 +1,5 @@
 jQuery(document).ready(function($){
-	var tabs = $('.cd-tabs');
+	var tabs = $('');
 	
 	tabs.each(function(){
 		var tab = $(this),

@@ -1,23 +1,23 @@
 #main{
-  width:100vw;
+  width:20vw;
   /*background-color: #fff;*/
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  z-index: 120;
+  position: absolute;
+  top: 1vh;
+  right: 4vw;
 }
 .demo{
   width: 60%;
-  padding-top: 12vh;
+  margin: 0 auto;
 }
 
 .main_nav ul {
-  width: 40%;
+  width:90%;
   margin: 0 auto;
   /*background-color: #fffb46;*/
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
 
@@ -25,15 +25,18 @@
 
 .main_nav li{
   float:left;
-  width:80px;
+  width:4vw;
+  overflow: hidden;
   font-size:16px;
-  padding: .6em 1em;
+  padding: .3em 0.1em;
   border-radius: 3em;
-  background: #5499ff;
-  box-shadow:0px 0px 8px 1px #b8eeff inset;
+  background: rgba(84, 153, 255, 0.02);
+  box-shadow:0px 0px 8px 0.5px #b8eeff inset;
+  text-shadow:0.3px  0.3px 2px #000000;
   text-align:center
 }
-.main_nav li a{color:#fff}
+.main_nav li a{color: #ffffff
+}
 
 .cd-user-modal {
   position: fixed;
@@ -345,7 +348,7 @@ header h1 {
   width: 86vw;
   margin: 1em auto;
 
-  background-color: rgba(51, 105, 238, 0.08);
+  background-color: rgb(248, 248, 248);
 }
 .cd-tabs:after {
   content: "";
@@ -390,7 +393,9 @@ header h1 {
 }
 
 .cd-tabs-navigation {
+  margin-left:360px;
   width: 360px;
+
 }
 .cd-tabs-navigation:after {
   content: "";
@@ -414,7 +419,7 @@ header h1 {
 .no-touch .cd-tabs-navigation a:hover {
   font-size: 1.2rem;
   color: #29324e;
-  background-color: rgba(233, 230, 202, 0.3);
+  background-color: rgba(249, 249, 249, 0.03);
 }
 .cd-tabs-navigation a.selected {
   background-color: #ffffff !important;
@@ -451,7 +456,9 @@ header h1 {
   }
 }
 @media only screen and (min-width: 960px) {
+
   .cd-tabs-navigation {
+    margin-left:360px;
     /* tabbed on top on big devices */
     width: auto;
   }

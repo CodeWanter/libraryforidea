@@ -77,6 +77,7 @@ header h1 {
 .no-cssgradients .cd-tabs::after {
   display: none;
 }
+
 .cd-tabs.is-ended::after {
   /* class added in jQuery - remove the gradient layer when it's no longer possible to scroll */
   visibility: hidden;

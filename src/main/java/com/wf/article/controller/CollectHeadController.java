@@ -56,8 +56,8 @@ public class CollectHeadController {
 //	前十条数据加载
 	@PostMapping("topTenData")
 	@ResponseBody
-	public PageInfo topTenData(String title, @RequestParam(value = "sort", defaultValue = "collect_time")String sort,@RequestParam(value = "order", defaultValue = "desc")String order) {
-		PageInfo pageInfo = new PageInfo(1, 10, sort, order);
+	public PageInfo topTenData(String title,Integer nowpage,Integer pageSize, @RequestParam(value = "sort", defaultValue = "collect_time")String sort,@RequestParam(value = "order", defaultValue = "desc")String order) {
+		PageInfo pageInfo = new PageInfo(nowpage, pageSize, sort, order);
 		Map<String, Object> condition = new HashMap<String, Object>();
 
 		if (StringUtils.isNotBlank(title)) {

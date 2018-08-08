@@ -7,7 +7,7 @@ jQuery(document).ready(function($){
 		$tab_signup = $form_modal_tab.children('li').eq(1).children('a'),
 		$main_nav = $('.main_nav');
 
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//µ¯³ö´°¿Ú
 	$main_nav.on('click', function(event){
 
 		if( $(event.target).is($main_nav) ) {
@@ -24,20 +24,20 @@ jQuery(document).ready(function($){
 
 	});
 
-	//ï¿½Ø±Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//¹Ø±Õµ¯³ö´°¿Ú
 	$('.cd-user-modal').on('click', function(event){
 		if( $(event.target).is($form_modal) || $(event.target).is('.cd-close-form') ) {
 			$form_modal.removeClass('is-visible');
 		}	
 	});
-	//Ê¹ï¿½ï¿½Escï¿½ï¿½ï¿½Ø±Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Ê¹ÓÃEsc¼ü¹Ø±Õµ¯³ö´°¿Ú
 	$(document).keyup(function(event){
     	if(event.which=='27'){
     		$form_modal.removeClass('is-visible');
 	    }
     });
 
-	//ï¿½Ð»ï¿½ï¿½ï¿½
+	//ÇÐ»»±íµ¥
 	$form_modal_tab.on('click', function(event) {
 		event.preventDefault();
 		( $(event.target).is( $tab_login ) ) ? login_selected() : signup_selected();
