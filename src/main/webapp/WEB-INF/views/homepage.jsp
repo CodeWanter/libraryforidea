@@ -273,7 +273,7 @@
 					<ul class="thr-r"  id="trends2">
 
 					</ul>
-					<span style="position: absolute;right: 1vw;bottom:7vh;"><a class="biaoqian" href="" target="_blank" style="font-size: 12px;font-weight: 400;color: #479fc8">. . .查看更多. . .</a></span>
+					<span style="position: absolute;right: 1vw;bottom:7vh;"><a class="biaoqian" href="${staticPath }/forehead/article/articlelist" target="_blank" style="font-size: 12px;font-weight: 400;color: #479fc8">. . .查看更多. . .</a></span>
 				</div>
 				<div class="three_contentItem">
 					<ul class="thr-l" id="collect1">
@@ -282,7 +282,7 @@
 					<ul class="thr-r" id="collect2">
 
 					</ul>
-					<span style="position: absolute;right: 1vw;bottom:7vh"><a class="biaoqian" href="" target="_blank" style="font-size: 12px;font-weight: 400;color: #479fc8">. . .查看更多. . .</a></span>
+					<span style="position: absolute;right: 1vw;bottom:7vh"><a class="biaoqian" href="${staticPath}/forehead/collect/collectlist" target="_blank" style="font-size: 12px;font-weight: 400;color: #479fc8">. . .查看更多. . .</a></span>
 				</div>
 				<div class="three_contentItem">
 					<ul class="thr-l">
@@ -318,7 +318,7 @@
 		</div>
 	</div>
 
-	<div class="section section-4">
+	<div class="section section-4" id="a01">
 		<div class="col-sm-6 four_contentBox">
 			<h1>资源列表</h1>
 			<div class="contentBox">
@@ -467,7 +467,7 @@
 				<li>COPYRIGHT ©2007 LSNETLIB.COM INCORPORATED. ALL RIGHTS RESERVED.</li>
 				<li>
 					<span>浙ICP备09054032号</span>
-					<img src="image/icon-8.png">
+					<img src="${staticPath }/static/lsportal/image/icon-8.png">
 				</li>
 			</ul>
 		</div>

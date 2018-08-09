@@ -6,22 +6,35 @@
   Abstract：文章详细页页面
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--加载jstl和当前上下文环境--%>
-<%@ include file="/commons/layui.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ include file="/commons/layui.jsp"%>
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>细览</title>
+    <link rel="stylesheet" type="text/css" href="${staticPath}/static/lsportal/css/main.css" />
 </head>
-<body style="width:1000px;margin: 0 auto;">
+<body class="LS2018_body">
+<div class="LS2018_main">
+    <%@ include file="/commons/head.jsp" %>
+    <div class="LS2018_bd">
+        <div class="LS2018_MBX">
+            当前位置：&nbsp;<a href="${staticPath}/">首 页</a><span class="gt">&gt;</span><a href="${staticPath}/forehead/article/articlelist">最新动态</a>
+        </div>
 
-    <h2>${article.title}</h2>
-    <hr class="layui-bg-red">
-<div class="content">
-    ${article.content }
+        <div class="LS2018_Txt">
+            <h1>${article.title}</h1>
+            <div class="time">
+                <span class="t1">发布时间：<fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd" /></span>
+            </div>
+            <div class="txt">
+                ${article.content }
+            </div>
+        </div>
+    </div>
+<%@ include file="/commons/footer.jsp" %>
 </div>
-<footer>
-<span>发布时间：<fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd HH:mm" />
-</footer>
 </body>
 </html>
