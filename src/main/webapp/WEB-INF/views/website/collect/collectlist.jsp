@@ -24,7 +24,7 @@
             <div class="LS2018_module1">
                 <div class="m_top Z_clearfix">
                     <span class="tt">最新动态</span>
-                    <a class="more" href="#">more &gt;</a>
+                    <a class="more" href="${staticPath}/forehead/collect/articlelist">more &gt;</a>
                 </div>
                 <div class="m_middle">
                     <ul class="ul1" id="news">
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="LS2018_module1">
-                <div class="m_top Z_clearfix">
+                <div class="m_top Z_clearfix" id="a02">
                     <span class="tt">试用资源</span>
                 </div>
                 <div class="m_middle">
