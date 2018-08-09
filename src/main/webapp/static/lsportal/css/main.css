@@ -1,0 +1,336 @@
+﻿body{
+	margin: 0;
+	padding: 0;
+}
+html{
+	margin: 0;
+	padding: 0;
+}
+*{
+	font-family: "Microsoft YaHei", sans-serif;
+}
+li{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+}
+ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+}
+table{
+	border-collapse: collapse
+}
+a:hover{
+	text-decoration: none;
+}
+a{
+	text-decoration: none;
+}
+a:active{
+	background-color: #F3F3F3;
+	text-decoration: none;
+	color: #000000;
+}
+img{
+	border: 0;
+	max-width: 100%;
+}
+.Z_clear{
+	clear: both;
+	height: 0;
+	line-height: 0;
+	font-size: 0;
+}
+.Z_clearfix{
+	*zoom: 1;
+}
+.Z_clearfix:after{
+	content: '';
+	clear: both;
+	height: 0;
+	display: block;
+	font-size: 0;
+}
+/* 苹果浏览器按钮XXX */
+button, input[type="button"], input[type="reset"], input[type="submit"]{
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+textarea, select, input{
+	outline: none;
+}
+
+
+.LS2018_body{
+	background: #F0F7FB;
+}
+
+.LS2018_main{
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.LS2018_hd{
+	background: url('../images/New_banner_back.jpg') no-repeat;
+	height: 180px;
+	margin: 0 auto;
+	position: relative;
+}
+
+
+.LS2018_nav{
+	position: absolute;
+	width: 100%;
+	height: 45px;
+	bottom: 0;
+	right: 0;
+	text-align: right;
+	font-size: 0;
+}
+.LS2018_nav li{
+	display: inline;
+	margin: 0 0 0 1px;
+	position: relative;
+}
+.LS2018_nav li a{
+	background: #0B417D;
+	display: inline-block;
+	width: auto;
+	height: 45px;
+	line-height: 45px;
+	padding: 0 25px;
+	font-size: 15px;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+.LS2018_nav li a:hover{
+	background: #0376CB;
+	text-decoration: none;
+}
+.LS2018_nav li ul{
+	display: none;
+	position: absolute;
+	width: 100%;
+	top: 45px;
+	left: 0;
+}
+.LS2018_nav li ul li{
+	margin: 0;
+}
+.LS2018_nav li ul li a{
+	display: block;
+	border-top: 1px #1B518D solid;
+	line-height: 40px;
+	font-size: 13px;
+	padding: 0;
+	text-align: center;
+}
+.LS2018_nav li:hover ul{
+	display: block
+}
+
+
+.LS2018_bd{
+	margin: 10px 0 30px 0;
+	min-height: 600px;
+}
+
+
+.LS2018_MBX{
+	line-height: 25px;
+	padding: 5px 10px;
+	margin-bottom: 15px;
+	font-size: 13px;
+	color: #68819C;
+}
+.LS2018_MBX a{
+	font-size: 13px;
+	color: #68819C;
+	text-decoration: underline;
+}
+.LS2018_MBX a:hover{
+	color: #FF0000;
+}
+.LS2018_MBX .gt{
+	margin: 0 10px;
+}
+
+
+.LS2018_Aleft{
+	float: left;
+	width: 250px;
+}
+.LS2018_Aright{
+	float: right;
+	width: 710px;
+}
+
+
+.LS2018_module1{
+	background: #FFFFFF;
+	box-shadow: 4px 4px 10px #CEDDEA;
+	margin-bottom: 15px;
+}
+.LS2018_module1 .m_top{
+	border-bottom: 1px #CEDDEA solid;
+	height: 45px;
+	padding: 0 8px 0 15px;
+}
+.LS2018_module1 .m_top .tt{
+	float: left;
+	line-height: 44px;
+	font-size: 17px;
+	color: #0171C2;
+}
+.LS2018_module1 .m_top .more{
+	float: right;
+	line-height: 44px;
+	font-size: 13px;
+	color: #DD1111;
+}
+.LS2018_module1 .m_top .more:hover{
+	text-decoration: underline;
+	color: #FF0000;
+}
+.LS2018_module1 .m_middle{
+	padding: 10px;
+}
+.LS2018_module1 .m_middle .ul1{
+	margin: 0;
+}
+.LS2018_module1 .m_middle .ul1 li{
+	background: url('../images/New_ico_1.png') no-repeat 0 center;
+	line-height: 30px;
+	margin-bottom: 3px;
+	padding-left: 15px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.LS2018_module1 .m_middle .ul1 li a{
+	font-size: 14px;
+	color: #666666;
+}
+.LS2018_module1 .m_middle .ul1 li a:hover{
+	color: #FF0000;
+	text-decoration: underline;
+}
+
+
+.LS2018_module2{
+	margin-bottom: 20px;
+}
+.LS2018_module2 .m_top{
+	border-bottom: 1px #B7C9DB solid;
+	height: 50px;
+	margin-bottom: 10px;
+	margin-top: 5px;
+	position: relative;
+}
+.LS2018_module2 .m_top .tt{
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: inline-block;
+	border-bottom: 4px #0967C6 solid;
+	width: auto;
+	line-height: 47px;
+	padding: 0 10px;
+	font-size: 21px;
+	color: #000000;
+	font-weight: bold;
+}
+.LS2018_module2 .m_middle{
+	padding: 5px;
+}
+
+.LS2018_list1{
+	margin: 0 5px;
+}
+.LS2018_list1 li{
+	border-bottom: 1px #CCCCCC dashed;
+	padding: 8px 10px;
+	line-height: 35px;
+}
+.LS2018_list1 li a{
+	font-size: 15.5px;
+	color: #000000;
+}
+.LS2018_list1 li a:hover{
+	color: #FF0000;
+	text-decoration: underline;
+}
+
+
+.LS2018_ft{
+	background: #E3EDF4;
+	padding: 25px 30px;
+}
+.LS2018_ft .txt{
+	float: left;
+	width: 700px;
+	line-height: 24px;
+	font-size: 12px;
+	color: #68819C;
+}
+.LS2018_ft .pic{
+	float: right;
+	background: url('../images/New_copyright_ico.png') no-repeat center center;
+	width: 55px;
+	height: 70px;
+}
+
+
+.LS2018_Txt{
+	margin: 15px 0;
+}
+.LS2018_Txt h1{
+	text-align: center;
+	padding: 10px;
+	line-height: 40px;
+	margin-bottom: 10px;
+	font-size: 25px;
+	color: #000000;
+	font-weight: bold;
+	text-align: center;
+}
+.LS2018_Txt .time{
+	border-top: 1px #B7C9DB solid;
+	line-height: 25px;
+	padding: 5px;
+	margin-bottom: 10px;
+	text-align: center;
+	font-size: 14px;
+	color: #3B6898;
+}
+.LS2018_Txt .time .t1{
+	margin: 0 15px;
+}
+.LS2018_Txt .txt{
+	margin: 0;
+	padding: 15px;
+	font-size: 16px;
+	color: #333333;
+	line-height: 210%;
+}
+.LS2018_Txt .txt p{
+	text-indent: 2em;
+	margin: 0 0 1.2em 0;
+}
+.LS2018_Txt .txt .t_right{
+	text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
