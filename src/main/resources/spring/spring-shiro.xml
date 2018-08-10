@@ -55,9 +55,9 @@
         <!-- 安全管理器 -->
         <property name="securityManager" ref="securityManager"/>
         <!-- 默认的登陆访问url -->
-        <property name="loginUrl" value="/login"/>
+        <property name="loginUrl" value="/"/>
         <!-- 登陆成功后跳转的url -->
-        <property name="successUrl" value="/index"/>
+        <property name="successUrl" value="/forehead/index"/>
         <!-- 没有权限跳转的url -->
         <property name="unauthorizedUrl" value="/unauth"/>
         <property name="filterChainDefinitions">
