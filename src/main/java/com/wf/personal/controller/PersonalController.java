@@ -37,9 +37,11 @@ public class PersonalController {
 	private IUserService userService;
 	@GetMapping("center")
 	public String center(Model model,HttpServletRequest request) {
-		ShiroUser user =  (ShiroUser)SecurityUtils.getSubject().getPrincipal();
-		UserVo userVo = userService.selectVoById(user.getId());
-		model.addAttribute("user", userVo);
-			return "website/personal/center";
+		if (SecurityUtils.getSubject().isAuthenticated()) {
+			ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+			UserVo userVo = userService.selectVoById(user.getId());
+			model.addAttribute("user", userVo);
+		}
+		return "website/personal/center";
 	}
 }

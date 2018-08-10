@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.wf.commons.shiro.ShiroUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -59,6 +60,11 @@ public class LoginController extends BaseController {
 	 */
 	@GetMapping("/forehead/index")
 	public String home(Model model) {
+		if (SecurityUtils.getSubject().isAuthenticated()) {
+			ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+			UserVo userVo = userService.selectVoById(user.getId());
+			model.addAttribute("rolesCount", userVo.getRolesList().size());//当前账户如果拥有后台管理中的任何一种角色 即可显示后台管理链接
+		}
 		return "homepage";
 	}
 

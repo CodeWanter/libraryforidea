@@ -137,7 +137,9 @@
 			<div class="LS2018_home_top">
 				<span>当前用户：<b><shiro:principal /></b>
 					<a href="${staticPath }/forehead/personal/center">个人中心</a>
-					<shior:hasAnyRoles name="admin,de"><a href="${staticPath }/index" target="_blank">后台管理</a></shior:hasAnyRoles>
+					<c:if test="${rolesCount>0}">
+						<a href="${staticPath }/index" target="_blank">后台管理</a>
+					</c:if>
 				</span><a href="#" onclick="logout();">退出登录</a>
 			</div>
 		</shiro:user>
