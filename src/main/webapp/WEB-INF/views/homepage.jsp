@@ -46,10 +46,12 @@
 		<div id="main">
 			<div class="demo">
 				<nav class="main_nav">
+					<shiro:guest>
 					<ul>
 						<li><a class="cd-signin" href="#0">登录</a></li>
 						<li><a class="cd-signup" href="#0">注册</a></li>
 					</ul>
+					</shiro:guest>
 				</nav>
 			</div>
 			<div class="cd-user-modal">
@@ -127,6 +129,12 @@
 				</div>
 			</div>
 		</div>
+		<shiro:user>
+			<!--######  2018-08-06  ######-->
+			<div class="LS2018_home_top">
+				<span>当前用户：<b><shiro:principal /></b><a href="${staticPath }/forehead/personal/center">个人中心</a></span><a href="#" onclick="logout();">退出登录</a>
+			</div>
+		</shiro:user>
 		<div class="title active">
 			<!--logo部分代码开始-->
 			<div class="logo">
