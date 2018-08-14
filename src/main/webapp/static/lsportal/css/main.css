@@ -1,4 +1,4 @@
-锘縝ody{
+body{
 	margin: 0;
 	padding: 0;
 }
@@ -55,7 +55,7 @@ img{
 	display: block;
 	font-size: 0;
 }
-/* 鑻规灉娴忚鍣ㄦ寜閽甔XX */
+/* 苹果浏览器按钮XXX */
 button, input[type="button"], input[type="reset"], input[type="submit"]{
   -webkit-appearance: none;
   border-radius: 0;
@@ -327,6 +327,186 @@ textarea, select, input{
 	text-align: right;
 }
 
+/*####################  2018-08-14 个人中心  #####################*/
+.LS2018_GRZX{
+	background: url('../images/New_GRZX_back.png') -40px top repeat-y;
+	min-height: 550px
+}
+
+.LS2018_GRZX .LS2018_Aleft{
+	width: 200px;
+}
+.LS2018_GRZX .LS2018_Aright{
+	width: 770px;
+}
+
+
+.LS2018_GRZX_lefttop{
+	background: #125AA3;
+	height: 45px;
+	line-height: 44px;
+	padding: 0 15px;
+	font-size: 18px;
+	color: #FFFFFF;
+}
+
+.LS2018_GRZX_left_list{
+	margin: 15px 0;
+}
+.LS2018_GRZX_left_list li{
+	background: url('../images/New_ico_2.png') no-repeat 30px 15px;
+	margin-bottom: 1px;
+}
+.LS2018_GRZX_left_list li a, .LS2018_GRZX_left_list li span{
+	display: block;
+	line-height: 45px;
+	padding-left: 50px;
+	font-size: 15px;
+	color: #044177;
+}
+.LS2018_GRZX_left_list li a:hover{
+	text-decoration: none;
+	background: #F5F9FB url('../images/New_ico_2.png') no-repeat 30px 15px;
+	color: #FF0000;
+}
+.LS2018_GRZX_left_list li ul{
+	margin: 0 0 5px 0;
+}
+.LS2018_GRZX_left_list li ul li{
+	background: url('../images/New_ico_3.png') no-repeat 45px 11px;
+	margin-bottom: 1px;
+}
+.LS2018_GRZX_left_list li ul li a, .LS2018_GRZX_left_list li ul li .current{
+	display: block;
+	line-height: 38px;
+	padding-left: 65px;
+	font-size: 13px;
+	color: #044177;
+}
+.LS2018_GRZX_left_list li .current{
+	background: url('../images/New_ico_4.png') no-repeat 30px 15px;
+	color: #FF0000;
+	font-weight: bold;
+}
+.LS2018_GRZX_left_list li ul li .current{
+	background: url('../images/New_ico_4.png') no-repeat 45px 11px;
+	font-size: 15px;
+	color: #FF0000;
+	font-weight: bold;
+}
+.LS2018_GRZX_left_list li ul li a:hover{
+	background: #F5F9FB url('../images/New_ico_3.png') no-repeat 45px 11px;
+	color: #FF0000;
+}
+
+
+.LS2018_GRZX_TB1{
+	width: 90%;
+	margin: 15px auto 30px auto;
+}
+.LS2018_GRZX_TB1 td{
+	height: 42px;
+	padding: 10px;
+	font-size: 16px;
+	color: #222222;
+}
+.LS2018_GRZX_TB1 .td1{
+	text-align: right;
+	font-weight: bold;
+}
+.LS2018_GRZX_TB1 input[type=text]{
+	border: 1px #B3BDD0 solid;
+	border-radius: 2px;
+	width: 350px;
+	height: 40px;
+	padding: 0 5px;
+	font-size: 15px;
+}
+.LS2018_GRZX_TB1 select{
+	border: 1px #B3BDD0 solid;
+	border-radius: 2px;
+	height: 36px;
+	padding: 0 5px;
+	font-size: 15px;
+}
+
+.LS2018_GRZX_btns{
+	text-align: center;
+	padding: 15px;
+	height: 50px;
+}
+.LS2018_GRZX_btns .btn1, .LS2018_GRZX_btns .btn2{
+	background: #1C66B0;
+	border: 0;
+	border-radius: 5px;
+	width: auto;
+	height: 47px;
+	padding: 0 30px;
+	margin: 0 15px;
+	font-size: 16px;
+	color: #FFFFFF;
+	cursor: pointer;
+}
+.LS2018_GRZX_btns .btn2{
+	background: #888888;
+}
+
+
+.LS2018_GRZX_TB2{
+	width: 100%;
+	margin-bottom: 20px;
+}
+.LS2018_GRZX_TB2 th{
+	background: #EEEFF2;
+	border: 1px #C6CBD5 solid;
+	line-height: 30px;
+	padding: 10px 8px;
+	text-align: center;
+	font-size: 14px;
+	color: #000000;
+	font-weight: bold;
+}
+.LS2018_GRZX_TB2 th select{
+	border: 1px #BBBBBB solid;
+	width: 52px;
+	height: 26px;
+	font-size: 14px;
+}
+.LS2018_GRZX_TB2 td{
+	background: none;
+	border: 1px #C6CBD5 solid;
+	line-height: 22px;
+	padding: 15px 8px;
+	text-align: center;
+	vertical-align: top;
+	font-size: 13px;
+	color: #666666;
+}
+.LS2018_GRZX_TB2 tr:hover{
+	background-color: #F8FBFD
+}
+.LS2018_GRZX_TB2 a{
+	font-size: 14px;
+	color: #054FAA;
+}
+.LS2018_GRZX_TB2 .a1{
+	margin: 0 5px;
+	color: #029BEE;
+	text-decoration: underline;
+}
+.LS2018_GRZX_TB2 .a2{
+	margin: 0 5px;
+	color: #AE2B2B;
+	text-decoration: underline;
+}
+.LS2018_GRZX_TB2 a:hover, .LS2018_GRZX_TB2 .a1:hover, .LS2018_GRZX_TB2 .a2:hover{
+	color: #FF0000;
+	text-decoration: underline;
+}
+.LS2018_GRZX_TB2 .txt{
+	max-height:66px;
+	overflow: hidden;
+}
 
 
 
