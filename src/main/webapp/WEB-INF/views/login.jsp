@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>国图云发布系统</title>
+<title>丽水市网络图书馆</title>
 <meta name="viewport" content="width=device-width">
 <%@ include file="/commons/basejs.jsp"%>
 <link rel="stylesheet" type="text/css"
@@ -14,7 +14,10 @@
 </head>
 <body onkeydown="enterlogin();">
 	<div class="top_div">
-		<h1>国家图书馆推广工程数字资源云发布系统</h1>
+		<div class="logo">
+			<img src="${staticPath }/static/lsportal/image/logo.png">
+		</div>
+		<h1>丽水市网络图书馆后台管理系统</h1>
 	</div>
 	<div
 		style="background: rgb(255, 255, 255); margin: -100px auto auto; border: 1px solid rgb(231, 231, 231); border-image: none; width: 400px; text-align: center;">
