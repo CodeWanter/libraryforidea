@@ -68,7 +68,11 @@ public abstract class BaseController {
      * @return {Long}
      */
     public Long getUserId() {
-        return this.getShiroUser().getId();
+        if(this.getShiroUser()!=null) {
+            return this.getShiroUser().getId();
+        }else{
+            return null;
+        }
     }
 
     /**

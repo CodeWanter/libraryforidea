@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.wf.commons.shiro.ShiroDbRealm;
 import com.wf.commons.shiro.ShiroUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.DisabledAccountException;
@@ -38,6 +39,8 @@ public class LoginController extends BaseController {
     private PasswordHash passwordHash;
     @Autowired
     private DreamCaptcha dreamCaptcha;
+    @Autowired
+    private ShiroDbRealm shiroDbRealm;
 
     /**
      * 首页
@@ -68,6 +71,9 @@ public class LoginController extends BaseController {
      */
     @GetMapping("/index")
     public String index(Model model) {
+        if (SecurityUtils.getSubject().isAuthenticated() == false) {
+            return "redirect:/login";
+        }
         return "index";
     }
 

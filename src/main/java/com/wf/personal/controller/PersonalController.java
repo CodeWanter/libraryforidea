@@ -3,7 +3,9 @@
  */
 package com.wf.personal.controller;
 
+import com.wf.commons.base.BaseController;
 import com.wf.commons.shiro.ShiroUser;
+import com.wf.model.User;
 import com.wf.model.vo.UserVo;
 import com.wf.user.service.IUserService;
 
@@ -21,45 +23,43 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/forehead/personal")
-public class PersonalController {
+public class PersonalController  extends BaseController {
 	/*
 	 * 个人中心
 	 */
 	@Autowired
 	private IUserService userService;
 	@GetMapping("center")
-	public ModelAndView center() {
-		ModelAndView view =new ModelAndView();
-		if (SecurityUtils.getSubject().isAuthenticated()) {
-			ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-			UserVo userVo = userService.selectVoById(user.getId());
-			view.addObject("user", userVo);
-			view.setViewName("/website/personal/center");
-		}else{
-			view.setViewName("/forehead/index");
-		}
-		return view;
+	public String center(Model model) {
+		Long userId = getUserId();
+		if(userId!=null) {
+				UserVo userVo = userService.selectVoById(userId);
+				model.addAttribute("user", userVo);
+				return "/website/personal/center";
+			}else{
+				return "redirect:/forehead/index";
+			}
 	}
 	//个人资料修改
 	@ResponseBody
     @PostMapping("/centerEdit")
-	public ModelAndView centerEdit(String logName,String name,String sex,String age,String phone) {
+	public Object centerEdit(Model model,String logName,String name,String sex,String age,String phone) {
 		ModelAndView view =new ModelAndView();
 		if (SecurityUtils.getSubject().isAuthenticated()) {
-			ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-			UserVo userVo = userService.selectVoById(user.getId());
-			userVo.setLoginName(logName);
-			userVo.setName(name);
-			userVo.setSex(Integer.parseInt(sex));
-			userVo.setAge(Integer.parseInt(age));
-			userVo.setPhone(phone);
-			userService.updateByVo(userVo);
-			
-			view.addObject("user", userVo);
-			view.setViewName("/website/personal/center");
+			Long userId = getUserId();
+			User newUser = new User();
+			newUser.setId(userId);
+			newUser.setLoginName(logName);
+			newUser.setName(name);
+			newUser.setSex(Integer.parseInt(sex));
+			newUser.setAge(Integer.parseInt(age));
+			newUser.setPhone(phone);
+			userService.updateById(newUser);
+
+			model.addAttribute("user", newUser);
+			return renderSuccess("修改成功");
 		}else{
-			view.setViewName("/forehead/index");
+			return renderError("当前用户状态已失效，修改失败，请重新登录");
 		}
-		return view;
 	}
 }

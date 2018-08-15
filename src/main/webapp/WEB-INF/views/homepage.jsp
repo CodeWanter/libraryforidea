@@ -168,7 +168,7 @@
             $(document).ready(function(){
                 $("input").click(function(event){
                     event.stopPropagation(); //停止事件冒泡
-                    $(".marsk-container").toggle();
+                    //$(".marsk-container").toggle();
                 });
                 //点击空白处隐藏弹出层
                 $("body").click(function(event){

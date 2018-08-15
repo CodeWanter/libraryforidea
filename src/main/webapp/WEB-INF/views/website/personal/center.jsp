@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>个人中心</title>
 	<link rel="stylesheet" type="text/css" href="${staticPath}/static/lsportal/css/main.css"/>
 	<script type="text/javascript" src="${staticPath}/static/js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript">
@@ -53,7 +54,7 @@
 		function centre(){
 			var logName = $("#centreLogNameID").val(); 
 			var name = $("#centreNameID").val(); 
-			var sex = $("#centreSexID option[selected='selected']").val(); 
+			var sex = $("#centreSexID option:selected").val();
 			var age = $("#centreAgeID").val(); 
 			var phone = $("#centrePhoneID").val(); 
 			console.log(logName+","+name+","+sex+","+age+","+phone);
@@ -63,7 +64,14 @@
 		        data: {"logName":logName,"name":name,"sex":sex,"age": age, "phone": phone},
 		        async: true,
 	            success : function(result) {
-	            	layer.msg("个人资料修改成功！");
+                    result = $.parseJSON(result);
+                    if (result.success) {
+                        layer.msg(result.msg);
+                    }else{
+                        layer.msg(result.msg,function(){
+                            window.location.href="${path}/";
+                        });
+                    }
 	            }
 		    });
 		}
@@ -71,7 +79,11 @@
 	    function pswEdit() {
 	    	var oldPwd = $("[name='oldPwd']").val(); 
 	    	var pwd = $("[name='pwd']").val(); 
-	    	var rePwd = $("[name='rePwd']").val(); 
+	    	var rePwd = $("[name='rePwd']").val();
+            if (oldPwd == "") {
+                layer.msg("原密码不能为空!");
+                return;
+            }
 	    	if (pwd == "") {
 	    		layer.msg("新密码不能为空!");
 				return;
@@ -107,7 +119,6 @@
 	                }else{
 	                	 layer.msg(result.msg);
 	                }
-	               
 	            }
 	        });
 		}
@@ -161,8 +172,8 @@
 							<td class="td1">性别：</td>
 							<td><select style="width: 80px" id="centreSexID">
 									<c:if test="${not empty user.sex}">
-										<c:if test="${user.sex == 0}"><option selected="selected" value="0">男</option><option>女</option></c:if>
-										<c:if test="${user.sex == 1}"><option selected="selected" value="1">女</option><option>男</option></c:if>
+										<c:if test="${user.sex == 0}"><option selected="selected" value="0">男</option><option value="1">女</option></c:if>
+										<c:if test="${user.sex == 1}"><option selected="selected" value="1">女</option><option value="0">男</option></c:if>
 									</c:if>
 								</select>						
 							</td>
