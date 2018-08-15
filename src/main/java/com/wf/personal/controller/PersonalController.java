@@ -3,24 +3,16 @@
  */
 package com.wf.personal.controller;
 
-import com.wf.commons.result.PageInfo;
 import com.wf.commons.shiro.ShiroUser;
-import com.wf.commons.utils.StringUtils;
-import com.wf.model.Role;
 import com.wf.model.vo.UserVo;
 import com.wf.user.service.IUserService;
+
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author zhanghuaiyu
@@ -36,12 +28,38 @@ public class PersonalController {
 	@Autowired
 	private IUserService userService;
 	@GetMapping("center")
-	public String center(Model model,HttpServletRequest request) {
+	public ModelAndView center() {
+		ModelAndView view =new ModelAndView();
 		if (SecurityUtils.getSubject().isAuthenticated()) {
 			ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
 			UserVo userVo = userService.selectVoById(user.getId());
-			model.addAttribute("user", userVo);
+			view.addObject("user", userVo);
+			view.setViewName("/website/personal/center");
+		}else{
+			view.setViewName("/forehead/index");
 		}
-		return "website/personal/center";
+		return view;
+	}
+	//个人资料修改
+	@ResponseBody
+    @PostMapping("/centerEdit")
+	public ModelAndView centerEdit(String logName,String name,String sex,String age,String phone) {
+		ModelAndView view =new ModelAndView();
+		if (SecurityUtils.getSubject().isAuthenticated()) {
+			ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+			UserVo userVo = userService.selectVoById(user.getId());
+			userVo.setLoginName(logName);
+			userVo.setName(name);
+			userVo.setSex(Integer.parseInt(sex));
+			userVo.setAge(Integer.parseInt(age));
+			userVo.setPhone(phone);
+			userService.updateByVo(userVo);
+			
+			view.addObject("user", userVo);
+			view.setViewName("/website/personal/center");
+		}else{
+			view.setViewName("/forehead/index");
+		}
+		return view;
 	}
 }
