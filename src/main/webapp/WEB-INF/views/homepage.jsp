@@ -181,10 +181,10 @@
 		</script>
 
 		<div class="slideshow">
-			<div class="slideshow-image" style="background-image: url('${staticPath }/static/lsportal/image/1.jpg')"></div>
-			<div class="slideshow-image" style="background-image: url('${staticPath }/static/lsportal/image/2.jpg')"></div>
-			<div class="slideshow-image" style="background-image: url('${staticPath }/static/lsportal/image/3.jpg')"></div>
-			<div class="slideshow-image" style="background-image: url('${staticPath }/static/lsportal/image/4.jpg')"></div>
+			<div class="photo" src='${staticPath }/static/lsportal/image/1.jpg'></div>
+			<div class="photo" src='${staticPath }/static/lsportal/image/2.jpg'></div>
+			<div class="photo" src='${staticPath }/static/lsportal/image/3.jpg'></div>
+			<div class="photo" src='${staticPath }/static/lsportal/image/4.jpg'></div>
 		</div>
 	</div>
 
