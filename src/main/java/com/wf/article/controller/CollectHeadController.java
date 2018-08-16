@@ -9,6 +9,7 @@ import com.wf.commons.result.PageInfo;
 import com.wf.commons.utils.StringUtils;
 import com.wf.model.Article;
 import com.wf.model.CollectData;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +34,16 @@ public class CollectHeadController {
 	 * 采集前台列表页
 	 */
 	@GetMapping("collectlist")
-	public String articleList() {
+	public String collectlist() {
 		return "website/collect/collectlist";
 	}
-
+	/*
+	 * 文章前台列表页
+	 */
+	@GetMapping("articlelist")
+	public String articleList() {
+		return "website/article/articlelist";
+	}
 //	采集前台列表数据获取
 	@PostMapping("collectlistdata")
 	@ResponseBody
