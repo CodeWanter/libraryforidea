@@ -168,7 +168,7 @@
             $(document).ready(function(){
                 $("input").click(function(event){
                     event.stopPropagation(); //停止事件冒泡
-                    //$(".marsk-container").toggle();
+                    $(".marsk-container").toggle();
                 });
                 //点击空白处隐藏弹出层
                 $("body").click(function(event){
@@ -181,10 +181,11 @@
 		</script>
 
 		<div class="slideshow">
-			<div class="photo" src='${staticPath }/static/lsportal/image/1.jpg'></div>
-			<div class="photo" src='${staticPath }/static/lsportal/image/2.jpg'></div>
-			<div class="photo" src='${staticPath }/static/lsportal/image/3.jpg'></div>
-			<div class="photo" src='${staticPath }/static/lsportal/image/4.jpg'></div>
+			<img class="photo" src='${staticPath }/static/lsportal/image/1.jpg' alt="">
+			<img class="photo" src='${staticPath }/static/lsportal/image/2.jpg' alt="">
+			<img class="photo" src='${staticPath }/static/lsportal/image/3.jpg' alt="">
+			<img class="photo" src='${staticPath }/static/lsportal/image/4.jpg' alt="">
+			<img class="photo" src='${staticPath }/static/lsportal/image/5.jpg' alt="">
 		</div>
 	</div>
 
