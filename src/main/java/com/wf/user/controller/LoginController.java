@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import com.wf.commons.shiro.ShiroDbRealm;
 import com.wf.commons.shiro.ShiroUser;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -62,7 +63,7 @@ public class LoginController extends BaseController {
     public String home(Model model) {
         return "homepage";
     }
-
+    
     /**
      * 首页
      *
@@ -123,7 +124,7 @@ public class LoginController extends BaseController {
      */
     @PostMapping("/add")
     @ResponseBody
-    public Object add(UserVo userVo, HttpServletRequest request, HttpServletResponse response, String captcha) {
+    public Object add(UserVo userVo, HttpServletRequest request, HttpServletResponse response, String captcha,String acceptprotocol) {
         List<User> list = userService.selectByLoginName(userVo);
         if (StringUtils.isBlank(userVo.getLoginName())) {
             return renderError("用户名不能为空！");
@@ -139,6 +140,9 @@ public class LoginController extends BaseController {
         }
         if (!dreamCaptcha.validate(request, response, captcha)) {
             return renderError("验证码错误！");
+        }
+        if (StringUtils.isBlank(acceptprotocol)) {
+        	return renderError("请阅读并同意用户协议！");
         }
         String salt = StringUtils.getUUId();
         String pwd = passwordHash.toHex(userVo.getPassword(), salt);
