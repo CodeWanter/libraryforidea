@@ -22,7 +22,7 @@
             <ul>
                 <li><a href="${staticPath}/forehead/article/articlelist">最新动态</a></li>
                 <li><a href="${staticPath}/forehead/collect/collectlist">每日更新</a></li>
-                <li><a href="#a02">试用资源</a></li>
+                <li><a href="${staticPath}/forehead/article/articlelist#a02">试用资源</a></li>
             </ul>
         </li>
         <li><a href="${staticPath}/#a01">资源列表</a></li>

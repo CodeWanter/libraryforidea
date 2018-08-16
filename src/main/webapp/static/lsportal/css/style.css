@@ -31,11 +31,21 @@
   padding: .3em 0.1em;
   border-radius: 3em;
   background: rgba(84, 153, 255, 0.02);
-  box-shadow:0px 0px 8px 0.5px #b8eeff inset;
-  text-shadow:0.3px  0.3px 2px #000000;
+  box-shadow:0px 0px 10px 1px #b8eeff ;
+  text-shadow:1px  1px 2px #000000;
   text-align:center
 }
-.main_nav li a{color: #ffffff
+.main_nav li:hover{
+  /*border: 2px solid black;*/
+  box-shadow:0px 0px 10px 1px #b8eeff inset;
+}
+.main_nav li a{
+  color: #ffffff
+}
+.main_nav li a:hover{
+  color: #00b2ff;
+  font-weight: 600;
+  text-shadow: none;
 }
 
 .cd-user-modal {
@@ -212,8 +222,9 @@
 .cd-form input[type=submit] {
   padding: 16px 0;
   cursor: pointer;
-  background: #2f889a;
+  background: #8ba3cd;
   color: #FFF;
+  font-size: 15px;
   font-weight: bold;
   border: none;
   -webkit-appearance: none;
@@ -223,7 +234,7 @@
   appearance: none;
 }
 .no-touch .cd-form input[type=submit]:hover, .no-touch .cd-form input[type=submit]:focus {
-  background: #3599ae;
+  background: #a7cbf6;
   outline: none;
 }
 

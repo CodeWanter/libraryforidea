@@ -9,6 +9,7 @@
 	<meta http-equiv="Cache-Control" content="max-age=7200" />
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
 	<meta name="renderer" content="webkit">
+	<link rel="shortcut icon" href="${staticPath }/static/style/images/favicon.ico" />
 	<script type="text/javascript" src="${staticPath }/static/lsportal/js/jquery-1.12.1.min.js"></script>
 	<script type="text/javascript" src="${staticPath }/static/js/jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="${staticPath }/static/js/extJs.js?v=${version}"></script>
@@ -50,8 +51,6 @@
 					<shiro:guest>
 					<ul>
 						<li><a class="cd-signin" href="#0">登录</a></li>
-
-
 						<li><a class="cd-signup" href="#0">注册</a></li>
 					</ul>
 					</shiro:guest>
@@ -137,7 +136,8 @@
 			<div class="LS2018_home_top">
 				<span>当前用户：<b><shiro:principal property="name"/></b>
 					<a href="${staticPath }/forehead/personal/center">个人中心</a>
-				</span><a href="#" onclick="logout();">退出登录</a>
+				<a href="#" onclick="logout();">退出登录</a>
+				</span>
 			</div>
 		</shiro:user>
 		<div class="title active">
@@ -181,10 +181,10 @@
 		</script>
 
 		<div class="slideshow">
-			<div class="slideshow-image" style="background-image: url('${staticPath }/static/lsportal/img/bg/1.jpg')"></div>
-			<div class="slideshow-image" style="background-image: url('${staticPath }/static/lsportal/img/bg/2.jpg')"></div>
-			<div class="slideshow-image" style="background-image: url('${staticPath }/static/lsportal/img/bg/3.jpg')"></div>
-			<div class="slideshow-image" style="background-image: url('${staticPath }/static/lsportal/img/bg/4.jpg')"></div>
+			<div class="slideshow-image" style="background-image: url('${staticPath }/static/lsportal/image/1.jpg')"></div>
+			<div class="slideshow-image" style="background-image: url('${staticPath }/static/lsportal/image/2.jpg')"></div>
+			<div class="slideshow-image" style="background-image: url('${staticPath }/static/lsportal/image/3.jpg')"></div>
+			<div class="slideshow-image" style="background-image: url('${staticPath }/static/lsportal/image/4.jpg')"></div>
 		</div>
 	</div>
 
@@ -286,7 +286,7 @@
 					<ul class="thr-r"  id="trends2">
 
 					</ul>
-					<span style="position: absolute;right: 1vw;bottom:7vh;"><a class="biaoqian" href="${staticPath }/forehead/article/articlelist" target="_blank" style="font-size: 12px;font-weight: 400;color: #479fc8">. . .查看更多. . .</a></span>
+					<span style="position: absolute;right: 1vw;bottom:7vh;"><a class="biaoqian" href="${staticPath }/forehead/article/articlelist"  style="font-size: 12px;font-weight: 400;color: #479fc8">. . .查看更多. . .</a></span>
 				</div>
 				<div class="three_contentItem">
 					<ul class="thr-l" id="collect1">
@@ -295,7 +295,7 @@
 					<ul class="thr-r" id="collect2">
 
 					</ul>
-					<span style="position: absolute;right: 1vw;bottom:7vh"><a class="biaoqian" href="${staticPath}/forehead/collect/collectlist" target="_blank" style="font-size: 12px;font-weight: 400;color: #479fc8">. . .查看更多. . .</a></span>
+					<span style="position: absolute;right: 1vw;bottom:7vh"><a class="biaoqian" href="${staticPath}/forehead/collect/collectlist"  style="font-size: 12px;font-weight: 400;color: #479fc8">. . .查看更多. . .</a></span>
 				</div>
 				<div class="three_contentItem">
 					<ul class="thr-l">
@@ -520,11 +520,11 @@
 
     //定义一个存放照片位置的数组，可以放任意个，在这里放3个
     var arr = new Array();
-    arr[0] = "${staticPath }/static/lsportal/image/1.png";
-    arr[0] = "${staticPath }/static/lsportal/image/2.png";
-    arr[1] = "${staticPath }/static/lsportal/image/3.png";
-    arr[1] = "${staticPath }/static/lsportal/image/4.png";
-    arr[2] = "${staticPath }/static/lsportal/image/5.png";
+    arr[0] = "${staticPath }/static/lsportal/image/1.jpg";
+    arr[0] = "${staticPath }/static/lsportal/image/2.jpg";
+    arr[1] = "${staticPath }/static/lsportal/image/3.jpg";
+    arr[1] = "${staticPath }/static/lsportal/image/4.jpg";
+    arr[2] = "${staticPath }/static/lsportal/image/5.jpg";
     setInterval(changeImg, timeInterval);
     function changeImg() {
         //获得id名为d1的对象
