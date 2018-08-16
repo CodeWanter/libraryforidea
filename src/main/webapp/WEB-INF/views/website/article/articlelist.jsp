@@ -126,7 +126,6 @@ function PaginationInit(pageIndex, pageSize) {
         "pageSize": pageSize
     }, function (data) {
     	data = JSON.parse(data);
-    	console.log(data);
         // 创建分页
         $("#Pagination").pagination(data.total, {
             num_edge_entries: 2, //边缘页数
@@ -141,6 +140,7 @@ function PaginationInit(pageIndex, pageSize) {
 }
 //分页数据回调
 function paginationCallback(pageIndex, jq) {
+	console.log(pageIndex);
     var title='';
     var index;
     if($("#searchText").val()!=''){
@@ -159,12 +159,11 @@ function paginationCallback(pageIndex, jq) {
         },
         success: function (result) {
             //layer.close(index);
-            console.log(result);
             result = result.rows;
             $("#List").html("");
             $.each(result, function (i, item) {
                 var html = "";
-                html += '<li><a  href="${path }/forehead/article/detail?id='+ item.id +'">' + (i+1)+'、'+ item.title + '</a><span style="float:right;"><i>' + item.createTime.substr(0,10) + '</i></span></li>';
+                html += '<li><a  href="${path }/forehead/article/detail?id='+ item.id +'">' + (pageIndex*10+i+1)+'、'+ item.title + '</a><span style="float:right;"><i>' + item.createTime.substr(0,10) + '</i></span></li>';
                 $("#List").append(html);
             });
         },
