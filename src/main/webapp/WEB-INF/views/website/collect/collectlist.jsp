@@ -164,7 +164,7 @@ function paginationCallback(pageIndex, jq) {
             $("#daily").html("");
             $.each(result, function (i, item) {
                 var html = "";
-                html += '<li><a  href="'+ item.url +'" target="_blank">' + (i+1)+'、'+ item.title + '</a><span style="float:right;"><i>' + item.collectTime.substr(0,10) + '</i></span></li>';
+                html += '<li><a  href="'+ item.url +'" target="_blank">' + (pageIndex*10+i+1)+'、'+ item.title + '</a><span style="float:right;"><i>' + item.collectTime.substr(0,10) + '</i></span></li>';
                 $("#daily").append(html);
             });
         },
