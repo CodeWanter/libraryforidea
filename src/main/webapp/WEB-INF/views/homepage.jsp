@@ -544,7 +544,6 @@
 <script>
     $(function () {
         $(".section_Box").on('click', '.three_navBox li', function () {
-            console.log($(this).index());
             $(this).addClass('section_active');
             $(this).siblings().removeClass('section_active');
             $('.three_contentItem').eq($(this).index()).css({display: 'block'});
@@ -553,7 +552,6 @@
 
 
         $(".four_contentBox").on('click', '.active_item div', function () {
-            console.log($(this).index());
             $('.contentBox .data').eq($(this).index()).css({display: 'flex'});
             $('.contentBox .data').eq($(this).index()).siblings().css({display: 'none'})
         })
@@ -736,16 +734,24 @@
 
     $(function(){
 //		type 1 --通知资讯
-        $.post(basePath + '/forehead/article/topTenData',{"title":"","type":1,"nowpage":1,"pageSize":5,"sort":"create_time","order":"desc"},function(result){
+        $.post(basePath + '/forehead/article/topTenData',{"title":"","type":1,"nowpage":1,"pageSize":10,"sort":"create_time","order":"desc"},function(result){
             result = eval('(' + result + ')');
             var data = result.rows;
             $.each(result.rows, function (i, item) {
-                var html = "";
-                html += '<li><p><a class="biaoqian" href="${path }/forehead/article/detail?id='+ item.id +'">' + (i+1)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.createTime.substr(0,10)+'</span></li>';
-                $("#news1").append(html);
+                var htmll = "";
+                var htmlr = "";
+                $.each(result.rows, function (i, item) {
+                    if (i < 5) {
+                    	htmll += '<li><p><a class="biaoqian" href="${path }/forehead/article/detail?id='+ item.id +'">' + (i+1)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.createTime.substr(0,10)+'</span></li>';
+    				} else {
+    					htmlr += '<li><p><a class="biaoqian" href="${path }/forehead/article/detail?id='+ item.id +'">' + (i+1)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.createTime.substr(0,10)+'</span></li>';
+    				}
+                });
+                $("#news1").append(htmll);
+                $("#news2").append(htmlr);
             });
         });
-        $.post(basePath + '/forehead/article/topTenData',{"title":"","type":1,"nowpage":2,"pageSize":5,"sort":"create_time","order":"desc"},function(result){
+/*         $.post(basePath + '/forehead/article/topTenData',{"title":"","type":1,"nowpage":2,"pageSize":5,"sort":"create_time","order":"desc"},function(result){
             result = eval('(' + result + ')');
             var data = result.rows;
             $.each(result.rows, function (i, item) {
@@ -753,36 +759,49 @@
                 html += '<li><p><a class="biaoqian" href="${path }/forehead/article/detail?id='+ item.id +'">' + (i+1)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.createTime.substr(0,10)+'</span></li>';
                 $("#news2").append(html);
             });
-        });
+        }); */
 //       type 2 --最新动态
-        $.post(basePath + '/forehead/article/topTenData',{"title":"","type":2,"nowpage":1,"pageSize":5,"sort":"create_time","order":"desc"},function(result){
+        $.post(basePath + '/forehead/article/topTenData',{"title":"","type":2,"nowpage":1,"pageSize":10,"sort":"create_time","order":"desc"},function(result){
             result = eval('(' + result + ')');
             var data = result.rows;
+            var htmll = "";
+            var htmlr = "";
             $.each(result.rows, function (i, item) {
-                var html = "";
-                html += '<li><p><a class="biaoqian" href="${path }/forehead/article/detail?id='+ item.id +'">' + (i+1)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.createTime.substr(0,10)+'</span></li>';
-                $("#trends1").append(html);
+                if (i < 5) {
+                	htmll += '<li><p><a class="biaoqian" href="${path }/forehead/article/detail?id='+ item.id +'">' + (i+1)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.createTime.substr(0,10)+'</span></li>';
+				} else {
+					htmlr += '<li><p><a class="biaoqian" href="${path }/forehead/article/detail?id='+ item.id +'">' + (i+1)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.createTime.substr(0,10)+'</span></li>';
+				}
             });
+            $("#trends1").append(htmll);
+            $("#trends2").append(htmlr);
         });
-        $.post(basePath + '/forehead/article/topTenData',{"title":"","type":2,"nowpage":2,"pageSize":5,"sort":"create_time","order":"desc"},function(result){
+/*         $.post(basePath + '/forehead/article/topTenData',{"title":"","type":2,"nowpage":2,"pageSize":5,"sort":"create_time","order":"desc"},function(result){
             result = eval('(' + result + ')');
             var data = result.rows;
             $.each(result.rows, function (i, item) {
                 var html = "";
-                html += '<li><p><a class="biaoqian" href="${path }/forehead/article/detail?id='+ item.id +'">' + (i+1)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.createTime.substr(0,10)+'</span></li>';
+                html += '<li><p><a class="biaoqian" href="${path }/forehead/article/detail?id='+ item.id +'">' + (i+6)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.createTime.substr(0,10)+'</span></li>';
                 $("#trends2").append(html);
             });
-        });
-        $.post(basePath + '/forehead/collect/topTenData',{"title":"","nowpage":1,"pageSize":5,"sort":"collect_time","order":"desc"},function(result){
+        }); */
+        //每日更新
+        $.post(basePath + '/forehead/collect/topTenData',{"title":"","nowpage":1,"pageSize":10,"sort":"collect_time","order":"desc"},function(result){
             result = eval('(' + result + ')');
             var data = result.rows;
+            var htmll = "";
+            var htmlr = "";
             $.each(result.rows, function (i, item) {
-                var html = "";
-                html += '<li><p><a class="biaoqian" href="'+item.url+'" target="_blank">' + (i+1)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.collectTime.substr(0,10)+'</span></li>';
-                $("#collect1").append(html);
+                if (i < 5) {
+                	htmll += '<li><p><a class="biaoqian" href="'+item.url+'" target="_blank">' + (i+1)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.collectTime.substr(0,10)+'</span></li>';
+				} else {
+					htmlr += '<li><p><a class="biaoqian" href="'+item.url+'" target="_blank">' + (i+1)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.collectTime.substr(0,10)+'</span></li>';
+				}
             });
+            $("#collect1").append(htmll);
+            $("#collect2").append(htmlr);
         });
-        $.post(basePath + '/forehead/collect/topTenData',{"title":"","nowpage":2,"pageSize":5,"sort":"collect_time","order":"desc"},function(result){
+/*         $.post(basePath + '/forehead/collect/topTenData',{"title":"","nowpage":2,"pageSize":5,"sort":"collect_time","order":"desc"},function(result){
             result = eval('(' + result + ')');
             var data = result.rows;
             $.each(result.rows, function (i, item) {
@@ -790,7 +809,7 @@
                 html += '<li><p><a class="biaoqian" href="'+item.url+'" target="_blank">' + (i+6)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.collectTime.substr(0,10)+'</span></li>';
                 $("#collect2").append(html);
             });
-        });
+        }); */
     });
     layui.use([ 'form' ], function() {
         var form = layui.form, layer = layui.layer;
