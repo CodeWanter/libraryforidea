@@ -70,7 +70,6 @@
                 /captcha.jpg = anon
                 /commons/** = anon
                 /static/** = anon
-
                 /webhooks = anon
                 /login = anon
                 /add =anon

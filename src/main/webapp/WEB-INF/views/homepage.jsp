@@ -13,8 +13,6 @@
 	<script type="text/javascript" src="${staticPath }/static/lsportal/js/jquery-1.12.1.min.js"></script>
 	<script type="text/javascript" src="${staticPath }/static/js/jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="${staticPath }/static/js/extJs.js?v=${version}"></script>
-	<script type="text/javascript" src="${staticPath }/static/lsportal/js/parameter.js"></script>
-	<script type="text/javascript" src="${staticPath }/static/lsportal/js/script.js"></script>
 	<script type="text/javascript" src="${staticPath }/static/lsportal/js/slide.js"></script>
 	<script src="${staticPath }/static/lsportal/js/formValidator_min.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="${staticPath }/static/lsportal/js/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
@@ -24,9 +22,7 @@
 
 	<link rel="stylesheet" type="text/css" href="${staticPath }/static/lsportal/css/style.css" />
 	<link rel="stylesheet" href="${staticPath }/static/lsportal/css/all.css" type="text/css"/>
-	<link rel="stylesheet" href="https://v3.bootcss.com/css/#forms" type="text/css"/>
 	<link rel="stylesheet" href="${staticPath }/static/lsportal/css/slide.css" type="text/css"/>
-	<link rel="stylesheet" href="${staticPath }/static/lsportal/css/font-awesome.min.css">
 
 	<link rel="stylesheet" type="text/css"
 		  href="${staticPath }/static/js/layui/css/layui.css" />
@@ -517,7 +513,7 @@
 <script type="text/javascript">
     var curIndex = 0;
     //时间间隔(单位毫秒)，每秒钟显示一张，数组共有3张图片放在img文件夹下。
-    var timeInterval = 5000;
+    var timeInterval = 4000;
 
     //定义一个存放照片位置的数组，可以放任意个，在这里放3个
     var arr = new Array();
@@ -526,7 +522,9 @@
     arr[1] = "${staticPath }/static/lsportal/image/3.jpg";
     arr[1] = "${staticPath }/static/lsportal/image/4.jpg";
     arr[2] = "${staticPath }/static/lsportal/image/5.jpg";
+
     setInterval(changeImg, timeInterval);
+
     function changeImg() {
         //获得id名为d1的对象
         var obj = document.getElementById("bg");
@@ -535,6 +533,8 @@
         } else {
             curIndex += 1;
         }
+        obj.style.backgroundSize= "100% 100%";       //显示对应的图片尺寸
+
         //设置d1的背景图片
         obj.style.backgroundImage= "URL("+arr[curIndex]+")";       //显示对应的图片
     }
