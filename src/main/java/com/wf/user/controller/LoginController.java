@@ -1,11 +1,15 @@
 package com.wf.user.controller;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.wf.commons.redis.serialize.dao.CachingShiroSessionDao;
+import com.wf.commons.redis.serialize.sessionUtil.UserSessionUtil;
 import com.wf.commons.shiro.ShiroDbRealm;
 import com.wf.commons.shiro.ShiroUser;
 
@@ -14,8 +18,15 @@ import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.SessionKey;
+import org.apache.shiro.session.mgt.SimpleSession;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.subject.support.DefaultSubjectContext;
+import org.apache.shiro.web.session.mgt.WebSessionKey;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +51,8 @@ public class LoginController extends BaseController {
     private PasswordHash passwordHash;
     @Autowired
     private DreamCaptcha dreamCaptcha;
-    @Autowired
-    private ShiroDbRealm shiroDbRealm;
+//    @Autowired
+//    private RedisTemplate<Object, Object> redisTemplate;
 
     /**
      * 首页
@@ -60,10 +71,18 @@ public class LoginController extends BaseController {
      * @return
      */
     @GetMapping("/forehead/index")
-    public String home(Model model) {
+    public String home(Model model,HttpServletRequest request,HttpServletResponse response) {
+        Long userIdfromRedis=0L;
+        UserSessionUtil userSessionUtil = new UserSessionUtil(request,response);
+        try {
+             userIdfromRedis = userSessionUtil.getUserIdfromRedis();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("-------------------------------"+userIdfromRedis);
         return "homepage";
     }
-    
+
     /**
      * 首页
      *
@@ -183,6 +202,8 @@ public class LoginController extends BaseController {
         token.setRememberMe(1 == rememberMe);
         try {
             user.login(token);
+            Session session = user.getSession(true);
+            Serializable id = session.getId();
             return renderSuccess();
         } catch (UnknownAccountException e) {
             throw new RuntimeException("账号不存在！", e);

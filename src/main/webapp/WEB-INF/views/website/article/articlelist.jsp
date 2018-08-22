@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>最新动态</title>
     <link rel="stylesheet" type="text/css" href="${staticPath}/static/lsportal/css/main.css" />
-<link rel="stylesheet"
+    <link rel="stylesheet"
 	href="${staticPath }/static/js/pagination_zh/lib/pagination.css" />
 <script charset="utf-8"
 	src="${staticPath }/static/js/pagination_zh/lib/jquery.pagination.js"></script>
