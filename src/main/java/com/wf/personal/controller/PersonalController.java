@@ -6,6 +6,7 @@ package com.wf.personal.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +20,10 @@ import com.wf.model.vo.UserVo;
 import com.wf.personal.service.IPersonalScService;
 import com.wf.user.service.IUserService;
 
+import net.sf.json.JSONObject;
+
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.SessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,12 +40,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class PersonalController  extends BaseController {
     @Autowired
     private IPersonalScService personalScService;
+    @Autowired
+    private IUserService userService;
 	
 	/*
 	 * 个人中心
 	 */
-	@Autowired
-	private IUserService userService;
 	@GetMapping("center")
 	public String center(Model model) {
 		Long userId = getUserId();
@@ -75,30 +79,22 @@ public class PersonalController  extends BaseController {
 		}
 	}
 	//收藏接口
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	@ResponseBody
     @PostMapping("/insertSC")
-	public String insertSC(HttpServletRequest request,HttpServletResponse response) throws Exception {
-		String sessionId = request.getParameter("sessionId");
+	public  Object insertSC(HttpServletRequest request,HttpServletResponse response){
+		String sessionId = request.getParameter("sid");
 		UserSessionUtil userSessionUtil = new UserSessionUtil(sessionId, request, response);
-		Long userId = userSessionUtil.getUserIdfromRedis();
-		
-		if (SecurityUtils.getSubject().isAuthenticated()) {
+		try {
+			Long userId = userSessionUtil.getUserIdfromRedis();
 			PersonalSc psc = new PersonalSc();
-			//Long userId = getUserId();
 			String title = request.getParameter("Title");
 			String author = request.getParameter("Author");
-			String time = request.getParameter("Time");
 			String source = request.getParameter("Source");
 			String abstractZY = request.getParameter("Abstract");
 			String url = request.getParameter("Url");
-			try {
-				SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");  
-				String format2 = format.format(time);
-				Date parse = format.parse(format2);
-				psc.setTime(parse);
-			} catch (ParseException e) {
-				System.out.println("时间戳转date格式失败！");
-			}
+			
+			psc.setTime(new Date());
 			psc.setUserId(userId);
 			psc.setTitle(title);
 			psc.setAuthor(author);
@@ -106,9 +102,35 @@ public class PersonalController  extends BaseController {
 			psc.setAbstractZY(abstractZY);
 			psc.setUrl(url);
 			personalScService.insertByPsc(psc);
-			return "收藏成功！";
-		}else{
-			return "当前用户状态已失效，请重新登录后进行收藏！";
+			return renderSuccess("收藏成功！");
+		} catch (SessionException e1) {
+			throw new SessionException(e1.getMessage());
+		}
+	}
+	//点击文献简介页，收藏/未收藏 判断
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	@ResponseBody
+    @PostMapping("/selectScOrNsc")
+	public  Object selectScOrNsc(HttpServletRequest request,HttpServletResponse response){
+		String sessionId = request.getParameter("sid");
+		UserSessionUtil userSessionUtil = new UserSessionUtil(sessionId, request, response);
+		try {
+			long userId = userSessionUtil.getUserIdfromRedis();
+			String EssayId = request.getParameter("EssayId");
+			//根据userId和EssayId去数据库查该条记录，如果查询到说明已收藏，未查到说明未收藏
+			if (EssayId != null && EssayId != "") {
+				long EId = Long.parseLong(EssayId);
+		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,EId);
+		        if (list != null && !list.isEmpty()) {
+		            return renderSuccess("已收藏！");
+		        } else {
+		        	return renderError("未收藏！");
+		        }
+			}else{
+				return renderError("请上传文章Id！");
+			}
+		} catch (SessionException e1) {
+			throw new SessionException(e1.getMessage());
 		}
 	}
 }
