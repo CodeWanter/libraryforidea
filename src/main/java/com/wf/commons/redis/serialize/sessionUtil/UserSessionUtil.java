@@ -1,8 +1,10 @@
 package com.wf.commons.redis.serialize.sessionUtil;
 
 import com.wf.commons.shiro.ShiroUser;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.session.SessionException;
 import org.apache.shiro.session.mgt.SessionKey;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
