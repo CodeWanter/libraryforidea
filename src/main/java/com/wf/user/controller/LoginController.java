@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.wf.commons.redis.serialize.dao.CachingShiroSessionDao;
-import com.wf.commons.redis.serialize.sessionUtil.SessionException;
 import com.wf.commons.redis.serialize.sessionUtil.UserSessionUtil;
 import com.wf.commons.shiro.ShiroDbRealm;
 import com.wf.commons.shiro.ShiroUser;
