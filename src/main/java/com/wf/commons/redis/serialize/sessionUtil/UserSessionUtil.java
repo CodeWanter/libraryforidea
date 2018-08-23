@@ -39,7 +39,7 @@ public class UserSessionUtil {
         if(isExistUserInReids()){
             return userInfo.getId();
         }else{
-            throw new SessionException("用户session过期");
+            throw new SessionException("用户session过期，请重新登录");
         }
     }
 
