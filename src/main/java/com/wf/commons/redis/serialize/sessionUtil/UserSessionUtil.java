@@ -35,11 +35,11 @@ public class UserSessionUtil {
     }
 
     //获取用户id
-    public Long getUserIdfromRedis() throws Exception{
+    public Long getUserIdfromRedis() throws SessionException{
         if(isExistUserInReids()){
             return userInfo.getId();
         }else{
-            throw new RuntimeException("用户session过期");
+            throw new SessionException("用户session过期");
         }
     }
 
@@ -61,3 +61,4 @@ public class UserSessionUtil {
         return null;
     }
 }
+

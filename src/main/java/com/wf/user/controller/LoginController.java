@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.wf.commons.redis.serialize.dao.CachingShiroSessionDao;
+import com.wf.commons.redis.serialize.sessionUtil.SessionException;
 import com.wf.commons.redis.serialize.sessionUtil.UserSessionUtil;
 import com.wf.commons.shiro.ShiroDbRealm;
 import com.wf.commons.shiro.ShiroUser;
@@ -51,8 +52,6 @@ public class LoginController extends BaseController {
     private PasswordHash passwordHash;
     @Autowired
     private DreamCaptcha dreamCaptcha;
-//    @Autowired
-//    private RedisTemplate<Object, Object> redisTemplate;
 
     /**
      * 首页
@@ -72,14 +71,6 @@ public class LoginController extends BaseController {
      */
     @GetMapping("/forehead/index")
     public String home(Model model,HttpServletRequest request,HttpServletResponse response) {
-        Long userIdfromRedis=0L;
-        UserSessionUtil userSessionUtil = new UserSessionUtil("74b937fa-2238-4d06-b578-ae5a37d9e79b",request,response);
-        try {
-             userIdfromRedis = userSessionUtil.getUserIdfromRedis();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("-------------------------------"+userIdfromRedis);
         return "homepage";
     }
 
