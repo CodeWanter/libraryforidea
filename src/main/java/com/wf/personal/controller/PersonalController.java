@@ -3,10 +3,20 @@
  */
 package com.wf.personal.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.wf.commons.base.BaseController;
+import com.wf.commons.redis.serialize.sessionUtil.UserSessionUtil;
 import com.wf.commons.shiro.ShiroUser;
+import com.wf.model.PersonalSc;
 import com.wf.model.User;
 import com.wf.model.vo.UserVo;
+import com.wf.personal.service.IPersonalScService;
 import com.wf.user.service.IUserService;
 
 import org.apache.shiro.SecurityUtils;
@@ -24,6 +34,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/forehead/personal")
 public class PersonalController  extends BaseController {
+    @Autowired
+    private IPersonalScService personalScService;
+	
 	/*
 	 * 个人中心
 	 */
@@ -44,7 +57,6 @@ public class PersonalController  extends BaseController {
 	@ResponseBody
     @PostMapping("/centerEdit")
 	public Object centerEdit(Model model,String logName,String name,String sex,String age,String phone) {
-		ModelAndView view =new ModelAndView();
 		if (SecurityUtils.getSubject().isAuthenticated()) {
 			Long userId = getUserId();
 			User newUser = new User();
@@ -60,6 +72,43 @@ public class PersonalController  extends BaseController {
 			return renderSuccess("修改成功");
 		}else{
 			return renderError("当前用户状态已失效，修改失败，请重新登录");
+		}
+	}
+	//收藏接口
+	@ResponseBody
+    @PostMapping("/insertSC")
+	public String insertSC(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		String sessionId = request.getParameter("sessionId");
+		UserSessionUtil userSessionUtil = new UserSessionUtil(sessionId, request, response);
+		Long userId = userSessionUtil.getUserIdfromRedis();
+		
+		if (SecurityUtils.getSubject().isAuthenticated()) {
+			PersonalSc psc = new PersonalSc();
+			//Long userId = getUserId();
+			String title = request.getParameter("Title");
+			String author = request.getParameter("Author");
+			String time = request.getParameter("Time");
+			String source = request.getParameter("Source");
+			String abstractZY = request.getParameter("Abstract");
+			String url = request.getParameter("Url");
+			try {
+				SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");  
+				String format2 = format.format(time);
+				Date parse = format.parse(format2);
+				psc.setTime(parse);
+			} catch (ParseException e) {
+				System.out.println("时间戳转date格式失败！");
+			}
+			psc.setUserId(userId);
+			psc.setTitle(title);
+			psc.setAuthor(author);
+			psc.setSource(source);
+			psc.setAbstractZY(abstractZY);
+			psc.setUrl(url);
+			personalScService.insertByPsc(psc);
+			return "收藏成功！";
+		}else{
+			return "当前用户状态已失效，请重新登录后进行收藏！";
 		}
 	}
 }
