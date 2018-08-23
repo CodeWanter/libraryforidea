@@ -6,9 +6,11 @@ import java.util.Date;
  * Created by huangjunqing on 2018/8/23.
  * 个人收藏
  */
-public class PersonalSc {
-    private Long id;
+public class PersonalSc{
+	//主键id	
+	private Long id;
     private Long userId;
+    private Long essayId;
     private String title;
     private String author;
     private Date time;
@@ -16,17 +18,23 @@ public class PersonalSc {
 	private String abstractZY;
     private String url;
     
+	public Long getEssayId() {
+		return essayId;
+	}
+	public void setEssayId(Long essayId) {
+		this.essayId = essayId;
+	}
+	public Long getId() {
+		return id;
+	}
+/*	public void setId(Long id) {
+		this.id = id;
+	}*/
     public String getSource() {
 		return source;
 	}
 	public void setSource(String source) {
 		this.source = source;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
 	}
 	public String getAbstractZY() {
 		return abstractZY;
