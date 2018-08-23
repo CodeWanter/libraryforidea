@@ -16,11 +16,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class UserSessionUtil {
 
-    private String sessionId;
     private ShiroUser userInfo;
 
-    public UserSessionUtil( HttpServletRequest request, HttpServletResponse response){
-        this.sessionId = request.getSession().getId();
+    public UserSessionUtil(String sessionId,HttpServletRequest request,  HttpServletResponse response){
         this.userInfo = this.getUserInfo(sessionId, request, response);
         System.out.println(sessionId);
     }
@@ -45,6 +43,9 @@ public class UserSessionUtil {
         }
     }
 
+    /*
+    根据sessionid,获取shiro用户对象
+     */
     private ShiroUser getUserInfo(String sessionID, HttpServletRequest request, HttpServletResponse response){
         boolean status = false;
         SessionKey key = new WebSessionKey(sessionID,request,response);
@@ -54,7 +55,7 @@ public class UserSessionUtil {
             SimplePrincipalCollection coll = (SimplePrincipalCollection) obj;
             return (ShiroUser)coll.getPrimaryPrincipal();
         }catch(Exception e){
-            e.printStackTrace();
+
         }finally{
         }
         return null;
