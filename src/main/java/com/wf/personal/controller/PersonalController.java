@@ -86,23 +86,35 @@ public class PersonalController  extends BaseController {
 		String sessionId = request.getParameter("sid");
 		UserSessionUtil userSessionUtil = new UserSessionUtil(sessionId, request, response);
 		try {
-			Long userId = userSessionUtil.getUserIdfromRedis();
-			PersonalSc psc = new PersonalSc();
-			String title = request.getParameter("Title");
-			String author = request.getParameter("Author");
-			String source = request.getParameter("Source");
-			String abstractZY = request.getParameter("Abstract");
-			String url = request.getParameter("Url");
-			
-			psc.setTime(new Date());
-			psc.setUserId(userId);
-			psc.setTitle(title);
-			psc.setAuthor(author);
-			psc.setSource(source);
-			psc.setAbstractZY(abstractZY);
-			psc.setUrl(url);
-			personalScService.insertByPsc(psc);
-			return renderSuccess("收藏成功！");
+			long userId = userSessionUtil.getUserIdfromRedis();
+			String essayId = request.getParameter("EssayId");
+			if (essayId != null && essayId != "") {
+				long eId = Long.parseLong(essayId);
+		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,eId);
+		        if (list != null && !list.isEmpty()) {
+		            return renderSuccess("已收藏！");
+		        } else {
+		        	//未收藏，存入数据库
+					PersonalSc psc = new PersonalSc();
+					String title = request.getParameter("Title");
+					String author = request.getParameter("Author");
+					String source = request.getParameter("Source");
+					String abstractZY = request.getParameter("Abstract");
+					String url = request.getParameter("Url");
+					
+					psc.setTime(new Date());
+					psc.setUserId(userId);
+					psc.setTitle(title);
+					psc.setAuthor(author);
+					psc.setSource(source);
+					psc.setAbstractZY(abstractZY);
+					psc.setUrl(url);
+					personalScService.insertByPsc(psc);
+					return renderSuccess("收藏成功！");
+		        }
+			}else{
+				return renderError("请上传文章Id！");
+			}
 		} catch (SessionException e1) {
 			throw new SessionException(e1.getMessage());
 		}
@@ -116,11 +128,11 @@ public class PersonalController  extends BaseController {
 		UserSessionUtil userSessionUtil = new UserSessionUtil(sessionId, request, response);
 		try {
 			long userId = userSessionUtil.getUserIdfromRedis();
-			String EssayId = request.getParameter("EssayId");
+			String essayId = request.getParameter("EssayId");
 			//根据userId和EssayId去数据库查该条记录，如果查询到说明已收藏，未查到说明未收藏
-			if (EssayId != null && EssayId != "") {
-				long EId = Long.parseLong(EssayId);
-		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,EId);
+			if (essayId != null && essayId != "") {
+				long eId = Long.parseLong(essayId);
+		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,eId);
 		        if (list != null && !list.isEmpty()) {
 		            return renderSuccess("已收藏！");
 		        } else {
