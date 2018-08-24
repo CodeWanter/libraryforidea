@@ -3,32 +3,23 @@
  */
 package com.wf.personal.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.wf.commons.base.BaseController;
 import com.wf.commons.redis.serialize.sessionUtil.UserSessionUtil;
-import com.wf.commons.shiro.ShiroUser;
 import com.wf.model.PersonalSc;
 import com.wf.model.User;
 import com.wf.model.vo.UserVo;
 import com.wf.personal.service.IPersonalScService;
 import com.wf.user.service.IUserService;
-
-import net.sf.json.JSONObject;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.SessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author zhanghuaiyu
@@ -92,7 +83,7 @@ public class PersonalController  extends BaseController {
 				long eId = Long.parseLong(essayId);
 		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,eId);
 		        if (list != null && !list.isEmpty()) {
-		            return renderSuccess("已收藏！");
+		            return renderError("已收藏！");
 		        } else {
 		        	//未收藏，存入数据库
 					PersonalSc psc = new PersonalSc();
@@ -102,6 +93,7 @@ public class PersonalController  extends BaseController {
 					String abstractZY = request.getParameter("Abstract");
 					String url = request.getParameter("Url");
 					
+					psc.setEssayId(eId);
 					psc.setTime(new Date());
 					psc.setUserId(userId);
 					psc.setTitle(title);
