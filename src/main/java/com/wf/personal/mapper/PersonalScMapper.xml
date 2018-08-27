@@ -5,4 +5,11 @@
  	<sql id="Base_Column_List">
 		id, user_id AS userId ,title AS title,author AS author, time AS time,source AS source,abstract AS abstractZY,url AS url
 	</sql> 
+	<select id="selectPersonalPage" resultType="Map">
+		SELECT
+		t.id, t.title AS title,t.author AS author,t.time AS time,
+		 t.source AS source,t.abstract_z_y AS abstractZY,t.url AS url
+		FROM personal_sc t where true 
+		ORDER BY title
+	</select>
 </mapper>

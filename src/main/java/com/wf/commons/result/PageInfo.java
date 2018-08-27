@@ -33,7 +33,18 @@ public class PageInfo {
     private String sort = "seq";// 排序字段
     @JsonIgnore
     private String order = "asc";// asc，desc mybatis Order 关键字
-
+    @JsonIgnore
+    private String sortT = "title";
+    @JsonIgnore
+    private String sortA = "author";
+    @JsonIgnore
+    private String sortM = "time";
+    @JsonIgnore
+    private String title = "asc";// 题名
+    @JsonIgnore
+    private String author = "asc";// 作者
+	@JsonIgnore
+    private String time = "asc";// 时间
     public PageInfo() {}
 
     //构造方法
@@ -63,7 +74,63 @@ public class PageInfo {
         this.sort = sort;
         this.order = order;
     }
+    // 构造方法
+    public PageInfo(int nowpage, int pagesize, String sortT, String title, String sortA, String author, String sortM, String time) {
+        this(nowpage, pagesize) ;
+        // 排序字段，正序还是反序
+        this.sortT = sortT;
+        this.sortA = sortA;
+        this.sortM = sortM;
+        this.title = title;
+        this.author = author;
+        this.time = time;
+    }
+    public String getSortT() {
+		return sortT;
+	}
 
+	public void setSortT(String sortT) {
+		this.sortT = sortT;
+	}
+
+	public String getSortA() {
+		return sortA;
+	}
+
+	public void setSortA(String sortA) {
+		this.sortA = sortA;
+	}
+
+	public String getSortM() {
+		return sortM;
+	}
+
+	public void setSortM(String sortM) {
+		this.sortM = sortM;
+	}
+    public String getTitle() {
+ 		return title;
+ 	}
+
+ 	public void setTitle(String title) {
+ 		this.title = title;
+ 	}
+
+ 	public String getAuthor() {
+ 		return author;
+ 	}
+
+ 	public void setAuthor(String author) {
+ 		this.author = author;
+ 	}
+
+ 	public String getTime() {
+ 		return time;
+ 	}
+
+ 	public void setTime(String time) {
+ 		this.time = time;
+ 	}
     public int getTotal() {
         return total;
     }

@@ -4,16 +4,23 @@
 package com.wf.personal.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.wf.commons.base.BaseController;
 import com.wf.commons.redis.serialize.sessionUtil.UserSessionUtil;
+import com.wf.commons.result.PageInfo;
+import com.wf.commons.utils.StringUtils;
 import com.wf.model.PersonalSc;
 import com.wf.model.User;
 import com.wf.model.vo.UserVo;
 import com.wf.personal.service.IPersonalScService;
 import com.wf.user.service.IUserService;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.SessionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,5 +143,16 @@ public class PersonalController  extends BaseController {
 		} catch (SessionException e1) {
 			throw new SessionException(e1.getMessage());
 		}
+	}
+//	前六条数据加载
+	@ResponseBody
+	@PostMapping("/topSixData")
+	public PageInfo topSixData(Integer nowpage,Integer pageSize, @RequestParam(value = "sortT", defaultValue = "title")String sortT,@RequestParam(value = "title", defaultValue = "desc")String title,
+			@RequestParam(value = "sortA", defaultValue = "author")String sortA,@RequestParam(value = "author", defaultValue = "desc")String author,@RequestParam(value = "sortM", defaultValue = "time")String sortM,@RequestParam(value = "time", defaultValue = "desc")String time) {
+		PageInfo pageInfo = new PageInfo(nowpage, pageSize, sortT, title, sortA, author, sortM, time);
+		Map<String, Object> condition = new HashMap<String, Object>();
+		pageInfo.setCondition(condition);
+		personalScService.selectSixData(pageInfo);
+		return pageInfo;
 	}
 }
