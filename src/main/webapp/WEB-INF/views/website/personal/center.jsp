@@ -7,7 +7,6 @@
 	<link rel="stylesheet" type="text/css" href="${staticPath}/static/lsportal/css/main.css"/>
     <link rel="stylesheet" href="${staticPath }/static/js/pagination_zh/lib/pagination.css" />
 	<script charset="utf-8"	src="${staticPath }/static/js/pagination_zh/lib/jquery.pagination.js"></script>
-	<%-- <script type="text/javascript" src="${staticPath}/static/js/jquery-3.3.1.min.js"></script> --%>
 	<script type="text/javascript">
 		function select(sel) {
 			if ($("#personCentreID .current").html() != sel.value) {
@@ -33,6 +32,7 @@
 					//将body中其他模块不显示，只显示我的订阅的模块
 					$(".LS2018_Aright").css({display: 'none'});
 					$("#dYDIVID").css({display: 'inline'});
+                    personalOrderInit();
 				} else if(sel.id == "tJID"){
 					//我的推荐修改选中状态
 					$("#personCentreID .current").removeClass("current");
@@ -66,8 +66,8 @@
 		        url : '${path}/forehead/personal/centerEdit',
 		        data: {"logName":logName,"name":name,"sex":sex,"age": age, "phone": phone},
 		        async: true,
+                dataType:"json",
 	            success : function(result) {
-                    result = $.parseJSON(result);
                     if (result.success) {
                         layer.msg(result.msg);
                     }else{
@@ -159,6 +159,7 @@
 						<li><a id="sCID" value="我的收藏" onclick="select(this);" style="cursor: pointer;">我的收藏</a></li>
 					</ul>
 				</div>
+				<%--个人资料--%>
 				<div class="LS2018_Aright" id="centreDIVID" style="display: inline;">
 					<table class="LS2018_GRZX_TB1">
 						<tr>
@@ -225,78 +226,26 @@
 				</div>
 				<!-- 我的订阅 -->
 				<div class="LS2018_Aright" id="dYDIVID" style="display: none;">
-					<table class="LS2018_GRZX_TB2">
+					<table class="LS2018_GRZX_TB2" >
 						<tr>
 							<th style="width: 170px">名称
-								<select>
-									<option>降序</option>
-									<option>升序</option>
+								<select id="defineNameID" onchange="personalOrder('defineName',this)">
+									<option value="asc">升序</option>
+									<option value="desc">降序</option>
 								</select>
 							</th>
 							<th style="width: 100px">时间
-								<select>
-									<option>降序</option>
-									<option>升序</option>
+								<select id="createTimeID" onchange="personalOrder('createTime',this)">
+									<option value="desc">降序</option>
+									<option value="asc">升序</option>
 								</select>
 							</th>
 							<th>摘要</th>
 							<th style="width: 100px">操作</th>
 						</tr>
-						<tr>
-							<td><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></td>
-							<td>2018-08-14</td>
-							<td></td>
-							<td>
-								<a class="a1" href="#">检索</a>
-								<a class="a2" href="#">删除</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></td>
-							<td>2018-08-14</td>
-							<td></td>
-							<td>
-								<a class="a1" href="#">检索</a>
-								<a class="a2" href="#">删除</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></td>
-							<td>2018-08-14</td>
-							<td></td>
-							<td>
-								<a class="a1" href="#">检索</a>
-								<a class="a2" href="#">删除</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></td>
-							<td>2018-08-14</td>
-							<td></td>
-							<td>
-								<a class="a1" href="#">检索</a>
-								<a class="a2" href="#">删除</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></td>
-							<td>2018-08-14</td>
-							<td></td>
-							<td>
-								<a class="a1" href="#">检索</a>
-								<a class="a2" href="#">删除</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></td>
-							<td>2018-08-14</td>
-							<td></td>
-							<td>
-								<a class="a1" href="#">检索</a>
-								<a class="a2" href="#">删除</a>
-							</td>
-						</tr>
+						<tbody id="personalOrderId"></tbody>
 					</table>
+					<div id="OrderPagination" class="dataTables_paginate paging_bootstrap pagination center"></div>
 				</div>
 				<!-- 我的推荐 -->
 				<div class="LS2018_Aright" id="tJDIVID" style="display: none;">
@@ -394,6 +343,8 @@
 		<%@ include file="/commons/footer.jsp" %>
 	</div>
 	<script type="text/javascript">
+        var pageIndex = 1;
+        var pageSize = 6;
 	    function personalSC(){
 	    	var tSID = document.getElementById("titleSelectID");
 	    	var aSID = document.getElementById("authorSelectID");
@@ -402,8 +353,6 @@
 	    	var aSV = aSID.options[aSID.selectedIndex].value;
 	    	var mSV = mSID.options[mSID.selectedIndex].value;
 	        //我的收藏
-	        var pageIndex = 1;
-	        var pageSize = 6;
 	        PaginationInit(pageIndex, pageSize,tSV,aSV,mSV);
 	        $.post(basePath + '/forehead/personal/topSixData',{"nowpage":pageIndex,"pageSize":pageSize,"sortT":"title","title":tSV,"sortA":"author","author":aSV,"sortM":"time","time":mSV},function(result){
 	            result = eval('(' + result + ')');
@@ -464,7 +413,8 @@
 	            }
 	        });
 	    }
+
 	</script>
 </body>
-
+<script charset="utf-8"	src="${staticPath }/static/lsportal/js/personal/myorder.js"></script>
 </html>

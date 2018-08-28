@@ -15,9 +15,11 @@ import com.wf.commons.base.BaseController;
 import com.wf.commons.redis.serialize.sessionUtil.UserSessionUtil;
 import com.wf.commons.result.PageInfo;
 import com.wf.commons.utils.StringUtils;
+import com.wf.model.PersonalOrder;
 import com.wf.model.PersonalSc;
 import com.wf.model.User;
 import com.wf.model.vo.UserVo;
+import com.wf.personal.service.IPersonalOrderService;
 import com.wf.personal.service.IPersonalScService;
 import com.wf.user.service.IUserService;
 
@@ -39,11 +41,13 @@ public class PersonalController  extends BaseController {
     @Autowired
     private IPersonalScService personalScService;
     @Autowired
-    private IUserService userService;
-	
+    private IPersonalOrderService personalOrderService;
+
 	/*
 	 * 个人中心
 	 */
+	@Autowired
+	private IUserService userService;
 	@GetMapping("center")
 	public String center(Model model) {
 		Long userId = getUserId();
@@ -58,16 +62,10 @@ public class PersonalController  extends BaseController {
 	//个人资料修改
 	@ResponseBody
     @PostMapping("/centerEdit")
-	public Object centerEdit(Model model,String logName,String name,String sex,String age,String phone) {
-		if (SecurityUtils.getSubject().isAuthenticated()) {
+	public Object centerEdit(Model model,User newUser) {
+		if (SecurityUtils.getSubject().isAuthenticated()||SecurityUtils.getSubject().isRemembered()) {
 			Long userId = getUserId();
-			User newUser = new User();
 			newUser.setId(userId);
-			newUser.setLoginName(logName);
-			newUser.setName(name);
-			newUser.setSex(Integer.parseInt(sex));
-			newUser.setAge(Integer.parseInt(age));
-			newUser.setPhone(phone);
 			userService.updateById(newUser);
 
 			model.addAttribute("user", newUser);
@@ -98,7 +96,7 @@ public class PersonalController  extends BaseController {
 					String source = request.getParameter("Source");
 					String abstractZY = request.getParameter("Abstract");
 					String url = request.getParameter("Url");
-					
+
 					psc.setEssayId(essayId);
 					psc.setTime(new Date());
 					psc.setUserId(userId);
@@ -117,6 +115,7 @@ public class PersonalController  extends BaseController {
 			throw new SessionException(e1.getMessage());
 		}
 	}
+
 	//点击文献简介页，收藏/未收藏 判断
 	@CrossOrigin(origins = "*", maxAge = 3600)
 	@ResponseBody
@@ -152,5 +151,39 @@ public class PersonalController  extends BaseController {
 		pageInfo.setCondition(condition);
 		personalScService.selectSixData(pageInfo);
 		return pageInfo;
+	}
+	//插入我的订阅
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	@ResponseBody
+	@PostMapping("/insertOrder")
+	public Object insertOrder(HttpServletRequest request, HttpServletResponse response, PersonalOrder personalOrder){
+		String sessionId = request.getParameter("sid");
+		UserSessionUtil userSessionUtil = new UserSessionUtil(sessionId, request, response);
+		long userId = userSessionUtil.getUserIdfromRedis();
+		personalOrder.setUserId(userId);
+		personalOrder.setCreateTime(new Date());
+		if (StringUtils.isBlank(personalOrder.getDefineName())) {
+			return renderError("订阅名称不能为空！");
+		}
+		if (StringUtils.isBlank(personalOrder.getUrl())) {
+			return renderError("链接地址不能为空！");
+		}
+		personalOrderService.insert(personalOrder);
+		return renderSuccess("订阅成功！");
+	}
+	//	个人订阅前台数据获取
+	@ResponseBody
+	@PostMapping("orderlistdata")
+	public PageInfo orderData(@RequestParam(value = "sort", defaultValue = "create_time")String sort,String order,Integer pageIndex, Integer pageSize){
+		PageInfo pageInfo = new PageInfo(pageIndex, pageSize, sort, order);
+		personalOrderService.selectDataGrid(pageInfo);
+		return pageInfo;
+	}
+	//删除订阅
+	@ResponseBody
+	@DeleteMapping("/orderdelete")
+	public Object orderDel(long id){
+		personalOrderService.deleteById(id);
+		return renderSuccess("删除成功！");
 	}
 }

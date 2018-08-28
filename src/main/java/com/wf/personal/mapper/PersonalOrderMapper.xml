@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wf.personal.mapper.PersonalOrderMapper">
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id AS userId ,define_name AS defineName,abstract_info AS abstractInfo, create_time AS createTime,url
+    </sql>
+
+    <select id="selectOrderPage" resultType="Map">
+        SELECT
+        id, user_id AS userId ,define_name AS defineName,abstract_info AS abstractInfo, create_time AS createTime,url
+        from personal_order
+        where true
+        <!--ORDER BY-->
+        <!--<if test="defineName != null and defineName != '' ">-->
+            <!--#{defineName},-->
+        <!--</if>-->
+        <!--create_time desc-->
+    </select>
+</mapper>

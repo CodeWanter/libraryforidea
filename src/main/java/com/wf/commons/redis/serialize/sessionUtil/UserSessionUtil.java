@@ -37,7 +37,7 @@ public class UserSessionUtil {
     }
 
     //获取用户id
-    public Long getUserIdfromRedis() throws SessionException{
+    public Long getUserIdfromRedis() throws SessionException {
         if(isExistUserInReids()){
             return userInfo.getId();
         }else{
