@@ -87,8 +87,7 @@ public class PersonalController  extends BaseController {
 			long userId = userSessionUtil.getUserIdfromRedis();
 			String essayId = request.getParameter("EssayId");
 			if (essayId != null && essayId != "") {
-				long eId = Long.parseLong(essayId);
-		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,eId);
+		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,essayId);
 		        if (list != null && !list.isEmpty()) {
 		            return renderError("已收藏！");
 		        } else {
@@ -100,7 +99,7 @@ public class PersonalController  extends BaseController {
 					String abstractZY = request.getParameter("Abstract");
 					String url = request.getParameter("Url");
 					
-					psc.setEssayId(eId);
+					psc.setEssayId(essayId);
 					psc.setTime(new Date());
 					psc.setUserId(userId);
 					psc.setTitle(title);
@@ -130,8 +129,7 @@ public class PersonalController  extends BaseController {
 			String essayId = request.getParameter("EssayId");
 			//根据userId和EssayId去数据库查该条记录，如果查询到说明已收藏，未查到说明未收藏
 			if (essayId != null && essayId != "") {
-				long eId = Long.parseLong(essayId);
-		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,eId);
+		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,essayId);
 		        if (list != null && !list.isEmpty()) {
 		            return renderSuccess("已收藏！");
 		        } else {

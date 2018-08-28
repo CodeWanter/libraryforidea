@@ -8,6 +8,6 @@ import com.wf.model.PersonalSc;
 
 public interface IPersonalScService extends IService<PersonalSc>{
 	void insertByPsc(PersonalSc psc);
-	List<PersonalSc> selectByUIdAndEId(long userId, long eId);
+	List<PersonalSc> selectByUIdAndEId(long userId, String eId);
 	void selectSixData(PageInfo pageInfo);
 }

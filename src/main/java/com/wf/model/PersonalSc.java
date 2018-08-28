@@ -10,7 +10,7 @@ public class PersonalSc{
 	//主键id	
 	private Long id;
     private Long userId;
-    private Long essayId;
+    private String essayId;
     private String title;
     private String author;
     private Date time;
@@ -18,10 +18,11 @@ public class PersonalSc{
 	private String abstractZY;
     private String url;
     
-	public Long getEssayId() {
+
+	public String getEssayId() {
 		return essayId;
 	}
-	public void setEssayId(Long essayId) {
+	public void setEssayId(String essayId) {
 		this.essayId = essayId;
 	}
 	public Long getId() {

@@ -25,7 +25,7 @@ public class PersonalScServiceImpl extends ServiceImpl<PersonalScMapper, Persona
 	}
 
 	@Override
-	public List<PersonalSc> selectByUIdAndEId(long userId, long eId) {
+	public List<PersonalSc> selectByUIdAndEId(long userId, String eId) {
 		PersonalSc personalSc = new PersonalSc();
 		personalSc.setUserId(userId);
 		personalSc.setEssayId(eId);
