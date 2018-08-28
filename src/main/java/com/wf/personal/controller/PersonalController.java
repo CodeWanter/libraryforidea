@@ -176,12 +176,20 @@ public class PersonalController  extends BaseController {
 	@PostMapping("orderlistdata")
 	public PageInfo orderData(@RequestParam(value = "sort", defaultValue = "create_time")String sort,String order,Integer pageIndex, Integer pageSize){
 		PageInfo pageInfo = new PageInfo(pageIndex, pageSize, sort, order);
+		if (SecurityUtils.getSubject().isAuthenticated()||SecurityUtils.getSubject().isRemembered()) {
+		Map<String, Object> condition = new HashMap<>();
+		Long userId = getUserId();
+		if (userId!=null) {
+			condition.put("userId", userId);
+		}
+		pageInfo.setCondition(condition);
 		personalOrderService.selectDataGrid(pageInfo);
+		}
 		return pageInfo;
 	}
 	//删除订阅
 	@ResponseBody
-	@DeleteMapping("/orderdelete")
+	@PostMapping("/orderdelete")
 	public Object orderDel(long id){
 		personalOrderService.deleteById(id);
 		return renderSuccess("删除成功！");

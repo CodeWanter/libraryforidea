@@ -12,9 +12,9 @@
         from personal_order
         where true
         <!--ORDER BY-->
-        <!--<if test="defineName != null and defineName != '' ">-->
-            <!--#{defineName},-->
-        <!--</if>-->
+        <if test="userId != null and userId != '' ">
+           AND user_id = #{userId}
+        </if>
         <!--create_time desc-->
     </select>
 </mapper>

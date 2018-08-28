@@ -58,7 +58,7 @@ function orderPaginationCallback(pageIndex, jq) {
                 $("#List").html("");
                 var html = "";
                 $.each(result, function (i, item) {
-                    html += '<tr><td><a href="#">'+item.defineName+'</a></td><td>' + item.createTime.substr(0,10) + '</td><td>'+item.abstractInfo+'</td><td><a class="a1" href="' + item.url + '">检索</a><a class="a2" href="#">删除</a></td></tr>';
+                    html += '<tr><td><a href="#">'+item.defineName+'</a></td><td>' + item.createTime.substr(0,10) + '</td><td>'+item.abstractInfo+'</td><td><a class="a1" href="' + item.url + '">检索</a><a class="a2" href="#" onclick="orderDel('+item.id +')">删除</a></td></tr>';
                 });
                 $("#personalOrderId").html(html);
             },
@@ -67,4 +67,19 @@ function orderPaginationCallback(pageIndex, jq) {
                 layer.msg('检索异常!');
             }
         });
+}
+
+//删除订阅
+function orderDel(id){
+    layer.alert('',{
+        icon:2,title:'删除确认',content:'您确定要删除这条记录吗？',closeBtn:1},function(index){
+        //business logic
+        $.post(getContextPath()+"/forehead/personal/orderdelete",{id:id},function(data){
+            layer.msg(data.msg, {icon: 16,time: 300,shade : [0.5 , '#000' , true]},function(){
+                OrderPaginationInit(pageIndex, pageSize);
+            });
+        },"json");
+        layer.close(index);
+    });
+
 }
