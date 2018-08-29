@@ -5,7 +5,7 @@ var pageIndex = 1;
 var pageSize = 6;
 //获取当前上下文路径
 function getContextPath() {
-    return window.location.protocol + "//" + window.location.host+ "/shiro"
+    return window.location.protocol + "//" + window.location.host+ "/library"
 }
 //初始化我的收藏
 function personalScInit(){
