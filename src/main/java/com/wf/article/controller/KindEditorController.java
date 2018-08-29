@@ -52,10 +52,10 @@ public class KindEditorController {
     public Map<String, Object> fileUpload(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException,
             FileUploadException {
         ServletContext application = request.getSession().getServletContext();
-        String savePath = application.getRealPath("/") + "images/";
+        String savePath = application.getRealPath("/") + "/static/upload/";
 
         // 文件保存目录URL
-        String saveUrl = request.getContextPath() + "/images/";
+        String saveUrl = request.getContextPath() + "/static/upload/";
 
         // 定义允许上传的文件扩展名
         HashMap<String, String> extMap = new HashMap<String, String>();
@@ -199,9 +199,9 @@ public class KindEditorController {
         ServletContext application = request.getSession().getServletContext();
         ServletOutputStream out = response.getOutputStream();
         // 根目录路径，可以指定绝对路径，比如 /var/www/attached/
-        String rootPath = application.getRealPath("/") + "images/";
+        String rootPath = application.getRealPath("/") + "/static/upload/";
         // 根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
-        String rootUrl = request.getContextPath() + "/images/";
+        String rootUrl = request.getContextPath() + "/static/upload/";
         // 图片扩展名
         String[] fileTypes = new String[] { "gif", "jpg", "jpeg", "png", "bmp" };
 
