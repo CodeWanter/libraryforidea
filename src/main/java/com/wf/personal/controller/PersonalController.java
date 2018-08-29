@@ -155,7 +155,7 @@ public class PersonalController  extends BaseController {
 		}
 		return pageInfo;
 	}
-	
+
 	//插入我的订阅
 	@CrossOrigin(origins = "*", maxAge = 3600)
 	@ResponseBody
