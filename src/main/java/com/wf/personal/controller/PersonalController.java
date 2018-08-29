@@ -74,48 +74,6 @@ public class PersonalController  extends BaseController {
 			return renderError("当前用户状态已失效，修改失败，请重新登录");
 		}
 	}
-	//收藏接口
-	@CrossOrigin(origins = "*", maxAge = 3600)
-	@ResponseBody
-    @PostMapping("/insertSC")
-	public  Object insertSC(HttpServletRequest request,HttpServletResponse response){
-		String sessionId = request.getParameter("sid");
-		UserSessionUtil userSessionUtil = new UserSessionUtil(sessionId, request, response);
-		try {
-			long userId = userSessionUtil.getUserIdfromRedis();
-			String essayId = request.getParameter("EssayId");
-			if (essayId != null && essayId != "") {
-		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,essayId);
-		        if (list != null && !list.isEmpty()) {
-		            return renderError("已收藏！");
-		        } else {
-		        	//未收藏，存入数据库
-					PersonalSc psc = new PersonalSc();
-					String title = request.getParameter("Title");
-					String author = request.getParameter("Author");
-					String source = request.getParameter("Source");
-					String abstractZY = request.getParameter("Abstract");
-					String url = request.getParameter("Url");
-
-					psc.setEssayId(essayId);
-					psc.setTime(new Date());
-					psc.setUserId(userId);
-					psc.setTitle(title);
-					psc.setAuthor(author);
-					psc.setSource(source);
-					psc.setAbstractZY(abstractZY);
-					psc.setUrl(url);
-					personalScService.insertByPsc(psc);
-					return renderSuccess("收藏成功！");
-		        }
-			}else{
-				return renderError("请上传文章Id！");
-			}
-		} catch (SessionException e1) {
-			throw new SessionException(e1.getMessage());
-		}
-	}
-
 	//点击文献简介页，收藏/未收藏 判断
 	@CrossOrigin(origins = "*", maxAge = 3600)
 	@ResponseBody
@@ -141,17 +99,63 @@ public class PersonalController  extends BaseController {
 			throw new SessionException(e1.getMessage());
 		}
 	}
+	//收藏接口
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	@ResponseBody
+    @PostMapping("/insertSC")
+	public  Object insertSC(HttpServletRequest request,HttpServletResponse response,PersonalSc personalSc){
+		String sessionId = request.getParameter("sid");
+		UserSessionUtil userSessionUtil = new UserSessionUtil(sessionId, request, response);
+		try {
+			long userId = userSessionUtil.getUserIdfromRedis();
+			if (StringUtils.isBlank(personalSc.getTitle())) {
+				return renderError("收藏名称不能为空！");
+			}
+			if (StringUtils.isBlank(personalSc.getUrl())) {
+				return renderError("链接地址不能为空！");
+			}
+			if (StringUtils.isBlank(personalSc.getEssayId())) {
+		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,personalSc.getEssayId());
+		        if (list != null && !list.isEmpty()) {
+		            return renderError("已收藏！");
+		        } else {
+		        	//未收藏，存入数据库
+					personalSc.setTime(new Date());
+					personalSc.setUserId(userId);
+					personalScService.insertByPsc(personalSc);
+					return renderSuccess("收藏成功！");
+		        }
+			}else{
+				return renderError("请上传文章Id！");
+			}
+		} catch (SessionException e1) {
+			throw new SessionException(e1.getMessage());
+		}
+	}
+	//删除收藏
+	@ResponseBody
+	@PostMapping("/scdelete")
+	public Object scDel(long id){
+		personalScService.deleteById(id);
+		return renderSuccess("删除成功！");
+	}
 //	前六条数据加载
 	@ResponseBody
 	@PostMapping("/topSixData")
-	public PageInfo topSixData(Integer nowpage,Integer pageSize, @RequestParam(value = "sortT", defaultValue = "title")String sortT,@RequestParam(value = "title", defaultValue = "desc")String title,
-			@RequestParam(value = "sortA", defaultValue = "author")String sortA,@RequestParam(value = "author", defaultValue = "desc")String author,@RequestParam(value = "sortM", defaultValue = "time")String sortM,@RequestParam(value = "time", defaultValue = "desc")String time) {
-		PageInfo pageInfo = new PageInfo(nowpage, pageSize, sortT, title, sortA, author, sortM, time);
-		Map<String, Object> condition = new HashMap<String, Object>();
-		pageInfo.setCondition(condition);
-		personalScService.selectSixData(pageInfo);
+	public PageInfo topSixData(@RequestParam(value = "sort", defaultValue = "time")String sort,String order,Integer pageIndex, Integer pageSize) {
+		PageInfo pageInfo = new PageInfo(pageIndex, pageSize, sort, order);
+		if (SecurityUtils.getSubject().isAuthenticated()||SecurityUtils.getSubject().isRemembered()) {
+			Map<String, Object> condition = new HashMap<String, Object>();
+			Long userId = getUserId();
+			if (userId!=null) {
+				condition.put("userId", userId);
+			}
+			pageInfo.setCondition(condition);
+			personalScService.selectSixData(pageInfo);
+		}
 		return pageInfo;
 	}
+	
 	//插入我的订阅
 	@CrossOrigin(origins = "*", maxAge = 3600)
 	@ResponseBody
@@ -173,7 +177,7 @@ public class PersonalController  extends BaseController {
 	}
 	//	个人订阅前台数据获取
 	@ResponseBody
-	@PostMapping("orderlistdata")
+	@PostMapping("/orderlistdata")
 	public PageInfo orderData(@RequestParam(value = "sort", defaultValue = "create_time")String sort,String order,Integer pageIndex, Integer pageSize){
 		PageInfo pageInfo = new PageInfo(pageIndex, pageSize, sort, order);
 		if (SecurityUtils.getSubject().isAuthenticated()||SecurityUtils.getSubject().isRemembered()) {

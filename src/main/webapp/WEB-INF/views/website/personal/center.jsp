@@ -7,6 +7,9 @@
 	<link rel="stylesheet" type="text/css" href="${staticPath}/static/lsportal/css/main.css"/>
     <link rel="stylesheet" href="${staticPath }/static/js/pagination_zh/lib/pagination.css" />
 	<script charset="utf-8"	src="${staticPath }/static/js/pagination_zh/lib/jquery.pagination.js"></script>
+	
+	<script charset="utf-8"	src="${staticPath }/static/lsportal/js/personal/mysc.js"></script>
+	<script charset="utf-8"	src="${staticPath }/static/lsportal/js/personal/myorder.js"></script>
 	<script type="text/javascript">
 		function select(sel) {
 			if ($("#personCentreID .current").html() != sel.value) {
@@ -47,7 +50,7 @@
 					//将body中其他模块不显示，只显示我的收藏的模块
 					$(".LS2018_Aright").css({display: 'none'});
 					$("#sCDIVID").css({display: 'inline'});
-					personalSC();
+					personalScInit();
 				}
 			}
 		}
@@ -314,19 +317,19 @@
 					<table class="LS2018_GRZX_TB2" id="personalSCId">
 						<tr>
 							<th style="width: 150px">标题
-								<select id="titleSelectID" onchange="personalSC()">
+								<select id="titleSelectID" onchange="personalSC('title',this)">
 									<option value="desc">降序</option>
 									<option value="asc">升序</option>
 								</select>
 							</th>
 							<th style="width: 90px">作者
-								<select id="authorSelectID" onchange="personalSC()">
+								<select id="authorSelectID" onchange="personalSC('author',this)">
 									<option value="desc">降序</option>
 									<option value="asc">升序</option>
 								</select>
 							</th>
 							<th style="width: 90px">时间
-								<select id="timeSelectID" onchange="personalSC()">
+								<select id="timeSelectID" onchange="personalSC('time',this)">
 									<option value="desc">降序</option>
 									<option value="asc">升序</option>
 								</select>
@@ -342,79 +345,5 @@
 		</div>
 		<%@ include file="/commons/footer.jsp" %>
 	</div>
-	<script type="text/javascript">
-        var pageIndex = 1;
-        var pageSize = 6;
-	    function personalSC(){
-	    	var tSID = document.getElementById("titleSelectID");
-	    	var aSID = document.getElementById("authorSelectID");
-	    	var mSID = document.getElementById("timeSelectID");
-	    	var tSV = tSID.options[tSID.selectedIndex].value;
-	    	var aSV = aSID.options[aSID.selectedIndex].value;
-	    	var mSV = mSID.options[mSID.selectedIndex].value;
-	        //我的收藏
-	        PaginationInit(pageIndex, pageSize,tSV,aSV,mSV);
-	        $.post(basePath + '/forehead/personal/topSixData',{"nowpage":pageIndex,"pageSize":pageSize,"sortT":"title","title":tSV,"sortA":"author","author":aSV,"sortM":"time","time":mSV},function(result){
-	            result = eval('(' + result + ')');
-	            var data = result.rows;
-	            $("#personalSCId  tr:not(:first)").html("");
-	            var html = "";
-	            $.each(data, function (i, item) {
-					html += '<tr><td><a href="'+item.url+'" target="_blank">' +item.title + '</a></td><td>'+item.author+'</td><td>'+item.time+'</td><td>'+item.source+'</td><td>'+item.abstractZY+'</td><td>'+'<a class="a2" href='+item.url+'>删除</a></td></tr>';
-	            });
-	            $("#personalSCId").append(html);
-	        });
-	    }
-	    //初始化分页插件
-	    function PaginationInit(pageIndex, pageSize, tSV, aSV, mSV) {
-	        $.post(basePath+"/forehead/personal/topSixData",{
-	        	"nowpage": pageIndex,
-	            "pageSize": pageSize,
-	            "sortT":"title",
-	            "title":tSV,
-	            "sortA":"author",
-	            "author":aSV,
-	            "sortM":"time",
-	            "time":mSV
-	        }, function (data) {
-	        	data = JSON.parse(data);
-	            // 创建分页
-	            $("#Pagination").pagination(data.total, {
-	                num_edge_entries: 2, //边缘页数
-	                num_display_entries: 10, //主体页数
-	                callback: paginationCallback, //回调函数
-	                items_per_page: pageSize, //每页显示多少项
-	                prev_text: "<<上一页",
-	                next_text: "下一页>>"
-
-	            });
-	        });
-	    }
-	    //分页数据回调
-	    function paginationCallback(pageIndex, tSV, aSV, mSV, jq) {
-	        $.ajax({
-	            type: "post",
-	            url: basePath+"/forehead/personal/topSixData",
-	            data: {"nowpage": pageIndex+1, "pageSize": 6, "sortT":"title","title":tSV,"sortA":"author","author":aSV,"sortM":"time","time":mSV},
-	            dataType: "json",
-	            async: true,
-	            success: function (result) {
-	                result = result.rows;
-	                $("#personalSCId  tr:not(:first)").html("");
-                    var html = "";
-	                $.each(result, function (i, item) {
-	                    html += '<tr><td><a href="'+item.url+'" target="_blank">' +item.title + '</a></td><td>'+item.author+'</td><td>'+item.time+'</td><td>'+item.source+'</td><td>'+item.abstractZY+'</td><td>'+'<a class="a2" href='+item.url+'>删除</a></td></tr>';
-	                });
-                    $("#personalSCId").append(html);
-	            },
-	            error: function (XMLHttpRequest, textStatus, errorThrown) {
-	                alert('error...状态文本值：' + textStatus + " 异常信息：" + errorThrown);
-	                layer.msg('检索异常!');
-	            }
-	        });
-	    }
-
-	</script>
 </body>
-<script charset="utf-8"	src="${staticPath }/static/lsportal/js/personal/myorder.js"></script>
 </html>

@@ -35,14 +35,8 @@ public class PersonalScServiceImpl extends ServiceImpl<PersonalScMapper, Persona
 	@Override
 	public void selectSixData(PageInfo pageInfo) {
 		Page<Map<String, Object>> page = new Page<Map<String, Object>>(pageInfo.getNowpage(), pageInfo.getSize());
-		page.setOrderByField(pageInfo.getSortT());
-		page.setAsc(pageInfo.getTitle().equalsIgnoreCase("asc"));
-		/*page.setTitleByField(pageInfo.getSortT());
-		page.setTitleAsc(pageInfo.getTitle().equalsIgnoreCase("asc"));
-		page.setAuthorByField(pageInfo.getSortA());
-		page.setAuthorAsc(pageInfo.getAuthor().equalsIgnoreCase("asc"));
-		page.setTimeByField(pageInfo.getSortM());
-		page.setTimeAsc(pageInfo.getTime().equalsIgnoreCase("asc"));*/
+        page.setOrderByField(pageInfo.getSort());
+        page.setAsc(pageInfo.getOrder().equalsIgnoreCase("asc"));
 		List<Map<String, Object>> list = personalScMapper.selectPersonalPage(page, pageInfo.getCondition());
 		pageInfo.setRows(list);
 		pageInfo.setTotal(page.getTotal());
