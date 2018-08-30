@@ -3,12 +3,12 @@
 <mapper namespace="com.wf.industry.mapper.IndustryMapper">
 	<!-- 通用查询结果列 -->
 	<sql id="Base_Column_List">
-		id, title, create_time AS createTime, modify_time AS modifyTime
+		id, title, file_name AS fileName, create_time AS createTime, modify_time AS modifyTime
 	</sql>
 	
 	<select id="selectIndustryPage" resultType="Map">
 		SELECT
-		t.id, t.title AS title,t.create_time AS createTime,t.modify_time AS modifyTime
+		t.id, t.title AS title,t.file_name AS fileName,t.create_time AS createTime,t.modify_time AS modifyTime
 		FROM industry t where true
 			<if test=" title != null and title != '' ">
 				and t.title like  concat('%',#{title},'%')

@@ -13,11 +13,25 @@ public class Industry implements Serializable{
 	private Long id;
 	//产业库名称
 	private String title;
+	//产业库名称
+	private String fileName;
 	//创建时间
 	private Date createTime;
 	//修改时间
 	private Date modifyTime;
 	
+	public String getFileName() {
+		return fileName;
+	}
+
+
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}

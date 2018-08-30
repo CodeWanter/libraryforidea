@@ -6,17 +6,23 @@
 <script type="text/javascript" src="${staticPath}/static/lsportal/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="${staticPath}/static/lsportal/js/tools.tabs-1.0.4.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${staticPath}/static/lsportal/css/main.css" />
+<style type="text/css">
+	.LS2018_ZT_banner .ZT{
+	    width: 1000px;
+   		height: 250px;
+	}
+</style>
 </head>
 <body class="LS2018_body">
 	<div class="LS2018_main">
 		<%@ include file="/commons/head.jsp" %>
 		<div class="LS2018_bd Z_clearfix">
 			<div class="LS2018_MBX">
-				当前位置：&nbsp;<a href="#">首 页</a><span class="gt">&gt;</span>通知资讯
+				当前位置：&nbsp;<a href="${staticPath}/forehead/index">首 页</a><span class="gt">&gt;</span>通知资讯
 			</div>
 			<!-- 专题头部，不同专题用不同样式名 ZT1~ZT12 -->
-			<div class="LS2018_ZT_banner ZT1">
-				<div class="tt">高新装备及机器人产业</div>
+			<div class="LS2018_ZT_banner" style="height: 250px;width: 1000px;background-image:url(${staticPath}/static/lsportal/images/industry/${img});background-size: 100% 100%;">
+				<div class="tt">${title}</div>
 			</div>		
 			
 			<div class="LS2018_ZT_left">
@@ -117,7 +123,7 @@
 				
 				<div class="LS2018_ZT_adv">
 					<a href="#" target="_blank">
-						<img src="images/New_ZT_01B.jpg" /><!-- 根据不同专题，替换图片 New_ZT_01B ~ New_ZT_12B -->
+						<img src="${staticPath}/static/lsportal/images/New_ZT_01B.jpg" /><!-- 根据不同专题，替换图片 New_ZT_01B ~ New_ZT_12B -->
 					</a>
 				</div>
 				
@@ -171,50 +177,14 @@
 				</div>
 				<div class="ot_right">
 					<div class="list small">
-						<a href="#">
-							<span class="tt">生物医药产业</span>
-							<img src="images/New_ZT_02A.jpg" /> <!-- 此处为各专题banner图片 -->
-						</a>
-						<a href="#">
-							<span class="tt">新材料产业</span>
-							<img src="images/New_ZT_03A.jpg" />
-						</a>
-						<a href="#">
-							<span class="tt">电子信息产业</span>
-							<img src="images/New_ZT_04A.jpg" />
-						</a>
-						<a href="#">
-							<span class="tt">节能环保产业</span>
-							<img src="images/New_ZT_05A.jpg" />
-						</a>
-						<a href="#">
-							<span class="tt">文化创意制造业</span>
-							<img src="images/New_ZT_06A.jpg" />
-						</a>
-						<a href="#">
-							<span class="tt">农林产品加工业</span>
-							<img src="images/New_ZT_07A.jpg" />
-						</a>
-						<a href="#">
-							<span class="tt">机械装备制造业</span>
-							<img src="images/New_ZT_08A.jpg" />
-						</a>
-						<a href="#">
-							<span class="tt">合成革制造业</span>
-							<img src="images/New_ZT_09A.jpg" />
-						</a>
-						<a href="#">
-							<span class="tt">羽绒和鞋革制品业</span>
-							<img src="images/New_ZT_10A.jpg" />
-						</a>
-						<a href="#">
-							<span class="tt">不锈钢及制品业</span>
-							<img src="images/New_ZT_11A.jpg" />
-						</a>
-						<a href="#">
-							<span class="tt">日用化工制造业</span>
-							<img src="images/New_ZT_12A.jpg" />
-						</a>
+						<c:forEach var="fld" items="${industrys}">
+							<c:if test="${fld.id != id}">
+								<a href="${staticPath}/industry/selectOneInfo?title=${fld.title}&fileName=${fld.fileName}&id=${fld.id}">
+									<span class="tt">${fld.title}</span>
+									<img src="${staticPath}/static/lsportal/images/industry/${fld.fileName}" alt=""/>
+								</a>
+							</c:if>
+						</c:forEach>
 					</div>
 					<div class="zk">
 						<a class="a1">展开 ↓</a><a class="a2">收起 ↑</a>

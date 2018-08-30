@@ -35,6 +35,8 @@ import com.wf.commons.base.BaseController;
 import com.wf.commons.shiro.PasswordHash;
 import com.wf.commons.shiro.captcha.DreamCaptcha;
 import com.wf.commons.utils.StringUtils;
+import com.wf.industry.service.IIndustryService;
+import com.wf.model.Industry;
 import com.wf.model.User;
 import com.wf.model.vo.UserVo;
 import com.wf.user.service.IUserService;
@@ -51,7 +53,8 @@ public class LoginController extends BaseController {
     private PasswordHash passwordHash;
     @Autowired
     private DreamCaptcha dreamCaptcha;
-
+	@Autowired
+	private IIndustryService industryService;
     /**
      * 首页
      *
@@ -70,6 +73,10 @@ public class LoginController extends BaseController {
      */
     @GetMapping("/forehead/index")
     public String home(Model model,HttpServletRequest request,HttpServletResponse response) {
+    	//将产业库信息传递给homepage页面
+    	List<Industry> selectAll = industryService.selectAll();
+    	model.addAttribute("industrys", selectAll);
+    	model.addAttribute("size", selectAll.size());
         return "homepage";
     }
 
