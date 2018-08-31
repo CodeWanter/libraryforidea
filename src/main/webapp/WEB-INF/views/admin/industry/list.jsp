@@ -1,4 +1,4 @@
-<%@ page language="java"  contentType="text/html; charset=UTF-8" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/commons/global.jsp" %>
 <script type="text/javascript">
     var industryDataGrid;
@@ -60,7 +60,6 @@
             width : 900,
             height : 600,
             href : '${path}/industry/create',
-            method : 'post',
             buttons : [ {
                 text : '添加',
                 handler : function() {
@@ -131,7 +130,7 @@
 </script>
 <div class="easyui-layout" data-options="fit:true,border:false">
     <div data-options="region:'north',border:false" style="height: 30px; overflow: hidden;background-color: #fff">
-        <form id="searchIndustryForm" method="post">
+        <form id="searchIndustryForm">
             <table>
                 <tr>
                     <th>产业库名称:</th>

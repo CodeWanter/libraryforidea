@@ -2,8 +2,11 @@ package com.wf.industry.service.impl;
 
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.wf.commons.result.PageInfo;
@@ -26,4 +29,14 @@ public class IndustryServiceImpl extends ServiceImpl<IndustryMapper, Industry> i
 		pageInfo.setRows(list);
 		pageInfo.setTotal(page.getTotal());
 	}
+    @Override
+    public List<Industry> selectAll() {
+        return selectAllByStatus();
+    }
+    private List<Industry> selectAllByStatus() {
+    	Industry industry = new Industry();
+        EntityWrapper<Industry> wrapper = new EntityWrapper<Industry>(industry);
+        wrapper.orderBy("modify_time");
+        return industryMapper.selectList(wrapper);
+    }
 }

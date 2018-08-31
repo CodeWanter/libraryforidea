@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +27,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 /**
  * @author huangjunqing
@@ -40,17 +39,17 @@ public class IndustryController extends BaseController {
 
 	@Autowired
 	private IIndustryService industryService;
-
-
-	/**
-	 * 注意：BaseController 中有xss过滤，会处理掉 ueditor 中的html
-	 * 
-	 * 所以你可以不继承它，或者注释掉BaseController中防止xss的代码
-	 * 
-	 * 毕竟管理平台几乎都是内网
-	 * 
-	 */
-	
+	//前台首页点击单个产业库信息
+	@GetMapping("selectOneInfo")
+	public String selectOneInfo(Model model,@RequestParam String title, @RequestParam String fileName, @RequestParam String id) {
+		model.addAttribute("title", title);
+		model.addAttribute("img", fileName);
+		model.addAttribute("id", id);
+		//根据id查出所有的产业库信息，排除id，传递给专题页面
+    	List<Industry> selectAll = industryService.selectAll();
+    	model.addAttribute("industrys", selectAll);
+		return "website/industry/industry_zt";
+	}
 	/*
 	 * 修改产业库信息
 	 */
@@ -58,12 +57,33 @@ public class IndustryController extends BaseController {
 	 * @param industry
 	 * @return
 	 * @throws ParseException
+	 * @throws IOException 
 	 */
 	@PostMapping("edit")
 	@ResponseBody
-	public Object edit(@Valid Industry industry) throws ParseException {
+	//@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public Object edit(@Valid Industry industry,@RequestParam MultipartFile[] pic,HttpServletRequest request) throws ParseException, IOException {
 		Date modifyTime= new java.sql.Date(new java.util.Date().getTime());
+		Date date = new Date();
 		industry.setModifyTime(modifyTime);
+		//删除旧图，上传新图
+		for(MultipartFile Pic : pic){  
+            if(Pic.isEmpty()){  
+            	return renderError("请选择文件进行上传！"); 
+            }else{  
+	            String realPath = request.getSession().getServletContext().getRealPath(CommonConstant.IMAGE_PATH);  
+	            File oldFile = new File(realPath,industry.getFileName());
+	            if (oldFile.exists()) {
+	            	oldFile.delete();
+	            	System.out.println("文件已删除!");
+				}else{
+					System.out.println("要删除的文件不存在!");
+				}
+	            String fileName = String.valueOf(date.getTime())+".jpg";
+	            FileUtils.copyInputStreamToFile(Pic.getInputStream(), new File(realPath, fileName));
+	            industry.setFileName(fileName);
+            }  
+        }
 		boolean isupdate = industryService.updateById(industry);
 		if(isupdate) {
 			return renderSuccess("修改成功！");
@@ -71,7 +91,6 @@ public class IndustryController extends BaseController {
 			return renderError("修改失败！");
 		}
 	}
-    
 	/*
 	 * 产品库后台列表页
 	 */
@@ -89,8 +108,8 @@ public class IndustryController extends BaseController {
 	 * @param order
 	 * @return
 	 */
+	@PostMapping("dataGrid")
 	@ResponseBody
-	@PostMapping("/dataGrid")
 	public Object dataGrid(Industry industry, Integer page, Integer rows, String sort, String order) {
 		PageInfo pageInfo = new PageInfo(page, rows, sort, order);
 		Map<String, Object> condition = new HashMap<String, Object>();
@@ -102,34 +121,17 @@ public class IndustryController extends BaseController {
 		industryService.selectDataGrid(pageInfo);
 		return pageInfo;
 	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public Object create(HttpServletRequest request) throws IOException {
-		//处理传递过来的图片
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		Iterator<String> fileNames = multipartRequest.getFileNames();
-		while (fileNames.hasNext()) {
-			String fileName = (String) fileNames.next();
-			MultipartFile Pic = multipartRequest.getFile(fileName);
-			
-	        if(Pic.isEmpty()){  
-	        	return renderError("请选择文件进行上传！"); 
-	        }else{  
-	            String realPath = request.getSession().getServletContext().getRealPath(CommonConstant.IMAGE_PATH);  
-	            String filename = "home_adv3_2.jpg";             
-	            //这里不必处理IO流关闭的问题，因为FileUtils.copyInputStreamToFile()方法内部会自动把用到的IO流关掉，我是看它的源码才知道的  
-	            FileUtils.copyInputStreamToFile(Pic.getInputStream(), new File(realPath, filename)); 
-	        } 
-		}
+	@GetMapping("create")
+	public String create(){
 		return "admin/industry/create";
 	}
+
     /**
      * 删除产业库信息
      * @param id
      * @return
      */
-    @PostMapping("/delete")
+    @PostMapping("delete")
     @ResponseBody
 	public Object delete(Long id) {
 		boolean isdelete = industryService.deleteById(id);
@@ -152,12 +154,25 @@ public class IndustryController extends BaseController {
 	 * 保存产业库信息
 	 * 
 	 * @param industry 
+	 * @throws IOException 
 	 */
-	@PostMapping("save")
-	@ResponseBody
-	public Object save(@Valid Industry industry) {
-		industry.setCreateTime(new Date());
-		industry.setModifyTime(new Date());
+    @PostMapping("save")
+    @ResponseBody
+	//@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public Object save(@Valid Industry industry,@RequestParam MultipartFile[] pic,HttpServletRequest request) throws IOException {
+		Date date = new Date();
+		industry.setCreateTime(date);
+		industry.setModifyTime(date);
+		for(MultipartFile Pic : pic){  
+            if(Pic.isEmpty()){  
+            	return renderError("请选择文件进行上传！"); 
+            }else{  
+	            String realPath = request.getSession().getServletContext().getRealPath(CommonConstant.IMAGE_PATH);  
+	            String fileName = String.valueOf(date.getTime())+".jpg";
+	            FileUtils.copyInputStreamToFile(Pic.getInputStream(), new File(realPath, fileName));
+	            industry.setFileName(fileName);
+            }  
+        }
 		boolean isAdded = industryService.insert(industry);
 		if (isAdded) {
 			return renderSuccess("添加成功！");

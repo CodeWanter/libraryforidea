@@ -224,42 +224,13 @@
 			<h1>产业库</h1>
 			<div class="slide_list">
 				<ul>
-					<li class="slide_p12"><a href="#"><img src="${staticPath }/static/lsportal/img/8.jpg" alt=""/>
-						<h3>高新装备及机器人产业</h3>
-					</a></li>
-					<li class="slide_p11"><a href="#"><img src="${staticPath }/static/lsportal/img/3.jpg" alt=""/>
-						<h3>新材料产业</h3>
-					</a></li>
-					<li class="slide_p10"><a href="#"><img src="${staticPath }/static/lsportal/img/1.jpg" alt=""/>
-						<h3>生物医药产业</h3>
-					</a></li>
-					<li class="slide_p9"><a href="#"><img src="${staticPath }/static/lsportal/img/2.jpg" alt=""/>
-						<h3>电子信息产业</h3>
-					</a></li>
-					<li class="slide_p8"><a href="#"><img src="${staticPath }/static/lsportal/img/7.jpg" alt=""/>
-						<h3>节能环保产业</h3>
-					</a></li>
-					<li class="slide_p7"><a href="#"><img src="${staticPath }/static/lsportal/img/9.jpg" alt=""/>
-						<h3>文化创意制造业</h3>
-					</a></li>
-					<li class="slide_p6"><a href="#"><img src="${staticPath }/static/lsportal/img/10.jpg" alt=""/>
-						<h3>农林产品加工业</h3>
-					</a></li>
-					<li class="slide_p5"><a href="#"><img src="${staticPath }/static/lsportal/img/11.jpg" alt=""/>
-						<h3>机械装备制造业</h3>
-					</a></li>
-					<li class="slide_p4"><a href="#"><img src="${staticPath }/static/lsportal/img/12.jpg" alt=""/>
-						<h3>合成革制造业</h3>
-					</a></li>
-					<li class="slide_p3"><a href="#"><img src="${staticPath }/static/lsportal/img/13.jpg" alt=""/>
-						<h3>羽绒和鞋革制品业</h3>
-					</a></li>
-					<li class="slide_p2"><a href="#"><img src="${staticPath }/static/lsportal/img/14.jpg" alt=""/>
-						<h3>不锈钢及制品业</h3>
-					</a></li>
-					<li class="slide_p1"><a href="#"><img src="${staticPath }/static/lsportal/img/7.jpg" alt=""/>
-						<h3>日用化工制造业</h3>
-					</a></li>
+					<c:forEach var="fld" items="${industrys}">
+						<li>
+							<a href="${staticPath}/industry/selectOneInfo?title=${fld.title}&fileName=${fld.fileName}&id=${fld.id}"><img src="${staticPath}/static/lsportal/images/industry/${fld.fileName}" alt=""/>
+								<h3>${fld.title}</h3>
+							</a>
+						</li>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>
