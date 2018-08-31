@@ -1,11 +1,6 @@
 package com.wf.article.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -153,13 +148,18 @@ public class KindEditorController {
     public void copyFile(MultipartFile file,File toFile) throws IOException{
         InputStream ins = file.getInputStream();
         OutputStream out = new FileOutputStream(toFile);
+        //添加缓冲流读写更快
+        BufferedInputStream bis = new BufferedInputStream(ins);
+        BufferedOutputStream bos = new BufferedOutputStream(out);
         byte[] b = new byte[1024];
         int n=0;
-        while((n=ins.read(b))!=-1){
-            out.write(b, 0, n);
+        while((n=bis.read(b))!=-1){
+            bos.write(b, 0, n);
         }
-        ins.close();
-        out.close();
+//        ins.close();
+//        out.close();
+        bos.close();
+        bis.close();
     }
     public void fileChannelCopy(File s, File t) {
         FileInputStream fi = null;

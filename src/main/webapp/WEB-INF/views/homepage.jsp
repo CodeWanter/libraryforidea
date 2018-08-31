@@ -713,7 +713,7 @@
     function lslibSearch() {
         var val = document.getElementById('txtKeyWord').value;
         var sid = $("#sid").val();
-        var searchUrl = "http://114.215.253.181:7007/search?&sid="+sid+"&q=";
+        var searchUrl = "http://www.baidu.com/search?&sid="+sid+"&q=";
         searchUrl = searchUrl + encodeURI(document.getElementById("txtKeyWord").value);
         window.open(searchUrl);
     }

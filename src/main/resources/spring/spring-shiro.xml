@@ -64,7 +64,7 @@
             <value>
                 <!-- 
                     anon  不需要认证
-                    authc 需要认证
+                    authc 需要认证 Subject. isAuthenticated()==true
                     user  验证通过或RememberMe登录的都可以
                 -->
                 /captcha.jpg = anon
