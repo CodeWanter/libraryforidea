@@ -5,6 +5,7 @@ package com.wf.industry.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,11 +19,20 @@ import com.wf.commons.base.BaseController;
 import com.wf.commons.result.PageInfo;
 import com.wf.commons.utils.CommonConstant;
 import com.wf.commons.utils.StringUtils;
+import com.wf.industry.service.DBMService;
 import com.wf.industry.service.IIndustryService;
+import com.wf.industry.service.ResFldInfoService;
+import com.wf.industry.service.ResInfoService;
 import com.wf.model.Industry;
+import com.wf.model.PersonalSc;
+import com.wf.model.ResFldInfo;
+import com.wf.model.ResInfo;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +49,21 @@ public class IndustryController extends BaseController {
 
 	@Autowired
 	private IIndustryService industryService;
+	@Autowired
+	private ResInfoService resInfoService;
+	@Autowired
+	private ResFldInfoService resFldInfoService;
+	@Autowired
+	private DBMService dbmService;
+	
+	private static ApplicationContext context = null;
+	private static JdbcTemplate jt=null;
+	public IndustryController() {
+		super();
+		context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		jt = (JdbcTemplate)context.getBean("jdbcTemplate");	
+	}
+	
 	//前台首页点击单个产业库信息
 	@GetMapping("selectOneInfo")
 	public String selectOneInfo(Model model,@RequestParam String title, @RequestParam String fileName, @RequestParam String id) {
@@ -71,12 +96,16 @@ public class IndustryController extends BaseController {
             if(Pic.isEmpty()){  
             	return renderError("请选择文件进行上传！"); 
             }else{  
-	            String realPath = request.getSession().getServletContext().getRealPath(CommonConstant.IMAGE_PATH);  
-	            File oldFile = new File(realPath,industry.getFileName());
-	            if (oldFile.exists()) {
-	            	oldFile.delete();
-	            	System.out.println("文件已删除!");
-				}else{
+            	String realPath = request.getSession().getServletContext().getRealPath(CommonConstant.IMAGE_PATH);  
+            	if (industry.getFileName() != null) {
+    	            File oldFile = new File(realPath,industry.getFileName());
+    	            if (oldFile.exists()) {
+    	            	oldFile.delete();
+    	            	System.out.println("文件已删除!");
+    				}else{
+    					System.out.println("要删除的文件不存在!");
+    				}
+				} else {
 					System.out.println("要删除的文件不存在!");
 				}
 	            String fileName = String.valueOf(date.getTime())+".jpg";
@@ -97,6 +126,47 @@ public class IndustryController extends BaseController {
 	@GetMapping("list")
 	public String list() {
 		return "admin/industry/list";
+	}
+	/*
+	 * 产品库后台自建库
+	 */
+	@GetMapping("resource")
+	public String resource() {
+		return "admin/industry/resource";
+	}
+	/**
+	 * 创建资源库和对应表
+	 * @param tableName
+	 */
+	@RequestMapping(value = "/createResource", method = RequestMethod.POST)
+	public  Object createTable(Model model, ResInfo res,HttpServletRequest request){
+		res.setResDate(new Date());
+        List<ResInfo> list = resInfoService.selectByRId(res.getResId());
+        if (list != null && !list.isEmpty()) {
+            return renderError("数据库中已有相同表名的表!");
+        } else {
+        	resInfoService.insertByRes(res);
+        }
+		//创建物理表
+        try {
+			boolean allTableName = dbmService.getAllTableName(jt,res.getResTblName());
+			if (allTableName == false) {
+				dbmService.addTables(jt, res.getResTblName(), "");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//跳转到字段列表页面，方便添加字段
+		//获取该库的所有字段
+		List<ResFldInfo> lstFld=resFldInfoService.ListResFld(res.getResId());
+		model.addAttribute("FldList", lstFld);
+		model.addAttribute("ResId", res.getResId());
+		return renderSuccess("表创建成功！");
+	}	
+	//跳到添加字段的页面
+	@GetMapping("addFldPage")
+	public String addFldPage() {
+		return "admin/industry/resource";
 	}
 	/**
 	 * 产业库管理列表
