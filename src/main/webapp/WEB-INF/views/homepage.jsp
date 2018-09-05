@@ -46,16 +46,16 @@
 				<nav class="main_nav">
 					<shiro:guest>
 					<ul>
-						<li><a class="cd-signin" href="#0">登录</a></li>
-						<li><a class="cd-signup" href="#0">注册</a></li>
+						<li><a class="cd-signin" href="#0" id="userlogin">登录</a></li>
+						<li><a class="" href="${staticPath }/forehead/userRegist">注册</a></li>
 					</ul>
 					</shiro:guest>
 				</nav>
 			</div>
 			<div class="cd-user-modal">
 				<div class="cd-user-modal-container">
-					<ul class="cd-switcher">
-						<li><a href="#0">用户登录</a></li>
+					<ul class="cd-switcher" style="font-size: medium;font-weight: bold">
+						<li style="width:100%;"><a href="#0" style="background-color: #4cbbe1;" >用户登录</a></li>
 						<%--<li><a href="#0">注册新用户</a></li>--%>
 					</ul>
 					<div id="cd-login"> <!-- 登录表单 -->
@@ -70,11 +70,9 @@
 								<input class="full-width has-padding has-border" id="password" lay-verify="pass" name="password" type="password"  placeholder="输入密码">
 							</p>
 							<p class="fieldset">
-								<label class="image-replace" for="captcha">验证码</label>
-								<input class="captcha" type="text" name="captcha"
-									   placeholder="请输入验证码" /> <img id="captcha" alt="验证码"
-																	src="${path }/captcha.jpg" data-src="${path }/captcha.jpg?t="
-																	style="vertical-align: middle; border-radius: 4px; width: 94.5px; height: 35px; cursor: pointer;">
+								<label class="image-replace cd-password" for="captcha">验证码</label>
+								<input class="captcha" style="height: 40px;text-indent: 50px;border: 1px solid #d2d8d8;" type="text" name="captcha" placeholder="请输入验证码" />
+								<img id="captcha" alt="验证码" src="${path }/captcha.jpg" data-src="${path }/captcha.jpg?t=" style="vertical-align: middle; border-radius: 4px; width: 94.5px; height: 35px; cursor: pointer;">
 							</p>
 							<p class="fieldset">
 								<input type="checkbox" id="rememberMe" name="rememberMe" checked value="1" >
@@ -87,7 +85,41 @@
 						</form>
 					</div>
 
-
+					<%--<div id="cd-signup"> <!-- 注册表单 -->--%>
+						<%--<form class="cd-form" method="post" id="registform" class="layui-form">--%>
+							<%--<input type="hidden" name="userType" value="1" />--%>
+							<%--<input type="hidden" name="status" value="0" />--%>
+							<%--<input type="hidden" name="roleIds" value="" />--%>
+							<%--<input type="hidden" name="name" value="" />--%>
+							<%--<p class="fieldset">--%>
+								<%--<label class="image-replace cd-username" for="loginName">用户名</label>--%>
+								<%--<input class="full-width has-padding has-border easyui-validatebox" required="true" id="loginName" name="loginName" type="text" placeholder="输入用户名">--%>
+							<%--</p>--%>
+							<%--<p class="fieldset">--%>
+								<%--<label class="image-replace cd-password" for="password">密码</label>--%>
+								<%--<input class="full-width has-padding has-border easyui-validatebox" validType="length[4,32]" required="true"  id="regpassword" name="password"  type="password"  placeholder="输入密码">--%>
+							<%--</p>--%>
+							<%--<p class="fieldset">--%>
+								<%--<label class="image-replace cd-password" for="comfimPassword">确认密码</label>--%>
+								<%--<input class="full-width has-padding has-border easyui-validatebox" type="password" id="comfimPassword"--%>
+									   <%--placeholder="请再次输入密码"  validType="eqPwd['#regpassword']" invalidMessage="两次输入密码不匹配">--%>
+							<%--</p>--%>
+							<%--<p class="fieldset">--%>
+								<%--<label class="image-replace" for="captcha">验证码</label>--%>
+								<%--<input class="captcha  easyui-validatebox" type="text" name="captcha" required="true"--%>
+									   <%--placeholder="请输入验证码" /> <img id="regcaptcha" alt="验证码"--%>
+																	<%--src="${path }/captcha.jpg" data-src="${path }/captcha.jpg?t="--%>
+																	<%--style="vertical-align: middle; border-radius: 4px; width: 94.5px; height: 35px; cursor: pointer;">--%>
+							<%--</p>--%>
+							<%--<p class="fieldset">--%>
+								<%--<input type="checkbox" id="accept-terms" name="acceptprotocol">--%>
+								<%--<label for="accept-terms">我已阅读并同意 <a href="${staticPath }/static/html/protocol.html" target="_blank">用户协议</a></label>--%>
+							<%--</p>--%>
+							<%--<p class="fieldset">--%>
+								<%--<input class="full-width2" type="submit" value="注册新用户">--%>
+							<%--</p>--%>
+						<%--</form>--%>
+					<%--</div>--%>
 
 					<a href="#0" class="cd-close-form">关闭</a>
 				</div>
@@ -96,7 +128,7 @@
 		<shiro:user>
 			<!--######  2018-08-06  ######-->
 			<div class="LS2018_home_top">
-				<span>当前用户：<b><shiro:principal property="name"/></b>
+				<span>当前用户：<b><shiro:principal/><shiro:principal property="name"/></b>
 					<a href="${staticPath }/forehead/personal/center">个人中心</a>
 				<a href="#" onclick="logout();">退出登录</a>
 				</span>
@@ -689,15 +721,6 @@
                 $("#news2").append(htmlr);
             });
         });
-/*         $.post(basePath + '/forehead/article/topTenData',{"title":"","type":1,"nowpage":2,"pageSize":5,"sort":"create_time","order":"desc"},function(result){
-            result = eval('(' + result + ')');
-            var data = result.rows;
-            $.each(result.rows, function (i, item) {
-                var html = "";
-                html += '<li><p><a class="biaoqian" href="${path }/forehead/article/detail?id='+ item.id +'">' + (i+1)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.createTime.substr(0,10)+'</span></li>';
-                $("#news2").append(html);
-            });
-        }); */
 //       type 2 --最新动态
         $.post(basePath + '/forehead/article/topTenData',{"title":"","type":2,"nowpage":1,"pageSize":10,"sort":"create_time","order":"desc"},function(result){
             result = eval('(' + result + ')');
@@ -714,15 +737,6 @@
             $("#trends1").append(htmll);
             $("#trends2").append(htmlr);
         });
-/*         $.post(basePath + '/forehead/article/topTenData',{"title":"","type":2,"nowpage":2,"pageSize":5,"sort":"create_time","order":"desc"},function(result){
-            result = eval('(' + result + ')');
-            var data = result.rows;
-            $.each(result.rows, function (i, item) {
-                var html = "";
-                html += '<li><p><a class="biaoqian" href="${path }/forehead/article/detail?id='+ item.id +'">' + (i+6)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.createTime.substr(0,10)+'</span></li>';
-                $("#trends2").append(html);
-            });
-        }); */
         //每日更新
         $.post(basePath + '/forehead/collect/topTenData',{"title":"","nowpage":1,"pageSize":10,"sort":"collect_time","order":"desc"},function(result){
             result = eval('(' + result + ')');
@@ -739,15 +753,6 @@
             $("#collect1").append(htmll);
             $("#collect2").append(htmlr);
         });
-/*         $.post(basePath + '/forehead/collect/topTenData',{"title":"","nowpage":2,"pageSize":5,"sort":"collect_time","order":"desc"},function(result){
-            result = eval('(' + result + ')');
-            var data = result.rows;
-            $.each(result.rows, function (i, item) {
-                var html = "";
-                html += '<li><p><a class="biaoqian" href="'+item.url+'" target="_blank">' + (i+6)+'、'+item.title + '</a></p><span style="font-size: 12px;color:#888888">'+item.collectTime.substr(0,10)+'</span></li>';
-                $("#collect2").append(html);
-            });
-        }); */
     });
     layui.use([ 'form' ], function() {
         var form = layui.form, layer = layui.layer;

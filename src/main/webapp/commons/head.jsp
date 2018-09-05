@@ -7,7 +7,25 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<script type="text/javascript">
+    function logout(){
+        $.post(basePath + '/logout', function(result) {
+             if(result.success){
+                  window.location.href = basePath + '/';
+             }
+        }, 'json');
+    }
+</script>
+
 <div class="LS2018_hd">
+<shiro:user>
+    <div class="LS2018_home_top" style="float: right;margin: 10px;">
+				<span>当前用户：<b><shiro:principal property="name"/></b>
+					<a href="${staticPath }/forehead/personal/center">个人中心</a>
+				<a href="#" onclick="logout();">退出登录</a>
+				</span>
+    </div>
+    </shiro:user>
     <ul class="LS2018_nav">
         <li><a href="${staticPath}/">首  页</a></li>
         <li><a href="#">科技服务</a>

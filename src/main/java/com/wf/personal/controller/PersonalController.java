@@ -63,6 +63,12 @@ public class PersonalController  extends BaseController {
 	@ResponseBody
     @PostMapping("/centerEdit")
 	public Object centerEdit(Model model,User newUser) {
+		if (StringUtils.isBlank(newUser.getEmail())) {
+			return renderError("Email不能为空！");
+		}
+		if (newUser.getIndustry().equals("/")) {
+			return renderError("行业不能为空！");
+		}
 		if (SecurityUtils.getSubject().isAuthenticated()||SecurityUtils.getSubject().isRemembered()) {
 			Long userId = getUserId();
 			newUser.setId(userId);
