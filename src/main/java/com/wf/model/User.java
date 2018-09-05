@@ -50,6 +50,17 @@ public class User implements Serializable {
 	/** 创建时间 */
 	private Date createTime;
 
+	//	邮箱
+	private String email;
+
+	//  行业
+	private String industry;
+
+	//  学历
+	private String education;
+
+	//	职称
+	private String professor;
 
 	public Long getId() {
 		return this.id;
@@ -145,6 +156,38 @@ public class User implements Serializable {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+
+	public String getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(String professor) {
+		this.professor = professor;
 	}
 
 	@Override

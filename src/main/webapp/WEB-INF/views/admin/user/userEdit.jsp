@@ -99,6 +99,18 @@
 						style="width: 140px; height: 29px;" /></td>
 				</tr>
 				<tr>
+					<td>Email</td>
+					<td><input name="email" type="text" placeholder="请输入Email" class="easyui-validatebox" data-options="required:true" value="${user.email}"></td>
+					<td>行业</td>
+					<td><input name="industry" type="text" placeholder="请输入行业" class="easyui-validatebox" data-options="required:true" value="${user.industry}"></td>
+				</tr>
+				<tr>
+					<td>学历</td>
+					<td><input name="education" type="text" placeholder="请输入学历" class="easyui-validatebox" value="${user.education}"></td>
+					<td>职称</td>
+					<td><input name="professor" type="text" placeholder="请输入职称" class="easyui-validatebox" value="${user.professor}"></td>
+				</tr>
+				<tr>
 					<td>电话</td>
 					<td><input type="text" name="phone" class="easyui-numberbox"
 						value="${user.phone}" /></td>
