@@ -74,6 +74,7 @@
                 /login = anon
                 /add =anon
                 /forehead/** =anon <!--前台不需要验证用户的请求以forehead开头-->
+                /logmanage/add =anon
                 /** = user
             </value>
         </property>

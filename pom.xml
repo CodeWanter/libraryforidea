@@ -170,6 +170,11 @@
             <version>${poi.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.7</version>
+        </dependency>
         <!-- ehcache和redis必选其一，也可同时使用（需要注意） -->
         <dependency>
             <groupId>net.sf.ehcache</groupId>

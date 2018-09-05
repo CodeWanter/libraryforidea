@@ -212,3 +212,6 @@
 	</div>
 </body>
 </html>
+<script type="text/javascript">
+	$.post("${staticPath}/logmanage/add",{userid:1,t:"专题浏览"},"json");
+</script>
