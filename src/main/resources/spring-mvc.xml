@@ -11,8 +11,8 @@
     http://www.springframework.org/schema/mvc 
     http://www.springframework.org/schema/mvc/spring-mvc.xsd
     http://www.springframework.org/schema/aop
-    http://www.springframework.org/schema/aop/spring-aop.xsd">
-
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    ">
     <mvc:annotation-driven/>
     <!-- aspectj aop启用CGliB代理 -->
     <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
@@ -62,7 +62,6 @@
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
     </bean>
     <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
-    
     <!-- 使用spring servlet3.0 默认上传 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
     
