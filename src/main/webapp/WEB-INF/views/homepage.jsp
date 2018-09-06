@@ -91,7 +91,7 @@
 		<shiro:user>
 			<!--######  2018-08-06  ######-->
 			<div class="LS2018_home_top">
-				<span>当前用户：<b><shiro:principal/><shiro:principal property="name"/></b>
+				<span>当前用户：<b><shiro:principal/></b>
 					<a href="${staticPath }/forehead/personal/center">个人中心</a>
 				<a href="#" onclick="logout();">退出登录</a>
 				</span>
