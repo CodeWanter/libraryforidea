@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowCountCallbackHandler;
 import org.springframework.stereotype.Service;
 
 import com.wf.industry.service.AbstractService;
@@ -24,18 +27,23 @@ public class DBMServiceImpl implements DBMService{
 		StringBuffer sb = new StringBuffer("");
 		sb.append("CREATE TABLE `"+tableName+"` (");
 		sb.append(" `id` int(11) NOT NULL AUTO_INCREMENT,");	
-		sb.append(" `pubFlag` int(11) DEFAULT  NULL ,");
-		sb.append(" `categoryId` varchar(64) DEFAULT  NULL ,");
+		sb.append(" `title` varchar(256) DEFAULT  NULL ,");
+		sb.append(" `type` varchar(256) DEFAULT  NULL ,");
+		sb.append(" `content` text DEFAULT  NULL ,");
 		sb.append(" `createTime` datetime DEFAULT  NULL ,");
 		sb.append(" `editTime` datetime DEFAULT  NULL ,");
-		sb.append(" `userId` int(11) DEFAULT  NULL ,");
-		sb.append(" `checkedUserId` int(11) DEFAULT  NULL ,");
-		sb.append(" `updatedUserId` int(11) DEFAULT  NULL ,");
-		sb.append(" `isGather` int(2) DEFAULT  1 COMMENT '是否属于采集(0:是，1:否)' ,");
-		sb.append(" `deleted` int(2) DEFAULT  1 COMMENT '是否删除(0:是，1:否)' ,");
-		sb.append(" PRIMARY KEY (`id`) ,");
-		sb.append(" INDEX `isGather` (`isGather`) USING BTREE ");
+		sb.append(" PRIMARY KEY (`id`) ");
 		sb.append(") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+		try {
+			jt.update(sb.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Override
+	public void deleteTables(JdbcTemplate jt, String tableName, String string) {
+		StringBuffer sb = new StringBuffer("");
+		sb.append("DROP TABLE `"+tableName+"`");
 		try {
 			jt.update(sb.toString());
 		} catch (Exception e) {
@@ -68,5 +76,17 @@ public class DBMServiceImpl implements DBMService{
 			conn.close();
 		}
 		return false;
+	}
+	@Override
+	public List selectDataGrid(JdbcTemplate jt, String resTblName, String string) {
+		StringBuffer sb = new StringBuffer("");
+		sb.append("SELECT * FROM`"+resTblName+"`");
+		try {
+			List query = jt.query(sb.toString(), new BeanPropertyRowMapper(resTblName.getClass()));
+			return query;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

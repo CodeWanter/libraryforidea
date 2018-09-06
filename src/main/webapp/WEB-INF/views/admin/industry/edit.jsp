@@ -9,12 +9,13 @@
 				<tr>
 					<td>产业库名称:</td>
 					<td><input class="easyui-textbox" type="text" name="title"
-						id="title" data-options="required:true" value="${industry.title}"></input></td>
+						id="title" data-options="required:true"></input></td>
 				</tr>
-
 				<tr>
 					<td>产业库图片:</td>
-					<td><br /><input type="file" name="pic"><br/></td>
+					<td><br/>
+			   	 		<input type="file" name="pic">
+					<br/></td>
 				</tr>
 			</table>
 		</form>
@@ -40,7 +41,7 @@
 					parent.$.modalDialog.handler.dialog('close');
 				} else {
 					var form = $('#industryEditForm');
-					parent.$.messager.alert('错误', eval(result.msg), 'error');
+					parent.$.messager.alert('错误', result.msg, 'error');
 				}
 			}
 		});

@@ -21,12 +21,14 @@ import com.wf.commons.utils.CommonConstant;
 import com.wf.commons.utils.StringUtils;
 import com.wf.industry.service.DBMService;
 import com.wf.industry.service.IIndustryService;
-import com.wf.industry.service.ResFldInfoService;
 import com.wf.industry.service.ResInfoService;
+import com.wf.industry.service.industryTableService;
+import com.wf.model.Article;
 import com.wf.model.Industry;
+import com.wf.model.IndustryData;
 import com.wf.model.PersonalSc;
-import com.wf.model.ResFldInfo;
 import com.wf.model.ResInfo;
+import com.wf.model.vo.ResVo;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +54,9 @@ public class IndustryController extends BaseController {
 	@Autowired
 	private ResInfoService resInfoService;
 	@Autowired
-	private ResFldInfoService resFldInfoService;
-	@Autowired
 	private DBMService dbmService;
+	@Autowired
+	private industryTableService itService;
 	
 	private static ApplicationContext context = null;
 	private static JdbcTemplate jt=null;
@@ -66,15 +68,23 @@ public class IndustryController extends BaseController {
 	
 	//前台首页点击单个产业库信息
 	@GetMapping("selectOneInfo")
-	public String selectOneInfo(Model model,@RequestParam String title, @RequestParam String fileName, @RequestParam String id) {
+	public String selectOneInfo(Model model,@RequestParam String title, @RequestParam String fileName, @RequestParam String id, @RequestParam String tableName) {
 		model.addAttribute("title", title);
 		model.addAttribute("img", fileName);
 		model.addAttribute("id", id);
+		model.addAttribute("tableName", tableName);
 		//根据id查出所有的产业库信息，排除id，传递给专题页面
     	List<Industry> selectAll = industryService.selectAll();
     	model.addAttribute("industrys", selectAll);
+    	//期刊 0   论文1     专利2   项目信息3   咨询4   科技成果5 ，根据id查   industry_data表里id数据
+    	
+    	ResInfo selectByRTblName = resInfoService.selectByRTblName(tableName);
+    	int resId = selectByRTblName.getResId();
+    	List<IndustryData> list = itService.selectByTableName(resId);
+    	model.addAttribute("list", list);
 		return "website/industry/industry_zt";
 	}
+	
 	/*
 	 * 修改产业库信息
 	 */
@@ -86,7 +96,6 @@ public class IndustryController extends BaseController {
 	 */
 	@PostMapping("edit")
 	@ResponseBody
-	//@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public Object edit(@Valid Industry industry,@RequestParam MultipartFile[] pic,HttpServletRequest request) throws ParseException, IOException {
 		Date modifyTime= new java.sql.Date(new java.util.Date().getTime());
 		Date date = new Date();
@@ -127,56 +136,17 @@ public class IndustryController extends BaseController {
 	public String list() {
 		return "admin/industry/list";
 	}
-	/*
-	 * 产品库后台自建库
-	 */
-	@GetMapping("resource")
-	public String resource() {
-		return "admin/industry/resource";
-	}
-	/**
-	 * 创建资源库和对应表
-	 * @param tableName
-	 */
-	@RequestMapping(value = "/createResource", method = RequestMethod.POST)
-	public  Object createTable(Model model, ResInfo res,HttpServletRequest request){
-		res.setResDate(new Date());
-        List<ResInfo> list = resInfoService.selectByRId(res.getResId());
-        if (list != null && !list.isEmpty()) {
-            return renderError("数据库中已有相同表名的表!");
-        } else {
-        	resInfoService.insertByRes(res);
-        }
-		//创建物理表
-        try {
-			boolean allTableName = dbmService.getAllTableName(jt,res.getResTblName());
-			if (allTableName == false) {
-				dbmService.addTables(jt, res.getResTblName(), "");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		//跳转到字段列表页面，方便添加字段
-		//获取该库的所有字段
-		List<ResFldInfo> lstFld=resFldInfoService.ListResFld(res.getResId());
-		model.addAttribute("FldList", lstFld);
-		model.addAttribute("ResId", res.getResId());
-		return renderSuccess("表创建成功！");
-	}	
-	//跳到添加字段的页面
-	@GetMapping("addFldPage")
-	public String addFldPage() {
-		return "admin/industry/resource";
-	}
+    /**
+     * 产业库资源树
+     */
+    @PostMapping(value = "/tree")
+    @ResponseBody
+    public Object tree() {
+        return resInfoService.selectTree();
+    }
 	/**
 	 * 产业库管理列表
-	 *
 	 * @param industry
-	 * @param page
-	 * @param rows
-	 * @param sort
-	 * @param order
-	 * @return
 	 */
 	@PostMapping("dataGrid")
 	@ResponseBody
@@ -204,6 +174,12 @@ public class IndustryController extends BaseController {
     @PostMapping("delete")
     @ResponseBody
 	public Object delete(Long id) {
+    	Industry selectById = industryService.selectById(id);
+    	String tableName = selectById.getTableName();
+    	//根据表名删除mysql中标以及res_info 中的信息
+    	dbmService.deleteTables(jt, tableName, "");
+    	resInfoService.deleteByTName(tableName);
+    	
 		boolean isdelete = industryService.deleteById(id);
 		if(isdelete) {
 			return renderSuccess("删除成功！");
@@ -228,26 +204,45 @@ public class IndustryController extends BaseController {
 	 */
     @PostMapping("save")
     @ResponseBody
-	//@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public Object save(@Valid Industry industry,@RequestParam MultipartFile[] pic,HttpServletRequest request) throws IOException {
-		Date date = new Date();
-		industry.setCreateTime(date);
-		industry.setModifyTime(date);
-		for(MultipartFile Pic : pic){  
-            if(Pic.isEmpty()){  
-            	return renderError("请选择文件进行上传！"); 
-            }else{  
-	            String realPath = request.getSession().getServletContext().getRealPath(CommonConstant.IMAGE_PATH);  
-	            String fileName = String.valueOf(date.getTime())+".jpg";
-	            FileUtils.copyInputStreamToFile(Pic.getInputStream(), new File(realPath, fileName));
-	            industry.setFileName(fileName);
-            }  
+	public Object save(@Valid Industry industry,ResInfo res,@RequestParam MultipartFile[] pic,HttpServletRequest request) throws IOException {
+        ResInfo info = resInfoService.selectByRTblName(res.getResTblName());
+        if (info != null) {
+            return renderError("数据库中已有相同表名的表!");
+        } else {
+    		Date date = new Date();
+    		industry.setCreateTime(date);
+    		industry.setModifyTime(date);
+    		industry.setTableName(res.getResTblName());
+    		for(MultipartFile Pic : pic){  
+                if(Pic.isEmpty()){  
+                	return renderError("请选择文件进行上传！"); 
+                }else{  
+    	            String realPath = request.getSession().getServletContext().getRealPath(CommonConstant.IMAGE_PATH);  
+    	            String fileName = String.valueOf(date.getTime())+".jpg";
+    	            FileUtils.copyInputStreamToFile(Pic.getInputStream(), new File(realPath, fileName));
+    	            industry.setFileName(fileName);
+                }  
+            }
+    		//res_info
+        	resInfoService.insertByRes(res);
+    		//创建物理表
+            try {
+    			boolean allTableName = dbmService.getAllTableName(jt,res.getResTblName());
+    			if (allTableName == false) {
+    				dbmService.addTables(jt, res.getResTblName(), "");
+    			}else{
+    				 return renderError("数据库中已有相同表名的表!创建物理表失败!");
+    			}
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		}
+        	//industry
+            boolean isAdded = industryService.insert(industry);
+    		if (isAdded) {
+    			return renderSuccess("添加成功！");
+    		} else {
+    			return renderError("添加失败！");
+    		}
         }
-		boolean isAdded = industryService.insert(industry);
-		if (isAdded) {
-			return renderSuccess("添加成功！");
-		} else {
-			return renderError("添加失败！");
-		}
 	}
 }

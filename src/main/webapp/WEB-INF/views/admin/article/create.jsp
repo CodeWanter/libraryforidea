@@ -42,7 +42,7 @@
 		$('#articleForm').form({
 			url : '${path }/articleback/save',
 			onSubmit : function(param) {
-				param.content =  encodeURIComponent(keditor.html());
+				param.content =  keditor.html();
 				progressLoad();
 				var isValid = $(this).form('validate');
 				if (!isValid) {

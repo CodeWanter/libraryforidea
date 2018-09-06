@@ -3,12 +3,28 @@
 <mapper namespace="com.wf.industry.mapper.ResInfoMapper">
 	<!-- 通用查询结果列 -->
 	<sql id="Base_Column_List">
-		resId, resName, resTblName AS resTblName, resDesc AS resDesc
+		res_id AS resId, res_name AS resName, res_tbl_name AS resTblName, res_desc AS resDesc
 	</sql>
 	
 	<select id="getAllTableName" resultType="Map">
 		SELECT
-		t.resId, t.resName AS resName,t.resTblName AS resTblName,t.resDesc AS resDesc
-		FROM tb_res t where true
+		t.res_id  AS resId, t.res_name AS resName,t.res_tbl_name AS resTblName,t.res_desc AS resDesc
+		FROM res_info t where true
+	</select>
+	<select id="selectByTName" resultType="ResInfo">
+		SELECT
+		t.res_id  AS resId, t.res_name AS resName,t.res_tbl_name AS resTblName,t.res_desc AS resDesc
+		FROM res_info t 
+        <where>
+            t.res_tbl_name = #{resTblName}
+        </where>
+	</select>
+	<select id="selectById" resultType="ResInfo">
+		SELECT
+		t.res_id  AS resId, t.res_name AS resName,t.res_tbl_name AS resTblName,t.res_desc AS resDesc
+		FROM res_info t 
+        <where>
+            t.res_id = #{resId}
+        </where>
 	</select>
 </mapper>
