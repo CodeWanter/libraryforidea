@@ -56,7 +56,7 @@ public class ResInfoServiceImpl extends ServiceImpl<ResInfoMapper, ResInfo> impl
             for (ResInfo organization : organizationList) {
                 Tree tree = new Tree();
                 tree.setId((long) organization.getResId());
-                tree.setText(organization.getResTblName());
+                tree.setText(organization.getResName());
                 tree.setIconCls("glyphicon-send ");
                 trees.add(tree);
             }

@@ -9,8 +9,8 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="edit_time" property="editTime" jdbcType="TIMESTAMP"/>
         <result column="auditing" property="auditing" jdbcType="INTEGER"/>
-        <result column="resTblName" property="resTblName" jdbcType="VARCHAR"/>
-        <result column="tableName" property="tableName" jdbcType="INTEGER"/>
+        <result column="res_tbl_name" property="resTblName" jdbcType="VARCHAR"/>
+        <result column="table_name" property="tableName" jdbcType="INTEGER"/>
     </resultMap>
 	<!-- 通用查询结果列 -->
 	<sql id="Base_Column_List">

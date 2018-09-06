@@ -2,10 +2,10 @@
 <%@ include file="/commons/global.jsp" %>
 <script type="text/javascript">
     var industryEachDataGrid;
-    var organizationTree;
+    var industryEachTree;
 
     $(function() {
-        organizationTree = $('#organizationTree').tree({
+        industryEachTree = $('#industryEachTree').tree({
             url : '${path}/industryEach/tree',
             onClick : function(node) {
                 industryEachDataGrid.datagrid('load', {
@@ -171,7 +171,7 @@
         <table id="industryEachDataGrid" data-options="fit:true,border:false"></table>
     </div>
     <div data-options="region:'west',border:true,split:false,title:'产业库'"  style="width:150px;overflow: hidden; ">
-        <ul id="organizationTree" style="width:160px;margin: 10px 10px 10px 10px"></ul>
+        <ul id="industryEachTree" style="width:160px;margin: 10px 10px 10px 10px"></ul>
     </div>
 </div>
 <div id="industryEachToolbar" style="display: none;">
