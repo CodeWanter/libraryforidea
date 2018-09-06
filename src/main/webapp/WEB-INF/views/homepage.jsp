@@ -84,43 +84,6 @@
 							</p>
 						</form>
 					</div>
-
-					<%--<div id="cd-signup"> <!-- 注册表单 -->--%>
-						<%--<form class="cd-form" method="post" id="registform" class="layui-form">--%>
-							<%--<input type="hidden" name="userType" value="1" />--%>
-							<%--<input type="hidden" name="status" value="0" />--%>
-							<%--<input type="hidden" name="roleIds" value="" />--%>
-							<%--<input type="hidden" name="name" value="" />--%>
-							<%--<p class="fieldset">--%>
-								<%--<label class="image-replace cd-username" for="loginName">用户名</label>--%>
-								<%--<input class="full-width has-padding has-border easyui-validatebox" required="true" id="loginName" name="loginName" type="text" placeholder="输入用户名">--%>
-							<%--</p>--%>
-							<%--<p class="fieldset">--%>
-								<%--<label class="image-replace cd-password" for="password">密码</label>--%>
-								<%--<input class="full-width has-padding has-border easyui-validatebox" validType="length[4,32]" required="true"  id="regpassword" name="password"  type="password"  placeholder="输入密码">--%>
-							<%--</p>--%>
-							<%--<p class="fieldset">--%>
-								<%--<label class="image-replace cd-password" for="comfimPassword">确认密码</label>--%>
-								<%--<input class="full-width has-padding has-border easyui-validatebox" type="password" id="comfimPassword"--%>
-									   <%--placeholder="请再次输入密码"  validType="eqPwd['#regpassword']" invalidMessage="两次输入密码不匹配">--%>
-							<%--</p>--%>
-							<%--<p class="fieldset">--%>
-								<%--<label class="image-replace" for="captcha">验证码</label>--%>
-								<%--<input class="captcha  easyui-validatebox" type="text" name="captcha" required="true"--%>
-									   <%--placeholder="请输入验证码" /> <img id="regcaptcha" alt="验证码"--%>
-																	<%--src="${path }/captcha.jpg" data-src="${path }/captcha.jpg?t="--%>
-																	<%--style="vertical-align: middle; border-radius: 4px; width: 94.5px; height: 35px; cursor: pointer;">--%>
-							<%--</p>--%>
-							<%--<p class="fieldset">--%>
-								<%--<input type="checkbox" id="accept-terms" name="acceptprotocol">--%>
-								<%--<label for="accept-terms">我已阅读并同意 <a href="${staticPath }/static/html/protocol.html" target="_blank">用户协议</a></label>--%>
-							<%--</p>--%>
-							<%--<p class="fieldset">--%>
-								<%--<input class="full-width2" type="submit" value="注册新用户">--%>
-							<%--</p>--%>
-						<%--</form>--%>
-					<%--</div>--%>
-
 					<a href="#0" class="cd-close-form">关闭</a>
 				</div>
 			</div>
@@ -224,7 +187,7 @@
 				<ul>
 					<c:forEach var="fld" items="${industrys}">
 						<li>
-							<a href="${staticPath}/industry/selectOneInfo?title=${fld.title}&fileName=${fld.fileName}&id=${fld.id}&tableName=${fld.tableName}"><img src="${staticPath}/static/lsportal/images/industry/${fld.fileName}" alt=""/>
+							<a href="${staticPath}/industry/selectOneInfo?title=${fld.title}&fileName=${fld.fileName}&id=${fld.id}"><img src="${staticPath}/static/lsportal/images/industry/${fld.fileName}" alt=""/>
 								<h3>${fld.title}</h3>
 							</a>
 						</li>
