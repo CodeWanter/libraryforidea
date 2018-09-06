@@ -13,7 +13,23 @@
 				<tr>
 					<td>产业库图片:</td>
 					<td><br/>
-				    <input type="file" name="pic">
+			   	 		<input type="file" name="pic">
+					<br/></td>
+				</tr>
+				<tr>
+					<td>库名：</td>
+					<td><br/>
+				    	<input name="resName" lay-verify="required" autocomplete="off" placeholder="请输入库名" class="layui-input" type="text">
+					<br/></td>
+				</tr>
+					<td>表名：</td>
+					<td><br/>
+				    	<input name="resTblName" lay-verify="required" placeholder="请输入表名" autocomplete="off" class="layui-input" type="text">
+					<br/></td>
+				</tr>
+					<td>描述：</td>
+					<td><br/>
+				    	<input name="resDesc" lay-verify="required" placeholder="请输入描述" autocomplete="off" class="layui-input" type="text">
 					<br/></td>
 				</tr>
 			</table>
@@ -38,30 +54,12 @@
 				if (result.success) {
  					parent.$.modalDialog.openner_dataGrid.datagrid('reload');//之所以能在这里调用到parent.$.modalDialog.openner_dataGrid这个对象，是因为user.jsp页面预定义好了
 					parent.$.modalDialog.handler.dialog('close'); 
-					//产业库图片和标题名添加成功，就跳到自建库表的创建页
-					createResource();
 				} else {
 					var form = $('#industryForm');
-					parent.$.messager.alert('错误', eval(result.msg), 'error');
+					console.log(result);
+					parent.$.messager.alert('错误', result.msg, 'error');
 				}
 			}
 		});
 	});
-	
-    function createResource() {
-        parent.$.modalDialog({
-            title : '新建关系数据库资源',
-            width : 900,
-            height : 600,
-            href : '${path}/industry/resource',
-            buttons : [ {
-                text : '新建',
-                handler : function() {
-                    parent.$.modalDialog.openner_dataGrid = industryDataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
-                    var f = parent.$.modalDialog.handler.find('#industryCreateResourceForm');
-                    f.submit();
-                }
-            } ]
-        });
-    }
 </script>

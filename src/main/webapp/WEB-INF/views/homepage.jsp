@@ -224,7 +224,7 @@
 				<ul>
 					<c:forEach var="fld" items="${industrys}">
 						<li>
-							<a href="${staticPath}/industry/selectOneInfo?title=${fld.title}&fileName=${fld.fileName}&id=${fld.id}"><img src="${staticPath}/static/lsportal/images/industry/${fld.fileName}" alt=""/>
+							<a href="${staticPath}/industry/selectOneInfo?title=${fld.title}&fileName=${fld.fileName}&id=${fld.id}&tableName=${fld.tableName}"><img src="${staticPath}/static/lsportal/images/industry/${fld.fileName}" alt=""/>
 								<h3>${fld.title}</h3>
 							</a>
 						</li>

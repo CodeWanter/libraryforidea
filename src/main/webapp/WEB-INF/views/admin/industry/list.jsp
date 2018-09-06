@@ -70,7 +70,6 @@
             } ]
         });
     }
-    
     function deleteIndustryFun(id) {
         if (id == undefined) {//点击右键菜单才会触发这个
             var rows = industryDataGrid.datagrid('getSelections');

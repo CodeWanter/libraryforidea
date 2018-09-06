@@ -34,18 +34,11 @@
 					<div class="card_div">
 						<div>
 							<ul>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛1</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
+								<c:forEach var="data" items="${list}">
+									<c:if test="${data.type.equals('0')}">
+										<li><a href="${staticPath}/industryEach/detail?id=${data.id}">${data.title}</a></li>
+									</c:if>
+								</c:forEach>
 							</ul>
 							<div class="more">
 								<a href="#">more &gt;</a>
@@ -53,18 +46,11 @@
 						</div>
 						<div>
 							<ul>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛2</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
-								<li><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></li>
+								<c:forEach var="data" items="${list}">
+									<c:if test="${data.type.equals('1')}">
+										<li><a href="${staticPath}/industryEach/detail?id=${data.id}">${data.title}</a></li>
+									</c:if>
+								</c:forEach>
 							</ul>
 							<div class="more">
 								<a href="#">more &gt;</a>
@@ -89,27 +75,21 @@
 					<div class="card_div">
 						<div>
 							<ul>
-								<li>· <a href="#">聚焦“供给侧结构性改革”1</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
+								<c:forEach var="data" items="${list}">
+									<c:if test="${data.type.equals('2')}">
+										<li>· <a href="${staticPath}/industryEach/detail?id=${data.id}">${data.title}</a></li>
+									</c:if>
+								</c:forEach>
 							</ul>
 							<a class="more" href="#">more &gt;</a>
 						</div>
 						<div>
 							<ul>
-								<li>· <a href="#">聚焦“供给侧结构性改革”2</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
+								<c:forEach var="data" items="${list}">
+									<c:if test="${data.type.equals('3')}">
+										<li>· <a href="${staticPath}/industryEach/detail?id=${data.id}">${data.title}</a></li>
+									</c:if>
+								</c:forEach>
 							</ul>
 							<a class="more" href="#">more &gt;</a>
 						</div>
@@ -135,27 +115,21 @@
 					<div class="card_div">
 						<div>
 							<ul>
-								<li>· <a href="#">聚焦“供给侧结构性改革”1</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
+								<c:forEach var="data" items="${list}">
+									<c:if test="${data.type.equals('4')}">
+										<li>· <a href="${staticPath}/industryEach/detail?id=${data.id}">${data.title}</a></li>
+									</c:if>
+								</c:forEach>
 							</ul>
 							<a class="more" href="#">more &gt;</a>
 						</div>
 						<div>
 							<ul>
-								<li>· <a href="#">聚焦“供给侧结构性改革”2</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
-								<li>· <a href="#">聚焦“供给侧结构性改革”</a></li>
+								<c:forEach var="data" items="${list}">
+									<c:if test="${data.type.equals('5')}">
+										<li>· <a href="${staticPath}/industryEach/detail?id=${data.id}">${data.title}</a></li>
+									</c:if>
+								</c:forEach>
 							</ul>
 							<a class="more" href="#">more &gt;</a>
 						</div>
@@ -179,7 +153,7 @@
 					<div class="list small">
 						<c:forEach var="fld" items="${industrys}">
 							<c:if test="${fld.id != id}">
-								<a href="${staticPath}/industry/selectOneInfo?title=${fld.title}&fileName=${fld.fileName}&id=${fld.id}">
+								<a href="${staticPath}/industry/selectOneInfo?title=${fld.title}&fileName=${fld.fileName}&id=${fld.id}&tableName=${fld.tableName}">
 									<span class="tt">${fld.title}</span>
 									<img src="${staticPath}/static/lsportal/images/industry/${fld.fileName}" alt=""/>
 								</a>
