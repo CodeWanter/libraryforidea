@@ -65,7 +65,7 @@
             var phone = $("#centrePhoneID").val();
             var email = $("#email").val();
             var industry = $("#industry1 option:selected").val()+"/"+$("#industry2 option:selected").val();
-            var education = $("#education option:selected").val()
+            var education = $("#educate option:selected").val();
             var professor = $("#professor").val();
 
             console.log(logName+","+name+","+sex+","+age+","+phone);
@@ -237,7 +237,7 @@
 							<td>
 								<input type="hidden" value="${user.education}" id="education"/>
 								<div class="layui-input-inline">
-									<select name="education">
+									<select name="education" id="educate">
 										<option value="" selected="">请选择学历</option>
 										<option value="小学">小学</option>
 										<option value="中学">中学</option>
@@ -425,9 +425,11 @@
                     return '请选择详细行业！';
             }
         });
+		if($("#education").val()!=""){
+            var select = 'dd[lay-value=' +$("#education").val() + ']';
+            $('select[name=education]').siblings("div.layui-form-select").find('dl').find(select).click();
+		}
 
-        var select = 'dd[lay-value=' +$("#education").val() + ']';
-        $('select[name=education]').siblings("div.layui-form-select").find('dl').find(select).click();
         var industry = $("#industry").val().split('/');
 
         $.get("${staticPath }/static/lsportal/json/industry.json", function (data) {
@@ -438,8 +440,10 @@
             //初始化省数据
             $("select[name=industry1]").append(proHtml);
             form.render();
-            var select = 'dd[lay-value=' + industry[0] + ']';
-            $('select[name=industry1]').siblings("div.layui-form-select").find('dl').find(select).click();
+            if(industry[0]!=""){
+                var select = 'dd[lay-value=' + industry[0] + ']';
+                $('select[name=industry1]').siblings("div.layui-form-select").find('dl').find(select).click();
+			}
         },"json")
 
 
@@ -460,8 +464,10 @@
                 //初始化省数据
                 $("select[name=industry2]").append(cityHtml);
                 form.render();
-                var select = 'dd[lay-value=' + industry[1] + ']';
-                $('select[name=industry2]').siblings("div.layui-form-select").find('dl').find(select).click();
+                if(industry[1]!="") {
+                    var select = 'dd[lay-value=' + industry[1] + ']';
+                    $('select[name=industry2]').siblings("div.layui-form-select").find('dl').find(select).click();
+                }
             },"json")
         });
     });

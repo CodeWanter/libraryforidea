@@ -16,7 +16,6 @@
         $("#industryEditAuditing").val('${industryEach.auditing}');
         $("#industryEditType").val('${industryEach.type}');
         $("#industryEditTitle").val('${industryEach.title}');
-        $("#kindeditor").val('${industryEach.content}');
 		kedit("kindeditor");
 		$('#eachEditForm').form({
 			url : '${path}/industryEach/edit',
@@ -91,7 +90,7 @@
                 </tr>
                 <tr>
 					<td>内容:</td>
-					<td><br /> <textarea name="kindeditor" id="kindeditor" class="xt_textarea"></textarea> <br/></td>
+					<td><br /> <textarea name="kindeditor" id="kindeditor" class="xt_textarea">${industryEach.content}</textarea> <br/></td>
 				</tr>
             </table>
 		</form>
