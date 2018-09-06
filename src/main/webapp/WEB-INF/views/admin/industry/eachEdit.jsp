@@ -17,7 +17,6 @@
         $("#industryEditType").val('${industryEach.type}');
         $("#industryEditTitle").val('${industryEach.title}');
 		var kindeditor = kedit("kindeditor");
-        //kindeditor.html('');
 
         $('#eachEditForm').form({
 			url : '${path}/industryEach/edit',
