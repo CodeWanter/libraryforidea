@@ -16,9 +16,10 @@
         $("#industryEditAuditing").val('${industryEach.auditing}');
         $("#industryEditType").val('${industryEach.type}');
         $("#industryEditTitle").val('${industryEach.title}');
-        $("#kindeditor").val('${industryEach.content}');
-		kedit("kindeditor");
-		$('#eachEditForm').form({
+		var kindeditor = kedit("kindeditor");
+        //kindeditor.html('');
+
+        $('#eachEditForm').form({
 			url : '${path}/industryEach/edit',
 			onSubmit : function(param) {
 				param.content =  keditor.html();
@@ -65,7 +66,7 @@
 	        <table class="grid">
                 <tr>
                     <td>题名:</td>
-                    <td><input id="industryEditTitle" name="title" type="text" placeholder="请输入登录名称" class="easyui-validatebox" data-options="required:true" value=""></td>
+                    <td><input id="industryEditTitle" name="title" type="text" placeholder="请输入题名" class="easyui-validatebox" data-options="required:true" value=""></td>
                 </tr>
                 <tr>
                     <td>审核:</td>
@@ -91,7 +92,7 @@
                 </tr>
                 <tr>
 					<td>内容:</td>
-					<td><br /> <textarea name="kindeditor" id="kindeditor" class="xt_textarea"></textarea> <br/></td>
+					<td><br /> <textarea name="kindeditor" id="kindeditor" class="xt_textarea">${industryEach.content}</textarea> <br/></td>
 				</tr>
             </table>
 		</form>
