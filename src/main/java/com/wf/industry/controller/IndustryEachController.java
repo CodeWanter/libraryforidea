@@ -3,40 +3,27 @@
  */
 package com.wf.industry.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.wf.commons.base.BaseController;
 import com.wf.commons.result.PageInfo;
-import com.wf.commons.utils.CommonConstant;
-import com.wf.industry.service.DBMService;
+import com.wf.commons.utils.StringUtils;
 import com.wf.industry.service.IIndustryService;
-import com.wf.industry.service.ResInfoService;
-import com.wf.industry.service.industryTableService;
+import com.wf.industry.service.IIndustryTableService;
 import com.wf.model.Industry;
 import com.wf.model.IndustryData;
-import com.wf.model.ResInfo;
 import com.wf.model.vo.IndustryEachVo;
-import com.wf.model.vo.ResVo;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author huangjunqing
@@ -47,11 +34,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/industryEach")
 public class IndustryEachController extends BaseController {
 	@Autowired
-	private ResInfoService resInfoService;
-	@Autowired
 	private IIndustryService industryService;
 	@Autowired
-	private industryTableService itService;
+	private IIndustryTableService itService;
 
 	/*
 	 * 产品库后台数据页
@@ -66,27 +51,27 @@ public class IndustryEachController extends BaseController {
     @PostMapping(value = "/tree")
     @ResponseBody
     public Object tree() {
-        return resInfoService.selectTree();
+        return industryService.selectTree();
     }
     /**
      * 产业库信息列表页展示
      */
     @PostMapping("/dataEachGrid")
     @ResponseBody
-    public Object dataEachGrid(ResVo resVo, Integer page, Integer rows, String sort, String order) {
+    public Object dataEachGrid(IndustryData industryData, String createdateStart1,String createdateEnd1,Integer page, Integer rows, String sort, String order) {
         PageInfo pageInfo = new PageInfo(page, rows, sort, order);
         Map<String, Object> condition = new HashMap<String, Object>();
-        if (resVo.getName() != null) {
-        	condition.put("title", resVo.getName());
+        if (industryData.getTitle() != null) {
+            condition.put("title", industryData.getTitle());
         }
-        if (resVo.getTableName() != null) {
-            condition.put("tableName", resVo.getTableName());
+        if (industryData.getTableName() != null) {
+            condition.put("tableName", industryData.getTableName());
         }
-        if (resVo.getCreatedateStart1() != null) {
-            condition.put("startTime", resVo.getCreatedateStart1());
+        if (StringUtils.isNotBlank(createdateStart1)) {
+            condition.put("startTime", createdateStart1);
         }
-        if (resVo.getCreatedateEnd1() != null) {
-            condition.put("endTime", resVo.getCreatedateEnd1());
+        if (StringUtils.isNotBlank(createdateEnd1)) {
+            condition.put("endTime", createdateEnd1);
         }
         pageInfo.setCondition(condition);
         itService.selectDataGrid(pageInfo);
@@ -140,21 +125,5 @@ public class IndustryEachController extends BaseController {
         itService.deleteEachById(id);
         return renderSuccess("删除成功！");
     }
-    //详情页
-    @GetMapping("detail")
-    public Object detail(Model model,Long id) {
-    	//根据id查出该条信息详细信息
-    	IndustryData selectById = itService.selectById(id);
-    	Integer tableName = selectById.getTableName();
-    	String resTblName = resInfoService.selectById(tableName).getResTblName();
-      	List<Industry> selectAll = industryService.selectAll();
-      	for (int i = 0; i < selectAll.size(); i++) {
-			if(selectAll.get(i).getTableName().equals(resTblName)){
-				model.addAttribute("industry", selectAll.get(i));
-			}
-		}
-    	model.addAttribute("resTblName", resTblName);
-        model.addAttribute("list", selectById);
-        return "website/industry/detail";
-    }
+
 }

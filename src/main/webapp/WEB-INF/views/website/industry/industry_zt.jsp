@@ -6,6 +6,7 @@
 <script type="text/javascript" src="${staticPath}/static/lsportal/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="${staticPath}/static/lsportal/js/tools.tabs-1.0.4.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${staticPath}/static/lsportal/css/main.css" />
+	<title>${industry.title}</title>
 <style type="text/css">
 	.LS2018_ZT_banner .ZT{
 	    width: 1000px;
@@ -18,11 +19,11 @@
 		<%@ include file="/commons/head.jsp" %>
 		<div class="LS2018_bd Z_clearfix">
 			<div class="LS2018_MBX">
-				当前位置：&nbsp;<a href="${staticPath}/forehead/index">首 页</a><span class="gt">&gt;</span>${title}
+				当前位置：&nbsp;<a href="${staticPath}/forehead/index">首 页</a><span class="gt">&gt;</span>${industry.title}
 			</div>
 			<!-- 专题头部，不同专题用不同样式名 ZT1~ZT12 -->
-			<div class="LS2018_ZT_banner" style="height: 250px;width: 1000px;background-image:url(${staticPath}/static/lsportal/images/industry/${img});background-size: 100% 100%;">
-				<div class="tt">${title}</div>
+			<div class="LS2018_ZT_banner" style="height: 250px;width: 1000px;background-image:url(${staticPath}/static/lsportal/images/industry/${industry.fileName});background-size: 100% 100%;">
+				<div class="tt">${industry.title}</div>
 			</div>		
 			
 			<div class="LS2018_ZT_left">
@@ -34,26 +35,27 @@
 					<div class="card_div">
 						<div>
 							<ul>
-								<c:forEach var="data" items="${list}">
+								<%--${list.records}--%>
+								<c:forEach var="data" items="${list.records}">
 									<c:if test="${data.type.equals('0')}">
-										<li><a href="${staticPath}/industryEach/detail?id=${data.id}">${data.title}</a></li>
+										<li><a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}')">${data.title}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
 							<div class="more">
-								<a href="#">more &gt;</a>
+								<a href="${staticPath}/forehead/industry/list?id=${industry.id}&tid=0">more &gt;</a>
 							</div>
 						</div>
 						<div>
 							<ul>
-								<c:forEach var="data" items="${list}">
+								<c:forEach var="data" items="${list.records}">
 									<c:if test="${data.type.equals('1')}">
-										<li><a href="${staticPath}/industryEach/detail?id=${data.id}">${data.title}</a></li>
+										<li><a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}')">${data.title}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
 							<div class="more">
-								<a href="#">more &gt;</a>
+								<a href="${staticPath}/forehead/industry/list?id=${industry.id}&tid=1">more &gt;</a>
 							</div>
 						</div>
 					</div>
@@ -75,23 +77,23 @@
 					<div class="card_div">
 						<div>
 							<ul>
-								<c:forEach var="data" items="${list}">
+								<c:forEach var="data" items="${list.records}">
 									<c:if test="${data.type.equals('2')}">
-										<li>· <a href="${staticPath}/industryEach/detail?id=${data.id}">${data.title}</a></li>
+										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}')">${data.title}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
-							<a class="more" href="#">more &gt;</a>
+							<a class="more" href="${staticPath}/forehead/industry/list?id=${industry.id}&tid=2">more &gt;</a>
 						</div>
 						<div>
 							<ul>
-								<c:forEach var="data" items="${list}">
+								<c:forEach var="data" items="${list.records}">
 									<c:if test="${data.type.equals('3')}">
-										<li>· <a href="${staticPath}/industryEach/detail?id=${data.id}">${data.title}</a></li>
+										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}')">${data.title}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
-							<a class="more" href="#">more &gt;</a>
+							<a class="more" href="${staticPath}/forehead/industry/list?id=${industry.id}&tid=3">more &gt;</a>
 						</div>
 					</div>
 				</div>
@@ -115,23 +117,23 @@
 					<div class="card_div">
 						<div>
 							<ul>
-								<c:forEach var="data" items="${list}">
+								<c:forEach var="data" items="${list.records}">
 									<c:if test="${data.type.equals('4')}">
-										<li>· <a href="${staticPath}/industryEach/detail?id=${data.id}">${data.title}</a></li>
+										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}')">${data.title}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
-							<a class="more" href="#">more &gt;</a>
+							<a class="more" href="${staticPath}/forehead/industry/list?id=${industry.id}&tid=4">more &gt;</a>
 						</div>
 						<div>
 							<ul>
-								<c:forEach var="data" items="${list}">
+								<c:forEach var="data" items="${list.records}">
 									<c:if test="${data.type.equals('5')}">
-										<li>· <a href="${staticPath}/industryEach/detail?id=${data.id}">${data.title}</a></li>
+										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}')">${data.title}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
-							<a class="more" href="#">more &gt;</a>
+							<a class="more" href="${staticPath}/forehead/industry/list?id=${industry.id}&tid=5">more &gt;</a>
 						</div>
 					</div>
 				</div>
@@ -153,7 +155,7 @@
 					<div class="list small">
 						<c:forEach var="fld" items="${industrys}">
 							<c:if test="${fld.id != id}">
-								<a href="${staticPath}/industry/selectOneInfo?title=${fld.title}&fileName=${fld.fileName}&id=${fld.id}&tableName=${fld.tableName}">
+								<a href="${staticPath}/forehead/industry/selectOneInfo/${fld.id}">
 									<span class="tt">${fld.title}</span>
 									<img src="${staticPath}/static/lsportal/images/industry/${fld.fileName}" alt=""/>
 								</a>
@@ -187,5 +189,9 @@
 </body>
 </html>
 <script type="text/javascript">
+
 	$.post("${staticPath}/logmanage/add",{userid:1,t:"专题浏览"},"json");
+	function goDetail(id){
+	    window.location.href="${staticPath}/forehead/industry/detail/"+id+"/"+ ${industry.id};
+	}
 </script>

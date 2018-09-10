@@ -25,6 +25,11 @@
 						<input name="pic" value="${industry.fileName}"  data-options="required:true" class="easyui-filebox" data-options="prompt:'Choose a file...'">
 					</td>
 				</tr>
+				<tr>
+					<td>描述:</td>
+					<td><input class="easyui-textbox" type="text" name="title"
+							   id="infomation" data-options="required:true" value="${industry.infomation}"></input></td>
+				</tr>
 			</table>
 		</form>
 	</div>

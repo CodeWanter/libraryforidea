@@ -22,10 +22,10 @@
             <table class="grid">
                 <tr>
                     <td>题名:</td>
-                    <td><input name="title" type="text" placeholder="请输入登录名称" class="easyui-validatebox" data-options="required:true" value=""></td>
+                    <td><input name="title" type="text" placeholder="请输入题名" class="easyui-validatebox" data-options="required:true" value=""></td>
                 </tr>
                 <tr>
-                    <td>表名:</td>
+                    <td>库名:</td>
                     <td>
             	        <select id="industryAddOrganizationId" name="tableName" class="easyui-combobox" data-options="width:140,height:29,editable:false,panelHeight:'auto'">
                         </select>

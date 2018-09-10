@@ -21,7 +21,7 @@
     <%@ include file="/commons/head.jsp" %>
     <div class="LS2018_bd">
         <div class="LS2018_MBX">
-            当前位置：&nbsp;<a href="${staticPath}/">首 页</a><span class="gt">&gt;</span><a href="${staticPath}/industry/selectOneInfo?title=${industry.title}&fileName=${industry.fileName}&id=${industry.id}&tableName=${industry.tableName}">${resTblName}</a><span class="gt">&gt;</span>${list.title}
+            当前位置：&nbsp;<a href="${staticPath}/">首 页</a><span class="gt">&gt;</span><a href="${staticPath}/forehead/industry/selectOneInfo/${nav.id }">${nav.title }</a><span class="gt">&gt;</span>${list.title}
         </div>
         <div class="LS2018_Txt">
             <h1>${list.title}</h1>

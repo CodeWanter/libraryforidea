@@ -1,7 +1,11 @@
 package com.wf.industry.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import com.wf.commons.result.Tree;
+import com.wf.model.IndustryData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -35,4 +39,30 @@ public class IndustryServiceImpl extends ServiceImpl<IndustryMapper, Industry> i
         wrapper.orderBy("modify_time");
         return industryMapper.selectList(wrapper);
     }
+
+	@Override
+	public List<Tree> selectTree() {
+		List<Industry> industryList = selectTreeGrid();
+
+		List<Tree> trees = new ArrayList<Tree>();
+		if (industryList != null) {
+			for (Industry industry : industryList) {
+				Tree tree = new Tree();
+				tree.setId(industry.getId());
+				tree.setText(industry.getTitle());
+				tree.setIconCls("glyphicon-send");
+				trees.add(tree);
+			}
+		}
+		return trees;
+	}
+
+	@Override
+	public List<Industry> selectTreeGrid() {
+		EntityWrapper<Industry> wrapper = new EntityWrapper<Industry>();
+		wrapper.orderBy("create_time");
+		return industryMapper.selectList(wrapper);
+	}
+
+
 }

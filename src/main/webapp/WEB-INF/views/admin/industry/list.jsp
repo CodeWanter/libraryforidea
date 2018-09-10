@@ -12,7 +12,7 @@
             singleSelect : true,
             idField : 'id',
             sortName : 'createTime',
-	        sortOrder : 'DESC',
+	        sortOrder : 'desc',
             pageSize : 20,
             pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
             columns : [ [ {
@@ -58,7 +58,7 @@
         parent.$.modalDialog({
             title : '添加',
             width : 400,
-            height : 330,
+            height : 230,
             href : '${path}/industry/create',
             buttons : [ {
                 text : '添加',
@@ -106,7 +106,7 @@
         parent.$.modalDialog({
             title : '编辑',
             width : 400,
-            height : 330,
+            height : 230,
             href : '${path}/industry/editPage?id=' + id,
             buttons : [ {
                 text : '确定',

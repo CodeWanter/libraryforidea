@@ -19,80 +19,46 @@ public class Industry implements Serializable{
 	private Date createTime;
 	//修改时间
 	private Date modifyTime;
-	//表名
-	private String tableName;
-	
-	public String getTableName() {
-		return tableName;
-	}
-
-
-
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
-	}
-
+	//描述
+	private String infomation;
 
 
 	public String getFileName() {
 		return fileName;
 	}
-
-
-
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-
-
-
 	public Long getId() {
 		return id;
 	}
-
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
-
 	public String getTitle() {
 		return title;
 	}
-
-
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-
-
 	public Date getCreateTime() {
 		return createTime;
 	}
-
-
-
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-
-
-
 	public Date getModifyTime() {
 		return modifyTime;
 	}
-
-
-
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
 	}
-
-
+	public String getInfomation() {
+		return infomation;
+	}
+	public void setInfomation(String infomation) {
+		this.infomation = infomation;
+	}
 
 	@Override
 	public String toString() {

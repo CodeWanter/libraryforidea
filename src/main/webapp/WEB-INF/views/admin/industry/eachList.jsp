@@ -8,6 +8,7 @@
         industryEachTree = $('#industryEachTree').tree({
             url : '${path}/industryEach/tree',
             onClick : function(node) {
+                $("#tableName").val(node.id);
                 industryEachDataGrid.datagrid('load', {
                 	tableName: node.id
                 });
@@ -23,7 +24,7 @@
             singleSelect : true,
             idField : 'id',
             sortName : 'createTime',
-	        sortOrder : 'asc',
+	        sortOrder : 'desc',
             pageSize : 20,
             pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
             columns : [ [ {
@@ -114,7 +115,7 @@
         } else {//点击操作里面的删除图标会触发这个
             industryEachDataGrid.datagrid('unselectAll').datagrid('uncheckAll');
         }
-        parent.$.messager.confirm('询问', '您是否要删除当前用户？', function(b) {
+        parent.$.messager.confirm('询问', '您是否要删除当前数据？', function(b) {
             if (b) {
                 progressLoad();
                 $.post('${path}/industryEach/delete', {
@@ -170,9 +171,10 @@
             <table>
                 <tr>
                     <th>题名:</th>
-                    <td><input name="name" placeholder="请输入题名"/></td>
+                    <td><input name="title" placeholder="请输入题名"/></td>
                     <th>创建时间:</th>
                     <td>
+                        <input type="hidden" name="tableName" id="tableName" value=""/>
                         <input class="Wdate" name="createdateStart1" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" />至
                         <input class="Wdate" name="createdateEnd1" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" />
                         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'glyphicon-search',plain:true" onclick="searchIndustryEachFun();">查询</a>
@@ -185,8 +187,8 @@
     <div data-options="region:'center',border:true,title:'产业库信息列表'" >
         <table id="industryEachDataGrid" data-options="fit:true,border:false"></table>
     </div>
-    <div data-options="region:'west',border:true,split:false,title:'产业库'"  style="width:150px;overflow: hidden; ">
-        <ul id="industryEachTree" style="width:160px;margin: 10px 10px 10px 10px"></ul>
+    <div data-options="region:'west',border:true,split:false,title:'产业库'"  style="width:190px;overflow: hidden; ">
+        <ul id="industryEachTree" style="width:200px;margin: 10px 10px 10px 10px"></ul>
     </div>
 </div>
 <div id="industryEachToolbar" style="display: none;">

@@ -10,6 +10,18 @@
 <script charset="utf-8"
 	src="${staticPath }/static/js/kindeditor/lang/zh_CN.js"></script>
 <script type="text/javascript">
+    $(function() {
+        $('#industryAddOrganizationId').combotree({
+            url : '${path}/industry/tree',
+            panelHeight : 'auto',
+            onLoadSuccess: function (node, data) {
+                if ( data != null) {
+                    node = $('#industryAddOrganizationId').combotree("tree").tree("find", data[0].id);
+                    $('#industryAddOrganizationId').combotree('setValue', ${industryEach.tableName});
+                }
+            }
+        });
+    });
 	//KindEditor脚本
 	var keditor;
 	$(function() {
@@ -66,6 +78,13 @@
                 <tr>
                     <td>题名:</td>
                     <td><input id="industryEditTitle" name="title" type="text" placeholder="请输入题名" class="easyui-validatebox" data-options="required:true" value=""></td>
+                </tr>
+                <tr>
+                    <td>库名:</td>
+                    <td>
+                        <select id="industryAddOrganizationId" name="tableName" class="easyui-combobox" data-options="width:140,height:29,editable:false,panelHeight:'auto'">
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>审核:</td>

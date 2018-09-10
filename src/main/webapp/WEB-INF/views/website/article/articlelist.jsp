@@ -156,6 +156,7 @@ function paginationCallback(pageIndex, jq) {
             //index = layer.load(1);
         },
         complete: function () {
+            //layer.close(index);
         },
         success: function (result) {
             //layer.close(index);

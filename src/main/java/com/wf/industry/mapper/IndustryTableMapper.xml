@@ -9,20 +9,28 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="edit_time" property="editTime" jdbcType="TIMESTAMP"/>
         <result column="auditing" property="auditing" jdbcType="INTEGER"/>
-        <result column="res_tbl_name" property="resTblName" jdbcType="VARCHAR"/>
         <result column="table_name" property="tableName" jdbcType="INTEGER"/>
     </resultMap>
 	<!-- 通用查询结果列 -->
 	<sql id="Base_Column_List">
-		id AS id, title AS title, type AS type, content AS content, create_time AS createTime, edit_time AS editTime, table_name AS tableName,auditing AS auditing
+		id AS id, title AS title, type AS type, content AS content, create_time AS createTime, edit_time AS editTime,auditing AS auditing
 	</sql>
 	<select id="selectIndustryPage" resultType="Map">
 		SELECT
-		t.id, t.title AS title,t.type AS type,t.content AS content,t.create_time AS createTime,t.edit_time AS editTime,t.table_name AS tableName,t.auditing AS auditing
+		t.id, t.title AS title,t.type AS type,t.content AS content,t.create_time AS createTime,t.edit_time AS editTime,t.auditing AS auditing
 		FROM industry_data t where true
 			<if test=" title != null and title != '' ">
-				and t.title like  concat('%',#{title},'%') and t.auditing = 1
+				and t.title like  concat('%',#{title},'%')
 			</if>
+            <if test="id != null and id != '' ">
+                and t.table_name =#{id}
+            </if>
+            <if test="tid != null and tid != '' ">
+                and t.type =#{tid}
+            </if>
+            <if test="auditing != null and auditing != '' ">
+                and t.auditing =#{auditing}
+            </if>
             <if test=" tableName != null ">
                 and t.table_name = #{tableName}
             </if>
@@ -35,9 +43,8 @@
 	</select>
 	<select id="selectByID" resultMap="IndustryEachVoResultMap" parameterType="java.lang.Long">
 		SELECT
-		t.id, t.title AS title,t.type AS type,t.content AS content,t.create_time AS createTime,t.edit_time AS editTime,t.table_name AS tableName,res.res_tbl_name AS resTblName,t.auditing AS auditing
+		t.id, t.title AS title,t.type AS type,t.content AS content,t.create_time AS createTime,t.edit_time AS editTime,,t.auditing AS auditing
 		FROM industry_data t 
-        LEFT JOIN res_info res ON res.res_id = t.table_name
         <where>
             t.id = #{id}  and t.auditing = 1
         </where>

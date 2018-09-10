@@ -55,7 +55,7 @@ img{
 	display: block;
 	font-size: 0;
 }
-/* Æ»¹ûä¯ÀÀÆ÷°´Å¥XXX */
+/* Æ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥XXX */
 button, input[type="button"], input[type="reset"], input[type="submit"]{
   -webkit-appearance: none;
   border-radius: 0;
@@ -327,7 +327,7 @@ textarea, select, input{
 	text-align: right;
 }
 
-/*####################  2018-08-14 ¸öÈËÖÐÐÄ  #####################*/
+/*####################  2018-08-14 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  #####################*/
 .LS2018_GRZX{
 	background: url('../images/New_GRZX_back.png') -40px top repeat-y;
 	min-height: 550px
@@ -672,6 +672,9 @@ textarea, select, input{
 	width: 290px;
 	line-height: 25px;
 	margin: 0 10px 1px 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .LS2018_ZT_card2 .card_div ul li a{
 	font-size: 13px;

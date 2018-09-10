@@ -25,19 +25,9 @@
 						</td>
 				</tr>
 				<tr>
-					<td>库名：</td>
-					<td>
-				    	<input name="resName" data-options="required:true"  placeholder="请输入库名" type="text">
-					</td>
-				</tr>
-					<td>表名：</td>
-					<td>
-				    	<input name="resTblName" lay-verify="required" placeholder="请输入表名" autocomplete="off" class="layui-input" type="text">
-					</td>
-				</tr>
 					<td>描述：</td>
 					<td>
-				    	<input name="resDesc" lay-verify="required" placeholder="请输入描述" autocomplete="off" class="layui-input" type="text">
+				    	<input name="infomation" lay-verify="required" placeholder="请输入描述" autocomplete="off" class="layui-input" type="text">
 					</td>
 				</tr>
 			</table>
