@@ -18,7 +18,7 @@
 		<%@ include file="/commons/head.jsp" %>
 		<div class="LS2018_bd Z_clearfix">
 			<div class="LS2018_MBX">
-				当前位置：&nbsp;<a href="${staticPath}/forehead/index">首 页</a><span class="gt">&gt;</span>通知资讯
+				当前位置：&nbsp;<a href="${staticPath}/forehead/index">首 页</a><span class="gt">&gt;</span>${title}
 			</div>
 			<!-- 专题头部，不同专题用不同样式名 ZT1~ZT12 -->
 			<div class="LS2018_ZT_banner" style="height: 250px;width: 1000px;background-image:url(${staticPath}/static/lsportal/images/industry/${img});background-size: 100% 100%;">

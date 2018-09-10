@@ -49,19 +49,10 @@ public class IndustryEachController extends BaseController {
 	@Autowired
 	private ResInfoService resInfoService;
 	@Autowired
-	private DBMService dbmService;
-	@Autowired
 	private IIndustryService industryService;
 	@Autowired
 	private industryTableService itService;
-	
-	private static ApplicationContext context = null;
-	private static JdbcTemplate jt=null;
-	public IndustryEachController() {
-		super();
-		context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		jt = (JdbcTemplate)context.getBean("jdbcTemplate");	
-	}
+
 	/*
 	 * 产品库后台数据页
 	 */

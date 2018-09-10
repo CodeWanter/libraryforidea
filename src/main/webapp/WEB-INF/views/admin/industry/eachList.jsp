@@ -27,7 +27,7 @@
             pageSize : 20,
             pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
             columns : [ [ {
-                width : '80',
+                width : '500',
                 title : '题名',
                 field : 'title',
                 sortable : true
@@ -40,7 +40,22 @@
                 width : '80',
                 title : '类别',
                 field : 'type',
-                sortable : true
+                sortable : true,//期刊 0   论文1     专利2   项目信息3   咨询4   科技成果5
+                formatter: function (value, rec) {
+                    if(value==0){
+                        return '期刊';
+                    }else if(value==1){
+                        return '论文';
+                    }else if(value==2){
+                        return '专利';
+                    }else if(value==3){
+                        return '项目信息';
+                    }else if(value==4){
+                        return '咨询';
+                    }else if(value==5){
+                        return '科技成果';
+                    }
+                }
             },{
                 width : '130',
                 title : '创建时间',

@@ -1,10 +1,18 @@
 <%@ page language="java" 
 	pageEncoding="UTF-8"%>
 <%@ include file="/commons/global.jsp"%>
+<style type="text/css">
+	.in_table tr{
+		line-height:45px;
+	}
+	.in_table tr input{
+		width: 250px;
+	}
+</style>
 <div style="width: 100%">
 	<div style="padding: 10px 20px 10px 20px">
 		<form id="industryForm" method="post" enctype="multipart/form-data">
-			<table>
+			<table class="in_table">
 				<tr>
 					<td>产业库名称:</td>
 					<td><input class="easyui-textbox" type="text" name="title"
@@ -12,25 +20,25 @@
 				</tr>
 				<tr>
 					<td>产业库图片:</td>
-					<td><br/>
-			   	 		<input type="file" name="pic">
-					<br/></td>
+					<td>
+						<input name="pic" data-options="required:true" class="easyui-filebox" data-options="prompt:'Choose a file...'">
+						</td>
 				</tr>
 				<tr>
 					<td>库名：</td>
-					<td><br/>
-				    	<input name="resName" lay-verify="required" autocomplete="off" placeholder="请输入库名" class="layui-input" type="text">
-					<br/></td>
+					<td>
+				    	<input name="resName" data-options="required:true"  placeholder="请输入库名" type="text">
+					</td>
 				</tr>
 					<td>表名：</td>
-					<td><br/>
+					<td>
 				    	<input name="resTblName" lay-verify="required" placeholder="请输入表名" autocomplete="off" class="layui-input" type="text">
-					<br/></td>
+					</td>
 				</tr>
 					<td>描述：</td>
-					<td><br/>
+					<td>
 				    	<input name="resDesc" lay-verify="required" placeholder="请输入描述" autocomplete="off" class="layui-input" type="text">
-					<br/></td>
+					</td>
 				</tr>
 			</table>
 		</form>

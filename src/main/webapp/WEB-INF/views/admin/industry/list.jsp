@@ -57,8 +57,8 @@
     function addIndustry() {
         parent.$.modalDialog({
             title : '添加',
-            width : 900,
-            height : 600,
+            width : 400,
+            height : 330,
             href : '${path}/industry/create',
             buttons : [ {
                 text : '添加',
@@ -105,8 +105,8 @@
         }
         parent.$.modalDialog({
             title : '编辑',
-            width : 900,
-            height : 600,
+            width : 400,
+            height : 330,
             href : '${path}/industry/editPage?id=' + id,
             buttons : [ {
                 text : '确定',

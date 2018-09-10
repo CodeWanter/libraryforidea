@@ -84,6 +84,11 @@ public class IndustryController extends BaseController {
     	model.addAttribute("list", list);
 		return "website/industry/industry_zt";
 	}
+
+	@GetMapping("selectOneList")
+	public String selectOneList(){
+		return "website/industry/list";
+	}
 	
 	/*
 	 * 修改产业库信息
