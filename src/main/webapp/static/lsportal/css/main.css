@@ -785,6 +785,42 @@ textarea, select, input{
 .LS2018_ZT_other .ot_right .zk .a2{
 	display: none;
 }
+/*#################  2018-09-11  ##################*/
+.LS2018_ZT_list{
+	margin: 20px 0 50px 10px;
+}
+.LS2018_ZT_list li{
+	float: left;
+	width: 50%;
+	height: 110px;
+}
+.LS2018_ZT_list li a{
+	display: block;
+}
+.LS2018_ZT_list li img{
+	float: left;
+	width: 250px;
+	height: 70px;
+}
+.LS2018_ZT_list li .aa{
+	float: right;
+	width: 220px;
+	line-height: 30px;
+	margin: 5px 0;
+	font-size: 16px;
+	color: #000000;
+	font-weight: bold;
+}
+.LS2018_ZT_list li a:hover .aa{
+	color: #FF0000;
+}
+.LS2018_ZT_list li .tt{
+	float: right;
+	width: 220px;
+	line-height: 25px;
+	font-size: 13px;
+	color: #777777;
+}
 
 
 

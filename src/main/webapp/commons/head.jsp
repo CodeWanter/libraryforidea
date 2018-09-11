@@ -33,7 +33,7 @@
                 <li><a href="#">查重查新</a></li>
                 <li><a href="#">TRIZ知识组织</a></li>
                 <li><a href="#">主题分析报告</a></li>
-                <li><a href="#">特色专题库</a></li>
+                <li><a href="${staticPath}/forehead/industry/indusrtyList">特色专题库</a></li>
             </ul>
         </li>
         <li><a href="#">公告公示</a>

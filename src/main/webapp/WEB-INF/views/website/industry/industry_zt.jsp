@@ -19,7 +19,10 @@
 		<%@ include file="/commons/head.jsp" %>
 		<div class="LS2018_bd Z_clearfix">
 			<div class="LS2018_MBX">
-				当前位置：&nbsp;<a href="${staticPath}/forehead/index">首 页</a><span class="gt">&gt;</span>${industry.title}
+				当前位置：&nbsp;<a href="${staticPath}/forehead/index">首 页</a>
+				<span class="gt">&gt;</span>
+				<a href="${staticPath}/forehead/industry/indusrtyList">特色专题库</a>
+				<span class="gt">&gt;</span>${industry.title}
 			</div>
 			<!-- 专题头部，不同专题用不同样式名 ZT1~ZT12 -->
 			<div class="LS2018_ZT_banner" style="height: 250px;width: 1000px;background-image:url(${staticPath}/static/lsportal/images/industry/${industry.fileName});background-size: 100% 100%;">
@@ -38,7 +41,7 @@
 								<%--${list.records}--%>
 								<c:forEach var="data" items="${list.records}">
 									<c:if test="${data.type.equals('0')}">
-										<li><a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}')">${data.title}</a></li>
+										<li><a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
@@ -50,7 +53,7 @@
 							<ul>
 								<c:forEach var="data" items="${list.records}">
 									<c:if test="${data.type.equals('1')}">
-										<li><a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}')">${data.title}</a></li>
+										<li><a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
@@ -77,9 +80,9 @@
 					<div class="card_div">
 						<div>
 							<ul>
-								<c:forEach var="data" items="${list.records}">
+								<c:forEach var="data" items="${zllist.records}">
 									<c:if test="${data.type.equals('2')}">
-										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}')">${data.title}</a></li>
+										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
@@ -87,9 +90,9 @@
 						</div>
 						<div>
 							<ul>
-								<c:forEach var="data" items="${list.records}">
+								<c:forEach var="data" items="${xmlist.records}">
 									<c:if test="${data.type.equals('3')}">
-										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}')">${data.title}</a></li>
+										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
@@ -111,15 +114,15 @@
 				
 				<div class="LS2018_ZT_card2 cardC">
 					<div class="card_nav Z_clearfix">
-						<a href="#">咨  讯</a>
+						<a href="#">资  讯</a>
 						<a href="#">科技成果</a>
 					</div>
 					<div class="card_div">
 						<div>
 							<ul>
-								<c:forEach var="data" items="${list.records}">
+								<c:forEach var="data" items="${zxlist.records}">
 									<c:if test="${data.type.equals('4')}">
-										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}')">${data.title}</a></li>
+										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
@@ -127,9 +130,9 @@
 						</div>
 						<div>
 							<ul>
-								<c:forEach var="data" items="${list.records}">
+								<c:forEach var="data" items="${kjlist.records}">
 									<c:if test="${data.type.equals('5')}">
-										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}')">${data.title}</a></li>
+										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
@@ -189,9 +192,9 @@
 </body>
 </html>
 <script type="text/javascript">
-
-	$.post("${staticPath}/logmanage/add",{userid:1,t:"专题浏览"},"json");
-	function goDetail(id){
-	    window.location.href="${staticPath}/forehead/industry/detail/"+id+"/"+ ${industry.id};
+	//专题浏览日志记录
+	$.post("${staticPath}/logmanage/add",{userid:1,t:"专题浏览",u:window.location.href},"json");
+	function goDetail(id,type){
+	    window.location.href="${staticPath}/forehead/industry/detail/"+id+"/"+ ${industry.id}+"/"+ type;
 	}
 </script>

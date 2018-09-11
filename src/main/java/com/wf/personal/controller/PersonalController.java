@@ -120,7 +120,7 @@ public class PersonalController  extends BaseController {
 			if (StringUtils.isBlank(personalSc.getUrl())) {
 				return renderError("链接地址不能为空！");
 			}
-			if (StringUtils.isBlank(personalSc.getEssayId())) {
+			if (!StringUtils.isBlank(personalSc.getEssayId())) {
 		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,personalSc.getEssayId());
 		        if (list != null && !list.isEmpty()) {
 		            return renderError("已收藏！");

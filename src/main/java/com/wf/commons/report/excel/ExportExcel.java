@@ -171,12 +171,18 @@ public final class ExportExcel {
                     String method = "get" + entry.substring(0, 1).toUpperCase() + entry.substring(1);
                     Method m = obj.getClass().getMethod(method, null);
                     String s = obj.getClass().getDeclaredField(entry).getGenericType().toString();
-                    String value =   m.invoke(obj, null).toString();
-                    if(s.contains("java.util.Date")){
-                        Date date =  (Date) m.invoke(obj, null);
-                        //使用SimpleDateFormat时格式化时间的 yyyy.MM.dd 为年月日而如果希望格式化时间为12小时制的，则使用  hh:mm:ss
-                        //如果希望格式化时间为24小时制的，则使用  HH:mm:ss
-                        value= new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
+                    String value =  "";
+                    if(m.invoke(obj, null)!=null) {
+                        if (s.contains("java.util.Date")) {
+                            //使用SimpleDateFormat时格式化时间的 yyyy.MM.dd 为年月日而如果希望格式化时间为12小时制的，则使用  hh:mm:ss
+                            //如果希望格式化时间为24小时制的，则使用  HH:mm:ss
+                            if (m.invoke(obj, null) != null) {
+                                Date date = (Date) m.invoke(obj, null);
+                                value = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
+                            }
+                        }else {
+                            value = m.invoke(obj, null).toString();
+                        }
                     }
                     HSSFCell textcell = textRow.createCell(j);
                     textcell.setCellValue(value);

@@ -30,6 +30,6 @@ public interface LogMapper extends BaseMapper<LogStatistics>{
     Integer selectCountByTypeList(@Param("startTime")String startTime, @Param("endTime")String endTime,@Param("accessType") String accessType,@Param("monthGroup") String monthGroup);
 
     @Select("SELECT l.id, l.user_id AS userId ,r.login_name AS userName,l.user_ip AS userIp,l.access_time AS accessTime,l.access_type AS accessType,\n" +
-            "l.user_brower AS userBrower,l.url from log_statistics l LEFT JOIN user r ON l.user_id = r.id where true and l.access_time >= '${startTime}' and l.access_time <='${endTime}'")
+            "l.user_brower AS userBrower,l.url from log_statistics l LEFT JOIN user r ON l.user_id = r.id where true and l.access_time >= '${startTime}' and l.access_time <='${endTime}' order by accessType desc")
     List<LogStatistics> selectlogList(@Param("startTime")String startTime, @Param("endTime")String endTime);
 }

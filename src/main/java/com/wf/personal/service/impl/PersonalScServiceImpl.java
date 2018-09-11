@@ -26,10 +26,8 @@ public class PersonalScServiceImpl extends ServiceImpl<PersonalScMapper, Persona
 
 	@Override
 	public List<PersonalSc> selectByUIdAndEId(long userId, String eId) {
-		PersonalSc personalSc = new PersonalSc();
-		personalSc.setUserId(userId);
-		personalSc.setEssayId(eId);
-		EntityWrapper<PersonalSc> wrapper = new EntityWrapper<PersonalSc>(personalSc);
+		EntityWrapper<PersonalSc> wrapper = new EntityWrapper<PersonalSc>();
+		wrapper.where("user_id = {0}",userId).andNew("essay_id = {0}",eId);
 		return this.selectList(wrapper);
 	}
 	@Override

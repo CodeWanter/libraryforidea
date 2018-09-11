@@ -36,7 +36,7 @@ public class IndustryServiceImpl extends ServiceImpl<IndustryMapper, Industry> i
     private List<Industry> selectAllByStatus() {
     	Industry industry = new Industry();
         EntityWrapper<Industry> wrapper = new EntityWrapper<Industry>(industry);
-        wrapper.orderBy("modify_time");
+        wrapper.orderBy("create_time",false);
         return industryMapper.selectList(wrapper);
     }
 

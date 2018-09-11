@@ -41,7 +41,7 @@
                 width : '80',
                 title : '类别',
                 field : 'type',
-                sortable : true,//期刊 0   论文1     专利2   项目信息3   咨询4   科技成果5
+                sortable : true,//期刊 0   论文1     专利2   项目信息3   资讯4   科技成果5
                 formatter: function (value, rec) {
                     if(value==0){
                         return '期刊';
@@ -52,7 +52,7 @@
                     }else if(value==3){
                         return '项目信息';
                     }else if(value==4){
-                        return '咨询';
+                        return '资讯';
                     }else if(value==5){
                         return '科技成果';
                     }

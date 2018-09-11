@@ -58,12 +58,13 @@ public class IndustryTableServiceImp extends ServiceImpl<IndustryTableMapper, In
 	}
 
 	@Override
-	public Page<IndustryData> selectByTableName(Integer id) {
+	public Page<IndustryData> selectByTableName(Integer id,String type,Integer size) {
 		IndustryData industryData = new IndustryData();
 		industryData.setTableName(id);
+		industryData.setAuditing(1);
+		industryData.setType(type);
 		Wrapper<IndustryData> wrapper = new EntityWrapper<IndustryData>(industryData);
-
-		return this.selectPage(new Page<IndustryData>(1,10),wrapper);
+		return this.selectPage(new Page<IndustryData>(1,size),wrapper);
 	}
 
 	@Override

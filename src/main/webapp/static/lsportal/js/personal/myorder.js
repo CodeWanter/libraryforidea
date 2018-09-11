@@ -27,7 +27,6 @@ function OrderPaginationInit(pageIndex, pageSize) {
         "pageIndex": pageIndex,
         "pageSize": pageSize
     }, function (data) {
-        data = JSON.parse(data);
         $("#OrderPagination").pagination(data.total, {
             num_edge_entries: 2, //边缘页数
             num_display_entries: 10, //主体页数
@@ -37,7 +36,7 @@ function OrderPaginationInit(pageIndex, pageSize) {
             next_text: "下一页>>"
 
         });
-    });
+    },"json");
 }
 //分页数据回调
 function orderPaginationCallback(pageIndex, jq) {

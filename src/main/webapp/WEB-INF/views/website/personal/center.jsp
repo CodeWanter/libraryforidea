@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="${staticPath}/static/lsportal/css/main.css"/>
     <link rel="stylesheet" href="${staticPath }/static/js/pagination_zh/lib/pagination.css" />
 	<script charset="utf-8"	src="${staticPath }/static/js/pagination_zh/lib/jquery.pagination.js"></script>
-	
+
 	<script charset="utf-8"	src="${staticPath }/static/lsportal/js/personal/mysc.js"></script>
 	<script charset="utf-8"	src="${staticPath }/static/lsportal/js/personal/myorder.js"></script>
 	<script type="text/javascript">
@@ -20,7 +20,7 @@
 					//将body中其他模块不显示，只显示个人资料的模块
 					$(".LS2018_Aright").css({display: 'none'});
 					$("#centreDIVID").css({display: 'inline'});
-					
+
 				} else if(sel.id == "pswEditID"){
 					//密码修改选中状态
 					$("#personCentreID .current").removeClass("current");
@@ -409,8 +409,7 @@
 </body>
 </html>
 <script type="text/javascript">
-    layui.use([ 'layer', 'jquery', 'form'], function() {
-        $ = layui.jquery;
+    layui.use([ 'layer', 'form'], function() {
         var form = layui.form
             ,layer = layui.layer;
 
@@ -433,6 +432,7 @@
         var industry = $("#industry").val().split('/');
 
         $.get("${staticPath }/static/lsportal/json/industry.json", function (data) {
+            data= JSON.parse(data);
             var proHtml = '';
             for (var i = 0; i < data.length; i++) {
                 proHtml += '<option value="' + data[i].industry + '">' + data[i].industry + '</option>';
@@ -444,13 +444,14 @@
                 var select = 'dd[lay-value=' + industry[0] + ']';
                 $('select[name=industry1]').siblings("div.layui-form-select").find('dl').find(select).click();
 			}
-        },"json")
+        })
 
 
         form.on('select(industry)', function(data){
             $("select[name=industry2]").empty();
             form.render();
             $.get("${staticPath }/static/lsportal/json/industry.json", function (msg) {
+                msg= JSON.parse(msg);
                 var cityHtml = '';
                 cityHtml += '<option value="">请选择详细行业</option>';
                 for (var i = 0; i < msg.length; i++) {
@@ -468,7 +469,7 @@
                     var select = 'dd[lay-value=' + industry[1] + ']';
                     $('select[name=industry2]').siblings("div.layui-form-select").find('dl').find(select).click();
                 }
-            },"json")
+            })
         });
     });
 </script>

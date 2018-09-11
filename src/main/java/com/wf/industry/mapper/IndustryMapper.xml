@@ -3,7 +3,7 @@
 <mapper namespace="com.wf.industry.mapper.IndustryMapper">
 	<!-- 通用查询结果列 -->
 	<sql id="Base_Column_List">
-		id, title, file_name AS fileName, create_time AS createTime, modify_time AS modifyTime,infomation
+		id, title, file_name AS fileName, create_time AS createTime, modify_time AS modifyTime,infomation,click_count AS clickCount
 	</sql>
 	
 	<select id="selectIndustryPage" resultType="Map">

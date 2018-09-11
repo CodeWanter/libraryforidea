@@ -60,16 +60,31 @@ public class IndustryHeadController extends BaseController {
         Industry industry = industryService.selectById(id);
         //根据id查出所有的产业库信息，排除id，传递给专题页面
         List<Industry> selectAll = industryService.selectAll();
-        model.addAttribute("industrys", selectAll);//期刊 0   论文1     专利2   项目信息3   咨询4   科技成果5 ，根据id查   industry_data表里id数据
-        Page<IndustryData> list = itService.selectByTableName(Integer.parseInt(id));
-        model.addAttribute("list", list);
+        model.addAttribute("industrys", selectAll);
+        //期刊 0   论文1     专利2   项目信息3   咨询4   科技成果5 ，根据id查   industry_data表里id数据
+        Page<IndustryData> zllist = itService.selectByTableName(Integer.parseInt(id),"2",8);
+        model.addAttribute("zllist", zllist);
+
+        Page<IndustryData> zmlist = itService.selectByTableName(Integer.parseInt(id),"3",8);
+        model.addAttribute("zmlist", zmlist);
+
+        Page<IndustryData> zxlist = itService.selectByTableName(Integer.parseInt(id),"4",8);
+        model.addAttribute("zxlist", zxlist);
+
+        Page<IndustryData> kjlist = itService.selectByTableName(Integer.parseInt(id),"5",8);
+        model.addAttribute("kjlist", kjlist);
+
         model.addAttribute("industry", industry);
+
+        industry.setClickCount(industry.getClickCount()+1);
+        industryService.updateById(industry);
+
         return "website/industry/industry_zt";
     }
 
     //详情页
-    @GetMapping("detail/{id}/{tid}")
-    public Object detail(Model model,@PathVariable Long id,@PathVariable Long tid) {
+    @GetMapping("detail/{id}/{tid}/{type}")
+    public Object detail(Model model,@PathVariable Long id,@PathVariable Long tid,@PathVariable String type) {
         Industry industry = industryService.selectById(tid);
         //根据id查出该条信息详细信息
         IndustryData selectById = itService.selectById(id);
@@ -77,6 +92,14 @@ public class IndustryHeadController extends BaseController {
         List<Industry> selectAll = industryService.selectAll();
         model.addAttribute("list", selectById);
         model.addAttribute("nav", industry);
+        model.addAttribute("type", type);
         return "website/industry/detail";
+    }
+
+    @GetMapping("indusrtyList")
+    public String indusrtyList(Model model){
+        List<Industry> industryList = industryService.selectAll();
+        model.addAttribute("list",industryList);
+        return "website/industry/indusrtylist";
     }
 }

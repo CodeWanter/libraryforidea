@@ -173,10 +173,10 @@
 				</div>
 			</div>
 			<div class="k">
-				<div class="t"><a href="">
+				<div class="t"><a href="${staticPath}/forehead/industry/indusrtyList">
 					<img src="${staticPath }/static/lsportal/image/icon-5.png" alt="特色专题库"></a>
 				</div>
-				<div class="z"><a href="">
+				<div class="z"><a href="${staticPath}/forehead/industry/indusrtyList">
 					<span>特色专题库</span></a>
 				</div>
 			</div>

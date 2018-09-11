@@ -46,7 +46,7 @@
             singleSelect : true,
             idField : 'id',
             sortName : 'access_time',
-            sortOrder : 'asc',
+            sortOrder : 'desc',
             queryParams: {
                 startTime: $("#startTime").val(),
                 endTime:$("#endTime").val()
@@ -58,7 +58,7 @@
                 title : '用户名',
                 field : 'userName'
             }, {
-                width : '80',
+                width : '110',
                 title : 'IP',
                 field : 'userIp'
             },{
@@ -66,11 +66,11 @@
                 title : '浏览内容',
                 field : 'accessType'
             },{
-                width : '180',
+                width : '200',
                 title : '操作系统&浏览器',
                 field : 'userBrower'
             },{
-                width : '180',
+                width : '350',
                 title : 'URL',
                 field : 'url'
             },{

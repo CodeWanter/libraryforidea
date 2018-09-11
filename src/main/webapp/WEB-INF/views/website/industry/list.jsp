@@ -17,7 +17,11 @@
     <%@ include file="/commons/head.jsp" %>
     <div class="LS2018_bd Z_clearfix">
         <div class="LS2018_MBX">
-            当前位置：&nbsp;<a href="${staticPath}/">首 页</a><span class="gt">&gt;</span><a href="${staticPath}/forehead/industry/selectOneInfo/${nav.id }">${nav.title }</a><span class="gt">&gt;</span><span class="tt_nav"></span>
+            当前位置：&nbsp;<a href="${staticPath}/">首 页</a>
+            <span class="gt">&gt;</span>
+            <a href="${staticPath}/forehead/industry/indusrtyList">特色专题库</a>
+            <span class="gt">&gt;</span><a href="${staticPath}/forehead/industry/selectOneInfo/${nav.id }">${nav.title }</a>
+            <span class="gt">&gt;</span><span class="tt_nav"></span>
         </div>
         <div class="LS2018_ZT_banner" style="height: 250px;width: 1000px;background-image:url(${staticPath}/static/lsportal/images/industry/${nav.fileName});background-size: 100% 100%;">
             <div class="tt">${nav.title}</div>
@@ -33,7 +37,7 @@
                         <li><a href="javascript:void(0)" tid="1" onclick="golist(1)">论文</a></li>
                         <li><a href="javascript:void(0)" tid="2" onclick="golist(2)">专利</a></li>
                         <li><a href="javascript:void(0)" tid="3" onclick="golist(3)">项目信息</a></li>
-                        <li><a href="javascript:void(0)" tid="4" onclick="golist(4)">咨询</a></li>
+                        <li><a href="javascript:void(0)" tid="4" onclick="golist(4)">资讯</a></li>
                         <li><a href="javascript:void(0)" tid="5" onclick="golist(5)">科技成果</a></li>
                     </ul>
                 </div>
@@ -77,7 +81,8 @@
             $(".tt_nav").html("项目信息");
             PaginationInit(pageIndex, pageSize);
         }else if(tid==4){
-            $(".tt_nav").html("咨询");
+            $(".tt_nav").html("资讯");
+            PaginationInit(pageIndex, pageSize);
         }else if(tid==5){
             $(".tt_nav").html("科技成果");
             PaginationInit(pageIndex, pageSize);
@@ -126,7 +131,7 @@
                 $("#List").html("");
                 $.each(result, function (i, item) {
                     var html = "";
-                    html += '<li><a  href="${path }/forehead/industry/detail/'+ item.id +'/${nav.id }">' + (pageIndex*10+i+1)+'、'+ item.title + '</a><span style="float:right;"><i>' + item.createTime.substr(0,10) + '</i></span></li>';
+                    html += '<li><a  href="${path }/forehead/industry/detail/'+ item.id +'/${nav.id }/'+item.type+'">' + (pageIndex*10+i+1)+'、'+ item.title + '</a><span style="float:right;"><i>' + item.createTime.substr(0,10) + '</i></span></li>';
                     $("#List").append(html);
                 });
             },

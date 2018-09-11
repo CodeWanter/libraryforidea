@@ -21,7 +21,8 @@ public class Industry implements Serializable{
 	private Date modifyTime;
 	//描述
 	private String infomation;
-
+	//点击量
+	private Integer clickCount;
 
 	public String getFileName() {
 		return fileName;
@@ -58,6 +59,12 @@ public class Industry implements Serializable{
 	}
 	public void setInfomation(String infomation) {
 		this.infomation = infomation;
+	}
+	public Integer getClickCount() {
+		return clickCount;
+	}
+	public void setClickCount(Integer clickCount) {
+		this.clickCount = clickCount;
 	}
 
 	@Override

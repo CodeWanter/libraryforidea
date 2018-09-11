@@ -22,12 +22,13 @@
 				<tr>
 					<td>产业库图片:</td>
 					<td>
+						<input type="hidden" value="${industry.fileName}" name="oldpic"/>
 						<input name="pic" value="${industry.fileName}"  data-options="required:true" class="easyui-filebox" data-options="prompt:'Choose a file...'">
 					</td>
 				</tr>
 				<tr>
 					<td>描述:</td>
-					<td><input class="easyui-textbox" type="text" name="title"
+					<td><input class="easyui-textbox" type="text" name="infomation"
 							   id="infomation" data-options="required:true" value="${industry.infomation}"></input></td>
 				</tr>
 			</table>

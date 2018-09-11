@@ -24,7 +24,7 @@ public interface IIndustryTableService extends IService<IndustryData>{
 
 	void deleteEachById(Long id);
 
-	Page<IndustryData> selectByTableName(Integer id);
+	Page<IndustryData> selectByTableName(Integer id,String type,Integer size);
 
 	List<IndustryData> selectByIdAType(String id, String tid);
 }

@@ -61,11 +61,11 @@ public class IndustryController extends BaseController {
 		//删除旧图，上传新图
 		for(MultipartFile Pic : pic){
             if(Pic.isEmpty()){
-            	return renderError("请选择文件进行上传！");
+				industry.setFileName(request.getParameter("oldpic"));
             }else{
             	String realPath = request.getSession().getServletContext().getRealPath(CommonConstant.IMAGE_PATH);
-            	if (industry.getFileName() != null) {
-    	            File oldFile = new File(realPath,industry.getFileName());
+            	if (request.getParameter("oldpic") != null) {
+    	            File oldFile = new File(realPath,request.getParameter("oldpic"));
     	            if (oldFile.exists()) {
     	            	oldFile.delete();
     	            	System.out.println("文件已删除!");
