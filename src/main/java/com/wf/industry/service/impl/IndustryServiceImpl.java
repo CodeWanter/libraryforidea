@@ -1,20 +1,19 @@
 package com.wf.industry.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import com.wf.commons.result.Tree;
-import com.wf.model.IndustryData;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.wf.commons.result.PageInfo;
+import com.wf.commons.result.Tree;
 import com.wf.industry.mapper.IndustryMapper;
 import com.wf.industry.service.IIndustryService;
 import com.wf.model.Industry;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class IndustryServiceImpl extends ServiceImpl<IndustryMapper, Industry> implements IIndustryService {

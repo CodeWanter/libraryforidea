@@ -28,8 +28,13 @@
 				</tr>
 				<tr>
 					<td>描述:</td>
-					<td><input class="easyui-textbox" type="text" name="infomation"
-							   id="infomation" data-options="required:true" value="${industry.infomation}"></input></td>
+                    <td><input type="text" name="infomation"
+                               id="infomation" placeholder="请输入描述" value="${industry.infomation}"></input></td>
+                </tr>
+                <tr>
+                    <td>主题词:</td>
+                    <td><input type="text" name="topicKey"
+                               id="topicKey" placeholder="请输入主题词，多个主题词用逗号分隔" value="${industry.topicKey}"></input></td>
 				</tr>
 			</table>
 		</form>

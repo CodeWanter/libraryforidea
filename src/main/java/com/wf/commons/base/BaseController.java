@@ -1,11 +1,12 @@
 package com.wf.commons.base;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.baomidou.mybatisplus.plugins.Page;
+import com.wf.commons.result.PageInfo;
+import com.wf.commons.result.Result;
+import com.wf.commons.shiro.ShiroUser;
+import com.wf.commons.utils.Charsets;
+import com.wf.commons.utils.StringEscapeEditor;
+import com.wf.commons.utils.URLUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -21,13 +22,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.wf.commons.result.PageInfo;
-import com.wf.commons.result.Result;
-import com.wf.commons.shiro.ShiroUser;
-import com.wf.commons.utils.Charsets;
-import com.wf.commons.utils.StringEscapeEditor;
-import com.wf.commons.utils.URLUtils;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @description：基础 controller
@@ -125,6 +123,20 @@ public abstract class BaseController {
         Result result = new Result();
         result.setSuccess(true);
         result.setObj(obj);
+        return result;
+    }
+
+    /**
+     * ajax成功
+     *
+     * @param obj 成功时的对象
+     * @return {Object}
+     */
+    public Object renderSuccess(Object obj, String msg) {
+        Result result = new Result();
+        result.setSuccess(true);
+        result.setObj(obj);
+        result.setMsg(msg);
         return result;
     }
     

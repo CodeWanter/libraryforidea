@@ -62,7 +62,7 @@ public class IndustryHeadController extends BaseController {
         List<Industry> selectAll = industryService.selectAll();
         model.addAttribute("industrys", selectAll);
         //期刊 0   论文1     专利2   项目信息3   咨询4   科技成果5 ，根据id查   industry_data表里id数据
-        Page<IndustryData> zllist = itService.selectByTableName(Integer.parseInt(id),"2",8);
+        Page<IndustryData> zllist = itService.selectByTableName(Integer.parseInt(id), "2", 8);
         model.addAttribute("zllist", zllist);
 
         Page<IndustryData> zmlist = itService.selectByTableName(Integer.parseInt(id),"3",8);

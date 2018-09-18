@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +39,11 @@ public class LogController extends BaseController{
         if(request.getParameter("sid")!=null){
             String sessionId = request.getParameter("sid");
             UserSessionUtil userSessionUtil = new UserSessionUtil(sessionId, request, response);
-            userId = userSessionUtil.getUserIdfromRedis();
+            try {
+                userId = userSessionUtil.getUserIdfromRedis();
+            } catch (Exception e) {
+                userId = 0;//未登录用户保存id为0
+            }
         }else if( request.getParameter("userid")!=null){
             String userid= request.getParameter("userid");
             userId =Long.parseLong(userid);

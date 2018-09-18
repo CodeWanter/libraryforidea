@@ -1,11 +1,10 @@
 package com.wf.model.vo;
 
-import java.io.Serializable;
-import java.util.Date;
-
+import com.wf.commons.utils.JsonUtils;
 import org.springframework.web.util.HtmlUtils;
 
-import com.wf.commons.utils.JsonUtils;
+import java.io.Serializable;
+import java.util.Date;
 /**
  * @description：UserVo
  * @author：zhixuan.wang

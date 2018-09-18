@@ -27,9 +27,14 @@
 				<tr>
 					<td>描述：</td>
 					<td>
-				    	<input name="infomation" lay-verify="required" placeholder="请输入描述" autocomplete="off" class="layui-input" type="text">
+                        <input name="infomation" placeholder="请输入描述" autocomplete="off" class="layui-input" type="text">
 					</td>
-				</tr>
+                </tr>
+                <tr>
+                    <td>主题词:</td>
+                    <td><input type="text" name="topicKey"
+                               placeholder="请输入主题词，多个主题词用逗号分隔" autocomplete="off" class="layui-input"/></td>
+                </tr>
 			</table>
 		</form>
 	</div>

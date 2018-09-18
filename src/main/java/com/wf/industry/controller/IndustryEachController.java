@@ -3,27 +3,26 @@
  */
 package com.wf.industry.controller;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
-
 import com.wf.commons.base.BaseController;
 import com.wf.commons.result.PageInfo;
 import com.wf.commons.utils.StringUtils;
 import com.wf.industry.service.IIndustryService;
 import com.wf.industry.service.IIndustryTableService;
-import com.wf.model.Industry;
 import com.wf.model.IndustryData;
 import com.wf.model.vo.IndustryEachVo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author huangjunqing

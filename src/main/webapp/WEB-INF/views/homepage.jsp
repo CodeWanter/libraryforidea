@@ -149,18 +149,18 @@
 	<div class="section section-2">
 		<div class="kuang">
 			<div class="k">
-				<div class="t"><a href="">
+				<div class="t"><a href="${staticPath }/forehead/crosscheck/index">
 					<img src="${staticPath }/static/lsportal/image/icon-1.png" alt="查重查新"></a>
 				</div>
-				<div class="z"><a href="">
+				<div class="z"><a href="${staticPath }/forehead/crosscheck/index">
 					<span>查重查新</span></a>
 				</div>
 			</div>
 			<div class="k">
-				<div class="t"><a href="">
+				<div class="t"><a href="${staticPath }/forehead/triz/index">
 					<img src="${staticPath }/static/lsportal/image/icon-2.png" alt="TRIZ知识组织"></a>
 				</div>
-				<div class="z"><a href="">
+				<div class="z"><a href="${staticPath }/forehead/triz/index">
 					<span>TRIZ知识组织</span></a>
 				</div>
 			</div>
@@ -173,7 +173,7 @@
 				</div>
 			</div>
 			<div class="k">
-				<div class="t"><a href="${staticPath}/forehead/industry/indusrtyList">
+				<div class="t"><a href="${staticPath}/forehead/industry/indusrtyList" target="_blank">
 					<img src="${staticPath }/static/lsportal/image/icon-5.png" alt="特色专题库"></a>
 				</div>
 				<div class="z"><a href="${staticPath}/forehead/industry/indusrtyList">
@@ -187,10 +187,8 @@
 				<ul>
 					<c:forEach var="fld" items="${industrys}">
 						<li>
-							<a href="${staticPath}/forehead/industry/selectOneInfo/${fld.id}">
 								<img src="${staticPath}/static/lsportal/images/industry/${fld.fileName}" alt=""/>
-								<h3>${fld.title}</h3>
-							</a>
+							<h3><a href="${staticPath}/forehead/industry/selectOneInfo/${fld.id}">${fld.title}</a></h3>
 						</li>
 					</c:forEach>
 				</ul>
@@ -646,6 +644,7 @@
     function lslibSearch() {
         var val = document.getElementById('txtKeyWord').value;
         var sid = $("#sid").val();
+        sessionStorage.setItem("indName", "123");
         var searchUrl = "http://115.29.2.102:7007/search?&sid="+sid+"&q=";
         searchUrl = searchUrl + encodeURI(document.getElementById("txtKeyWord").value);
         window.open(searchUrl);
@@ -772,6 +771,18 @@
         var url = $this.data("src") + new Date().getTime();
         $this.attr("src", url);
     });
+    //    $(function(){
+    //        $.post("http://et.wanfangdata.com.cn/ky/Login/index/", {
+    //            Account: "kk1",
+    //            Password: "111",
+    //            VCode: "",
+    //            Force: "0",
+    //            returnUrl: "",
+    //            para: new Date()
+    //        }, function (data) {
+    //			console.log(data);
+    //        });
+    //	})
 </script>
 <!--search End-->
 <%

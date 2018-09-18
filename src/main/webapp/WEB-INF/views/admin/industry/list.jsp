@@ -58,7 +58,7 @@
         parent.$.modalDialog({
             title : '添加',
             width : 400,
-            height : 230,
+            height: 280,
             href : '${path}/industry/create',
             buttons : [ {
                 text : '添加',
@@ -106,7 +106,7 @@
         parent.$.modalDialog({
             title : '编辑',
             width : 400,
-            height : 230,
+            height: 280,
             href : '${path}/industry/editPage?id=' + id,
             buttons : [ {
                 text : '确定',

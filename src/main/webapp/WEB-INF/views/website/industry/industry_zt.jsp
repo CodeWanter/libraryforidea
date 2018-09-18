@@ -1,5 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8" %>
 <%@ include file="/commons/layui.jsp"%>
 <!DOCTYPE html>
 <head>
@@ -11,6 +11,10 @@
 	.LS2018_ZT_banner .ZT{
 	    width: 1000px;
    		height: 250px;
+	}
+
+	em {
+		font-style: normal;
 	}
 </style>
 </head>
@@ -37,25 +41,15 @@
 					</div>
 					<div class="card_div">
 						<div>
-							<ul>
-								<%--${list.records}--%>
-								<c:forEach var="data" items="${list.records}">
-									<c:if test="${data.type.equals('0')}">
-										<li><a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>
-									</c:if>
-								</c:forEach>
+							<ul id="qikan">
 							</ul>
 							<div class="more">
 								<a href="${staticPath}/forehead/industry/list?id=${industry.id}&tid=0">more &gt;</a>
 							</div>
 						</div>
 						<div>
-							<ul>
-								<c:forEach var="data" items="${list.records}">
-									<c:if test="${data.type.equals('1')}">
-										<li><a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>
-									</c:if>
-								</c:forEach>
+							<ul id="lunwen">
+
 							</ul>
 							<div class="more">
 								<a href="${staticPath}/forehead/industry/list?id=${industry.id}&tid=1">more &gt;</a>
@@ -79,21 +73,17 @@
 					</div>
 					<div class="card_div">
 						<div>
-							<ul>
-								<c:forEach var="data" items="${zllist.records}">
-									<c:if test="${data.type.equals('2')}">
-										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>
-									</c:if>
-								</c:forEach>
+							<ul id="zhuanli">
+								<%--<c:forEach var="data" items="${zllist.records}">--%>
+								<%--<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>--%>
+								<%--</c:forEach>--%>
 							</ul>
 							<a class="more" href="${staticPath}/forehead/industry/list?id=${industry.id}&tid=2">more &gt;</a>
 						</div>
 						<div>
 							<ul>
 								<c:forEach var="data" items="${xmlist.records}">
-									<c:if test="${data.type.equals('3')}">
 										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>
-									</c:if>
 								</c:forEach>
 							</ul>
 							<a class="more" href="${staticPath}/forehead/industry/list?id=${industry.id}&tid=3">more &gt;</a>
@@ -121,9 +111,7 @@
 						<div>
 							<ul>
 								<c:forEach var="data" items="${zxlist.records}">
-									<c:if test="${data.type.equals('4')}">
 										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>
-									</c:if>
 								</c:forEach>
 							</ul>
 							<a class="more" href="${staticPath}/forehead/industry/list?id=${industry.id}&tid=4">more &gt;</a>
@@ -131,9 +119,7 @@
 						<div>
 							<ul>
 								<c:forEach var="data" items="${kjlist.records}">
-									<c:if test="${data.type.equals('5')}">
 										<li>· <a href="javascript:void(0)" onclick="javascript:goDetail('${data.id}','${data.type}')">${data.title}</a></li>
-									</c:if>
 								</c:forEach>
 							</ul>
 							<a class="more" href="${staticPath}/forehead/industry/list?id=${industry.id}&tid=5">more &gt;</a>
@@ -189,11 +175,45 @@
 		</div>
 		<%@ include file="/commons/footer.jsp" %>
 	</div>
+	<input type="hidden" value="<%=request.getSession().getId()%>" id="userid"/>
 </body>
 </html>
 <script type="text/javascript">
+
+    $(function () {
+        $.get('http://115.29.2.102:7007/api/search?source=baidu&q=${industry.title}&returnFilter=true&filter=%7B"filter_type"%3A1%7D&page=1&pageSize=2', {}, function (result) {
+            result = result.items;
+            $.each(result, function (i, item) {
+                var html = "";
+                html += '<li><a  href="http://115.29.2.102:7007' + item.url + '" target="_blank">' + item.title + '</a></li>';
+                $("#qikan").append(html);
+            });
+        });
+
+        $.get('http://115.29.2.102:7007/api/search?source=baidu&q=${industry.title}&returnFilter=true&filter=%7B"filter_type"%3A2%7D&page=1&pageSize=2', {}, function (result) {
+            result = result.items;
+            $.each(result, function (i, item) {
+                var html = "";
+                html += '<li><a  href="http://115.29.2.102:7007' + item.url + '" target="_blank">' + item.title + '</a></li>';
+                $("#lunwen").append(html);
+            });
+        });
+
+        $.get('http://115.29.2.102:7007/api/search?source=patent_lsnetlib&q=${industry.title}&page=1&pageSize=8', {}, function (result) {
+            result = result.items;
+            $("#zhuanli").html("");
+            $.each(result, function (i, item) {
+                var z = item.TI.indexOf("[ZH]");
+                var title = item.TI.substr(0, z);
+                var html = "";
+                html += '<li><a  href="http://patent.lsnetlib.com/patent/patent.html?docno=' + item.AN + '&trsdb=fmzl" target="_blank">' + title + '</a></li>';
+                $("#zhuanli").append(html);
+            });
+        });
+    });
+
 	//专题浏览日志记录
-	$.post("${staticPath}/logmanage/add",{userid:1,t:"专题浏览",u:window.location.href},"json");
+    $.post("${staticPath}/logmanage/add", {sid: $("#userid").val(), t: "专题浏览", u: window.location.href}, "json");
 	function goDetail(id,type){
 	    window.location.href="${staticPath}/forehead/industry/detail/"+id+"/"+ ${industry.id}+"/"+ type;
 	}

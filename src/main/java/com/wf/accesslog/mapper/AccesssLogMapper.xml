@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wf.accesslog.mapper.AccessLogMapper">
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, res_type AS resType ,data_base AS dataStore,create_time AS createTime, user_brower AS userBrower,user_ip AS userIp,url
+    </sql>
+
+    <select id="selectLogPage" resultType="Map">
+        SELECT
+        l.id, l.res_type AS resType ,l.data_base AS dataStore,l.user_ip AS userIp,l.create_time AS
+        createTime,user_brower AS userBrower,l.url
+        from access_log l
+        where true
+        <if test=" startTime != null ">
+            <![CDATA[ and l.create_time >= #{startTime} ]]>
+        </if>
+        <if test=" endTime != null ">
+            <![CDATA[ and l.create_time <= #{endTime} ]]>
+        </if>
+    </select>
+
+    <select id="selectLogCount" resultType="Integer">
+        SELECT
+        Count(*)
+        from access_log l
+        where true
+        <if test=" startTime != null ">
+            <![CDATA[ and l.create_time >= #{startTime} ]]>
+        </if>
+        <if test=" endTime != null ">
+            <![CDATA[ and l.create_time <= #{endTime} ]]>
+        </if>
+    </select>
+</mapper>

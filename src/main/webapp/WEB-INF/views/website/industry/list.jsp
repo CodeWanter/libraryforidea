@@ -11,6 +11,11 @@
           href="${staticPath }/static/js/pagination_zh/lib/pagination.css" />
     <script charset="utf-8"
             src="${staticPath }/static/js/pagination_zh/lib/jquery.pagination.js"></script>
+    <style>
+        em {
+            font-style: normal;
+        }
+    </style>
 </head>
 <body class="LS2018_body">
 <div class="LS2018_main">
@@ -73,10 +78,10 @@
             PaginationBaiduInit(pageIndex, pageSize);
         }else if(tid==1){
             $(".tt_nav").html("论文");
-            PaginationInit(pageIndex, pageSize);
+            PaginationBaidu2Init(pageIndex, pageSize);
         }else if(tid==2){
             $(".tt_nav").html("专利");
-            PaginationInit(pageIndex, pageSize);
+            ZLPaginationInit(pageIndex, pageSize);
         }else if(tid==3){
             $(".tt_nav").html("项目信息");
             PaginationInit(pageIndex, pageSize);
@@ -117,7 +122,14 @@
         $.ajax({
             type: "post",
             url: "${path }/forehead/industry/listdata",
-            data: {  "id": getParam("id"),"tid": getParam("tid"),"sort":"createTime","order":"desc", "pageIndex": pageIndex+1, "pageSize": pageSize},
+            data: {
+                "id": getParam("id"),
+                "tid": getParam("tid"),
+                "sort": "createTime",
+                "order": "desc",
+                "pageIndex": (pageIndex + 1),
+                "pageSize": pageSize
+            },
             dataType: "json",
             async: true,
             beforeSend: function () {
@@ -142,12 +154,7 @@
     }
 
     function PaginationBaiduInit(pageIndex, pageSize) {
-        $.post("http://115.29.2.102:7007/search?source=baidu", {
-            "q": "${nav.title}",
-            "returnFilter":"true",
-            "page": pageIndex,
-            "pageSize": pageSize
-        }, function (data) {
+        $.get('http://115.29.2.102:7007/api/search?source=baidu&q=${nav.title}&returnFilter=true&filter=%7B"filter_type"%3A1%7D&page=' + pageIndex + '&pageSize=' + pageSize + '', {}, function (data) {
             data = JSON.parse(data);
             // 创建分页
             $("#Pagination").pagination(data.total, {
@@ -166,13 +173,7 @@
         var index;
         $.ajax({
             type: "post",
-            url: "http://115.29.2.102:7007/search?source=baidu",
-            data: {
-                "q": "${nav.title}",
-                "returnFilter":"true",
-                "page": pageIndex,
-                "pageSize": pageSize
-            },
+            url: 'http://115.29.2.102:7007/api/search?source=baidu&q=${nav.title}&returnFilter=true&filter=%7B"filter_type"%3A1%7D&page=' + (pageIndex + 1) + '&pageSize=' + pageSize + '',
             dataType: "json",
             async: true,
             beforeSend: function () {
@@ -182,11 +183,11 @@
                 layer.close(index);
             },
             success: function (result) {
-                result = result.rows;
+                result = result.items;
                 $("#List").html("");
                 $.each(result, function (i, item) {
                     var html = "";
-                    html += '<li><a  href="${path }/forehead/industry/detail/'+ item.id +'/${nav.id }">' + (pageIndex*10+i+1)+'、'+ item.title + '</a><span style="float:right;"><i>' + item.createTime.substr(0,10) + '</i></span></li>';
+                    html += '<li><a  href="http://115.29.2.102:7007' + item.url + '" target="_blank">' + (pageIndex * 10 + i + 1) + '、' + item.title + '</a></li>';
                     $("#List").append(html);
                 });
             },
@@ -196,6 +197,95 @@
         });
     }
 
+    function PaginationBaidu2Init(pageIndex, pageSize) {
+        $.get('http://115.29.2.102:7007/api/search?source=baidu&q=${nav.title}&returnFilter=true&filter=%7B"filter_type"%3A2%7D&page=' + pageIndex + '&pageSize=' + pageSize + '', {}, function (data) {
+            data = JSON.parse(data);
+            // 创建分页
+            $("#Pagination").pagination(data.total, {
+                num_edge_entries: 2, //边缘页数
+                num_display_entries: 10, //主体页数
+                callback: paginationBaidu2Callback, //回调函数
+                items_per_page: pageSize, //每页显示多少项
+                prev_text: "<<上一页",
+                next_text: "下一页>>"
+
+            });
+        });
+    }
+
+    function paginationBaidu2Callback(pageIndex, jq) {
+        var index;
+        $.ajax({
+            type: "post",
+            url: 'http://115.29.2.102:7007/api/search?source=baidu&q=${nav.title}&returnFilter=true&filter=%7B"filter_type"%3A2%7D&page=' + pageIndex + 1 + '&pageSize=' + pageSize + '',
+            dataType: "json",
+            async: true,
+            beforeSend: function () {
+                index = layer.load(1);
+            },
+            complete: function () {
+                layer.close(index);
+            },
+            success: function (result) {
+                result = result.items;
+                $("#List").html("");
+                $.each(result, function (i, item) {
+                    var html = "";
+                    html += '<li><a  href="http://115.29.2.102:7007' + item.url + '" target="_blank">' + (pageIndex * 10 + i + 1) + '、' + item.title + '</a></li>';
+                    $("#List").append(html);
+                });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                layer.msg('检索异常!');
+            }
+        });
+    }
+    //专利数据分页
+    function ZLPaginationInit(pageIndex, pageSize) {
+        $.get('http://115.29.2.102:7007/api/search?source=patent_lsnetlib&q=${nav.title}&page=' + pageIndex + '&pageSize=' + pageSize, {}, function (data) {
+            data = JSON.parse(data);
+            // 创建分页
+            $("#Pagination").pagination(data.total, {
+                num_edge_entries: 2, //边缘页数
+                num_display_entries: 10, //主体页数
+                callback: ZLpaginationCallback, //回调函数
+                items_per_page: pageSize, //每页显示多少项
+                prev_text: "<<上一页",
+                next_text: "下一页>>"
+
+            });
+        });
+    }
+    //分页数据回调
+    function ZLpaginationCallback(pageIndex, jq) {
+        var index;
+        $.ajax({
+            type: "get",
+            url: "http://115.29.2.102:7007/api/search?source=patent_lsnetlib&q=${nav.title}&page=" + (pageIndex + 1) + "&pageSize=" + pageSize,
+            dataType: "json",
+            async: true,
+            beforeSend: function () {
+                //index = layer.load(1);
+            },
+            complete: function () {
+                //layer.close(index);
+            },
+            success: function (result) {
+                result = result.items;
+                $("#List").html("");
+                $.each(result, function (i, item) {
+                    var z = item.TI.indexOf("[ZH]");
+                    var title = item.TI.substr(0, z);
+                    var html = "";
+                    html += '<li><a  href="http://patent.lsnetlib.com/patent/patent.html?docno=' + item.AN + '&trsdb=fmzl" target="_blank">' + (pageIndex * 10 + i + 1) + '、' + title + '</a></li>';
+                    $("#List").append(html);
+                });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                layer.msg('数据接口异常，请刷新重试！');
+            }
+        });
+    }
     //截取url数据方法
     var getParam = function (name) {
         var search = document.location.search;

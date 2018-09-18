@@ -1,6 +1,4 @@
 package com.wf.personal.service.impl;
-import java.util.List;
-import java.util.Map;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -9,9 +7,11 @@ import com.wf.commons.result.PageInfo;
 import com.wf.model.PersonalSc;
 import com.wf.personal.mapper.PersonalScMapper;
 import com.wf.personal.service.IPersonalScService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class PersonalScServiceImpl extends ServiceImpl<PersonalScMapper, PersonalSc> implements IPersonalScService {

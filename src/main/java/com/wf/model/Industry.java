@@ -1,8 +1,9 @@
 package com.wf.model;
 
+import com.wf.commons.utils.JsonUtils;
+
 import java.io.Serializable;
 import java.util.Date;
-import com.wf.commons.utils.JsonUtils;
 
 /*
  * 产业库 by huangjunqing 2018.08.08
@@ -23,6 +24,8 @@ public class Industry implements Serializable{
 	private String infomation;
 	//点击量
 	private Integer clickCount;
+    //主题词
+    private String topicKey;
 
 	public String getFileName() {
 		return fileName;
@@ -66,6 +69,14 @@ public class Industry implements Serializable{
 	public void setClickCount(Integer clickCount) {
 		this.clickCount = clickCount;
 	}
+
+    public String getTopicKey() {
+        return topicKey;
+    }
+
+    public void setTopicKey(String topicKey) {
+        this.topicKey = topicKey;
+    }
 
 	@Override
 	public String toString() {

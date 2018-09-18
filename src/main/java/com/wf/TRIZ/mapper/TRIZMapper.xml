@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wf.TRIZ.mapper.TRIZMapper">
+
+    <resultMap id="trizVoResultMap" type="com.wf.model.vo.TrizVO">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="pId" property="pId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+		id, node_name AS nodeName ,parent_id AS parentId,status AS status
+	</sql>
+
+    <select id="selectTreePage" resultMap="trizVoResultMap" parameterType="java.lang.Long">
+        SELECT
+        t.id, t.node_name AS name, t.parent_id AS pId,status AS status
+        FROM t_r_i_z t where true
+        <if test=" nodeName != null and nodeName != '' ">
+            and t.node_name like concat('%',#{nodeName},'%')
+        </if>
+    </select>
+
+    <insert id="insertTree" parameterType="com.wf.model.TRIZ">
+        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+            SELECT if(max(id) is null,1,max(id)+1) as newId from t_r_i_z
+        </selectKey>
+        INSERT INTO t_r_i_z(id,node_name,parent_id,status) VALUES(#{id},#{nodeName},#{parentId},#{status})
+    </insert>
+
+</mapper>

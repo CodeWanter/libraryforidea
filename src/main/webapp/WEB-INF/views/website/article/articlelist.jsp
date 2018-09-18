@@ -71,9 +71,6 @@
                        placeholder="请输入文章名称"
                        class="layui-input-inline layui-input" style="height:33px;" onblur="articleSearch()"/>
                 <input type="hidden" id="queryString" value=""/>
-            </div>
-
-
 </body>
 <script type="text/javascript">
 var pageIndex =1;

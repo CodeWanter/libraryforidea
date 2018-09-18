@@ -1,11 +1,10 @@
 package com.wf.model;
 
+import com.wf.commons.utils.JsonUtils;
+import org.springframework.web.util.HtmlUtils;
+
 import java.io.Serializable;
 import java.util.Date;
-
-import com.wf.commons.utils.JsonUtils;
-
-import org.springframework.web.util.HtmlUtils;
 
 /*
  * 文章实体 by zhanghuaiyu 2018.08.01
@@ -40,7 +39,8 @@ public class IndustryData implements Serializable{
 		this.title = title;
 	}
 	public String getType() {
-		return type;
+        //return Industrys.getStr(type);
+        return type;
 	}
 	public void setType(String type) {
 		this.type = type;

@@ -3,17 +3,6 @@
  */
 package com.wf.industry.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
 import com.wf.commons.base.BaseController;
 import com.wf.commons.result.PageInfo;
 import com.wf.commons.utils.CommonConstant;
@@ -21,14 +10,21 @@ import com.wf.commons.utils.StringUtils;
 import com.wf.industry.service.IIndustryService;
 import com.wf.industry.service.IIndustryTableService;
 import com.wf.model.Industry;
-import com.wf.model.IndustryData;
-
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author huangjunqing
@@ -43,7 +39,17 @@ public class IndustryController extends BaseController {
 	private IIndustryService industryService;
 	@Autowired
 	private IIndustryTableService itService;
-	/*
+
+    /*
+     * 后台修改产业库页面
+     */
+    @GetMapping("editPage")
+    public String editPage(Model model, long id) {
+        Industry industry = industryService.selectById(id);
+        model.addAttribute("industry", industry);
+        return "admin/industry/edit";
+    }
+    /*
 	 * 修改产业库信息
 	 */
 	/**
@@ -139,16 +145,8 @@ public class IndustryController extends BaseController {
 			return renderSuccess("删除失败！");
 		}
 	}
-	/*
-	 * 后台修改产业库页面
-	 */
-	@GetMapping("editPage")
-	public String editPage(Model model, long id) {
-		Industry industry = industryService.selectById(id);
-		model.addAttribute("industry", industry);
-		return "admin/industry/edit";
-	}
-	/**
+
+    /**
 	 * 保存产业库信息
 	 * 
 	 * @param industry 

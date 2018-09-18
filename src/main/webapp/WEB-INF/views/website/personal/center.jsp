@@ -9,6 +9,7 @@
 	<script charset="utf-8"	src="${staticPath }/static/js/pagination_zh/lib/jquery.pagination.js"></script>
 
 	<script charset="utf-8"	src="${staticPath }/static/lsportal/js/personal/mysc.js"></script>
+    <script charset="utf-8" src="${staticPath }/static/lsportal/js/personal/myrecomend.js"></script>
 	<script charset="utf-8"	src="${staticPath }/static/lsportal/js/personal/myorder.js"></script>
 	<script type="text/javascript">
 		function select(sel) {
@@ -43,6 +44,7 @@
 					//将body中其他模块不显示，只显示我的推荐的模块
 					$(".LS2018_Aright").css({display: 'none'});
 					$("#tJDIVID").css({display: 'inline'});
+                    personalRecommendInit();
 				} else if(sel.id == "sCID"){
 					//我的收藏修改选中状态
 					$("#personCentreID .current").removeClass("current");
@@ -144,6 +146,10 @@
 		    padding: 0 5px;
 		    font-size: 15px;
 		}
+
+        em {
+            font-style: normal;
+        }
 	</style>
 </head>
 <body class="LS2018_body">
@@ -316,62 +322,16 @@
 					<table class="LS2018_GRZX_TB2">
 						<tr>
 							<th style="width: 170px">标题
-								<select>
-									<option>降序</option>
-									<option>升序</option>
-								</select>
 							</th>
 							<th style="width: 90px">时间
-								<select>
-									<option>降序</option>
-									<option>升序</option>
-								</select>
 							</th>
 							<th style="min-width: 120px;">来源</th>
 							<th>摘要</th>
 						</tr>
-						<tr>
-							<td><a href="#">“CIDP制造业数字资源平台”的试用通知</a></td>
-							<td>2018-08-14</td>
-							<td>丽水市科技信息中心</td>
-							<td>
-								<div class="txt">
-									<!-- 摘要只显示三行，超出隐藏 -->
-									“CIDP制造业数字资源平台”在丽水市开通远程试用，平台内容主要为机械制造相关方面，可以应用于制造方面专业知识查询、论文写作、课程设计、毕业设计以及工程指导相关领域的学习研究。其包含以下五大专业模块。
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></td>
-							<td>2018-08-14</td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></td>
-							<td>2018-08-14</td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></td>
-							<td>2018-08-14</td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></td>
-							<td>2018-08-14</td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><a href="#">丽水市第六届"绿谷之秋·美术"比赛</a></td>
-							<td>2018-08-14</td>
-							<td></td>
-							<td></td>
-						</tr>
+
+                        <tbody id="recomendList"></tbody>
 					</table>
+                    <div id="RecomendPagination" class="dataTables_paginate paging_bootstrap pagination center"></div>
 				</div>
 				<!-- 我的收藏 -->
 				<div class="LS2018_Aright" id="sCDIVID" style="display: none;">
@@ -412,7 +372,6 @@
     layui.use([ 'layer', 'form'], function() {
         var form = layui.form
             ,layer = layui.layer;
-
         //自定义验证规则
         form.verify({
             industry1:function (value) {
@@ -430,7 +389,6 @@
 		}
 
         var industry = $("#industry").val().split('/');
-
         $.get("${staticPath }/static/lsportal/json/industry.json", function (data) {
             data= JSON.parse(data);
             var proHtml = '';
@@ -445,8 +403,6 @@
                 $('select[name=industry1]').siblings("div.layui-form-select").find('dl').find(select).click();
 			}
         })
-
-
         form.on('select(industry)', function(data){
             $("select[name=industry2]").empty();
             form.render();

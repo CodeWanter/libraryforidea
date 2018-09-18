@@ -35,10 +35,8 @@
                 	<td>种类:</td>
                     <td>
                         <select name="type" class="easyui-combobox" data-options="width:140,height:29,editable:false,panelHeight:'auto'">
-                            <option value="0" selected="selected">期刊</option>
-                            <option value="1" >论文</option>
                             <option value="2" >专利</option>
-                            <option value="3" >项目信息</option>
+                            <option value="3" selected="selected">项目信息</option>
                             <option value="4" >资讯</option>
                             <option value="5" >科技成果</option>
                         </select>
