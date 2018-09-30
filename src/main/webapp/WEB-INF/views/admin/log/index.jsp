@@ -73,6 +73,10 @@
                 width : '350',
                 title : 'URL',
                 field : 'url'
+            }, {
+                width: '350',
+                title: '检索词',
+                field: 'keyWord'
             },{
                 width : '120',
                 title : '浏览时间',

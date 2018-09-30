@@ -1,27 +1,22 @@
 package com.wf.generator;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PropertiesLoaderUtils;
-
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.FileOutConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.toolkit.StringUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * <p>
@@ -86,8 +81,8 @@ public class MysqlGenerator {
 		// strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
 		// 自定义实体，公共字段
 		// strategy.setSuperEntityColumns(new String[] { "test_id", "age" });
-		// 自定义 mapper 父类
-		// strategy.setSuperMapperClass("com.baomidou.demo.TestMapper");
+        // 自定义 components 父类
+        // strategy.setSuperMapperClass("com.baomidou.demo.TestMapper");
 		// 自定义 service 父类
 		// strategy.setSuperServiceClass("com.baomidou.demo.TestService");
 		// 自定义 service 实现类父类
@@ -108,8 +103,8 @@ public class MysqlGenerator {
 		pc.setParent("com.wf.subjects"); // 自定义包路径
 		pc.setController("controller"); // 这里是控制器包名，默认 web
 		pc.setEntity("model");
-		pc.setXml("mapper");
-		mpg.setPackageInfo(pc);
+        pc.setXml("components");
+        mpg.setPackageInfo(pc);
 
 		// 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
 		InjectionConfig cfg = new InjectionConfig() {

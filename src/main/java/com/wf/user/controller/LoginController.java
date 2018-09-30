@@ -1,27 +1,8 @@
 package com.wf.user.controller;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.DisabledAccountException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
 import com.wf.commons.base.BaseController;
 import com.wf.commons.shiro.PasswordHash;
+import com.wf.commons.shiro.ShiroUser;
 import com.wf.commons.shiro.captcha.DreamCaptcha;
 import com.wf.commons.utils.StringUtils;
 import com.wf.industry.service.IIndustryService;
@@ -29,6 +10,23 @@ import com.wf.model.Industry;
 import com.wf.model.User;
 import com.wf.model.vo.UserVo;
 import com.wf.user.service.IUserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @description：登录退出
@@ -79,6 +77,13 @@ public class LoginController extends BaseController {
     public String index(Model model) {
         if (SecurityUtils.getSubject().isAuthenticated() == false) {
             return "redirect:/login";
+        } else {
+            ShiroUser shiroUser = getShiroUser();
+            Long id = shiroUser.getId();
+            User user = userService.selectById(id);
+            if (user.getUserType() != 0) {//用户类型不是管理员的直接跳回
+                return "redirect:/login";
+            }
         }
         return "index";
     }

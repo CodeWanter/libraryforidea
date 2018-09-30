@@ -20,4 +20,6 @@ public interface ILogService extends IService<LogStatistics> {
     Map<String, Object> selectCharDataList(String startTime, String endTime);
 
     List<LogStatistics> selectlogList(String startTime,String endTime);
+
+    List<String> getTopSixKeyWordLog();
 }

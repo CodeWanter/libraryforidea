@@ -69,4 +69,9 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, LogStatistics> implem
     public List<LogStatistics> selectlogList(String startTime, String endTime) {
         return logMapper.selectlogList(startTime,endTime);
     }
+
+    @Override
+    public List<String> getTopSixKeyWordLog() {
+        return logMapper.getTopSixKeyWordLog();
+    }
 }

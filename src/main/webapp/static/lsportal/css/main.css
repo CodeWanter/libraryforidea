@@ -851,6 +851,74 @@ textarea, select, input{
     cursor: pointer;
 }
 
+/*###################  2018-09-29  ####################*/
+.LS2018_GRZX2 {
+    background: url('../images/New_GRZX_back.png') 0 top repeat-y;
+    min-height: 550px
+}
+
+.LS2018_GRZX2 .LS2018_Aleft {
+    width: 240px;
+}
+
+.LS2018_GRZX2 .LS2018_Aright {
+    width: 720px;
+}
+
+.LS2018_Cloud {
+    border-bottom: 25px #F0F7FB solid;
+}
+
+.LS2018_Cloud .main {
+    /*background: #FFFFFF;*/
+    /*border: 1px #FFFFFF solid;*/
+    /*box-shadow: 2px 2px 15px rgba(0,0,20, 0.1);*/
+    min-height: 150px;
+}
+
+.LS2018_List2 {
+    margin-bottom: 15px;
+}
+
+.LS2018_List2 li {
+    border-bottom: 1px #BBBBBB dashed;
+    padding: 3px 10px 15px 10px;
+    margin-bottom: 18px;
+}
+
+.LS2018_List2 li .aa {
+    line-height: 22px;
+    margin-bottom: 7px;
+}
+
+.LS2018_List2 li .aa a {
+    font-size: 15px;
+    font-weight: bold;
+    color: #054FAA;
+}
+
+.LS2018_List2 li .aa a:hover {
+    color: #FF0000;
+}
+
+.LS2018_List2 li .txt {
+    padding-left: 2px;
+    line-height: 22px;
+    max-height: 44px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: #777777;
+}
+
+.LS2018_List2 li .t1 {
+    color: #000000;
+}
+
+.LS2018_List2 li label {
+    margin-right: 30px;
+}
 
 
 

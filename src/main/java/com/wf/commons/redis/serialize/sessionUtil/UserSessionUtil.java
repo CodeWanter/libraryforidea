@@ -1,7 +1,6 @@
 package com.wf.commons.redis.serialize.sessionUtil;
 
 import com.wf.commons.shiro.ShiroUser;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionException;
@@ -41,7 +40,7 @@ public class UserSessionUtil {
         if(isExistUserInReids()){
             return userInfo.getId();
         }else{
-            throw new SessionException("用户session过期，请重新登录");
+            throw new SessionException("亲爱的用户，您尚未登录，请重新登录！");
         }
     }
 

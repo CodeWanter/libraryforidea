@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wf.deliver.mapper.DeliverMapper">
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+		id, title,author,publish_time AS publishTime, email,name ,tel,address, z_code AS zCode,message,create_time AS createTime,user_id AS userId
+	</sql>
+
+    <select id="selectDeliverPage" resultType="Map">
+        SELECT
+        t.id, t.title,t.author,t.publish_time AS publishTime, t.email,t.name ,t.tel,t.address, t.z_code AS
+        zCode,t.message,
+        t.create_time AS createTime,t.user_id AS userId
+        FROM deliver t where t.user_id = #{userId}
+        <!--  ORDER BY create_time DESC -->
+    </select>
+
+    <select id="selectDeliverGrid" resultType="Map">
+        SELECT
+        t.id, t.title,t.author,t.publish_time AS publishTime, t.email,t.name ,t.tel,t.address, t.z_code AS
+        zCode,t.message,
+        t.create_time AS createTime,t.user_id AS userId,u.login_name AS loginName
+        FROM deliver t LEFT JOIN user u on t.user_id = u.id where true
+        <if test=" title != null and title != '' ">
+            and t.title like concat('%',#{title},'%')
+        </if>
+        <if test=" startTime != null ">
+            <![CDATA[ and t.create_time >= #{startTime} ]]>
+        </if>
+        <if test=" endTime != null ">
+            <![CDATA[ and t.create_time <= #{endTime} ]]>
+        </if>
+        <!--  ORDER BY create_time DESC -->
+    </select>
+</mapper>

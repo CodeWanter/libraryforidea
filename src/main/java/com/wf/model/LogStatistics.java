@@ -1,7 +1,6 @@
 package com.wf.model;
 
 import com.baomidou.mybatisplus.annotations.TableField;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +20,7 @@ public class LogStatistics implements Serializable {
     private String accessType;//访问类型   资源浏览/下载/借阅/新闻浏览/专题浏览
     private String userBrower;//浏览器
     private String url;//浏览地址
+    private String keyWord;//检索词
 
     public Long getId() {
         return id;
@@ -84,5 +84,13 @@ public class LogStatistics implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getKeyWord() {
+        return keyWord;
+    }
+
+    public void setKeyWord(String keyWord) {
+        this.keyWord = keyWord;
     }
 }

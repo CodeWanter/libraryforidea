@@ -59,7 +59,7 @@
 <script type="text/javascript">
     var pageIndex = 1;
     var pageSize = 10;
-    var key = " ";
+    var key = "专利";
     var setting = {
         view: {
             selectedMulti: false
@@ -87,13 +87,17 @@
     });
     function Search() {
         key = $("#searchTxt").val();
+        if (key == "") {
+            layer.msg('检索词不能为空!');
+            return;
+        }
         PaginationInit(pageIndex, pageSize);
     }
     //点击回调函数
     function zTreeOnClick(event, treeId, treeNode) {
         key = treeNode.name;
         if (treeNode.pId == null) {
-            key = " ";
+            key = "专利";
         }
         PaginationInit(pageIndex, pageSize);
     };
@@ -134,28 +138,33 @@
         }
         $.ajax({
             type: "get",
-            url: "http://115.29.2.102:7007/api/search?source=patent_lsnetlib&q=" + key + "&page=1",
+            url: "http://115.29.2.102:7007/api/search?source=patent_lsnetlib&q=" + key + "&page=" + (pageIndex + 1),
             dataType: "json",
-            async: true,
+            async: false,
             beforeSend: function () {
-                //index = layer.load(1);
+                index = layer.load(1);
             },
             complete: function () {
-                //layer.close(index);
+                layer.close(index);
             },
             success: function (result) {
-                result = result.items;
+                layer.close(index);
                 $("#List").html("");
-                $.each(result, function (i, item) {
-                    var z = item.TI.indexOf("[ZH]");
-                    var title = item.TI.substr(0, z);
-                    var html = "";
-                    html += '<li><a  href="http://patent.lsnetlib.com/patent/patent.html?docno=' + item.AN + '&trsdb=fmzl" target="_blank">' + title + '</a></li>';
-                    $("#List").append(html);
-                });
+                if (result.total == 0) {
+                    $("#List").append("<div style='text-align: center'>暂无数据</div>");
+                } else {
+                    result = result.items;
+                    $.each(result, function (i, item) {
+                        var z = item.TI.indexOf("[ZH]");
+                        var title = item.TI.substr(0, z);
+                        var html = "";
+                        html += '<li><a  href="http://patent.lsnetlib.com/patent/patent.html?docno=' + item.AN + '&trsdb=fmzl" target="_blank">' + title + '</a></li>';
+                        $("#List").append(html);
+                    });
+                }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert('error...状态文本值：' + textStatus + " 异常信息：" + errorThrown);
+                layer.close(index);
                 layer.msg('检索异常!');
             }
         });

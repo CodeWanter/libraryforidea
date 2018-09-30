@@ -199,7 +199,7 @@
             });
         });
 
-        $.get('http://115.29.2.102:7007/api/search?source=patent_lsnetlib&q=${industry.title}&page=1&pageSize=8', {}, function (result) {
+        $.get('http://115.29.2.102:7007/api/search?source=patent_lsnetlib&q=${industry.topicKey}&page=1&pageSize=8', {}, function (result) {
             result = result.items;
             $("#zhuanli").html("");
             $.each(result, function (i, item) {

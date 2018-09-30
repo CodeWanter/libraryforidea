@@ -5,7 +5,7 @@ import ${superMapperClassPackage};
 
 /**
  * <p>
- * $!{table.comment} mapper 接口
+ * $!{table.comment} components 接口
  * </p>
  *
  * @author ${author}

@@ -3,13 +3,14 @@
 <mapper namespace="com.wf.log.mapper.LogMapper">
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id AS userId ,user_ip AS userIp,access_time AS accessTime,access_type AS accessType, user_brower AS userBrower,url
+        id, user_id AS userId ,user_ip AS userIp,access_time AS accessTime,access_type AS accessType, user_brower AS
+        userBrower,url,key_word AS keyWord
     </sql>
 
     <select id="selectLogPage" resultType="Map">
         SELECT
         l.id, l.user_id AS userId ,r.login_name AS userName,l.user_ip AS userIp,l.access_time AS accessTime,l.access_type AS accessType,
-        l.user_brower AS userBrower,l.url
+        l.user_brower AS userBrower,l.url,l.key_word AS keyWord
         from log_statistics l
         LEFT JOIN user r ON l.user_id = r.id
         where true

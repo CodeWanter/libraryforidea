@@ -10,9 +10,7 @@
 <script type="text/javascript">
     function logout(){
         $.post(basePath + '/logout', function(result) {
-             if(result.success){
                   window.location.href = basePath + '/';
-             }
         }, 'json');
     }
 </script>
@@ -31,8 +29,8 @@
         <li><a href="#">科技服务</a>
             <ul>
                 <li><a href="#">查重查新</a></li>
-                <li><a href="#">TRIZ知识组织</a></li>
-                <li><a href="#">主题分析报告</a></li>
+                <li><a href="${staticPath }/forehead/triz/index">TRIZ知识组织</a></li>
+                <li><a href="${staticPath }/forehead/stads/index">主题分析报告</a></li>
                 <li><a href="${staticPath}/forehead/industry/indusrtyList">特色专题库</a></li>
             </ul>
         </li>

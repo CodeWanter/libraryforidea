@@ -70,4 +70,5 @@ public class AccessLog implements Serializable {
     public void setUserIp(String userIp) {
         this.userIp = userIp;
     }
+
 }

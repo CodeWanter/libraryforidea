@@ -1050,7 +1050,7 @@ SWFUpload.prototype.executeNextEvent = function () {
 
 // Private: unescapeFileParams is part of a workaround for a flash bug where objects passed through ExternalInterface cannot have
 // properties that contain characters that are not valid for JavaScript identifiers. To work around this
-// the Flash Component escapes the parameter names and we must unescape again before passing them along.
+// the Flash components escapes the parameter names and we must unescape again before passing them along.
 SWFUpload.prototype.unescapeFilePostParams = function (file) {
 	var reg = /[$]([0-9a-f]{4})/i;
 	var unescapedPost = {};

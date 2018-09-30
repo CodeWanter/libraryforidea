@@ -49,10 +49,14 @@ function ScPaginationCallback(pageIndex, jq) {
         async: true,
         success: function (result) {
             result = result.rows;
-            $("#personalSCId  tr:not(:first)").html("");
+            $("#personalSCId").html("");
             var html = "";
             $.each(result, function (i, item) {
-                html += '<tr><td><a href="'+item.url+'" target="_blank">' +item.title + '</a></td><td>'+item.author+'</td><td>'+item.time+'</td><td>'+item.source+'</td><td>'+item.abstractZY+'</td><td>'+'<a class="a2" href="#" onclick="scDel('+item.id +')">删除</a></td></tr>';
+                html += '<li style="padding: 3px 10px 35px 10px;"><div class="aa"><a href="' + item.url + '" target="_blank">' + item.title + '</a></div>';
+                html += '<div class="txt"><label><span class="t1">作者：</span>' + item.author + '</label><label><span class="t1">时间：</span>' + item.time + '</label><label><span class="t1">来源：</span>' + item.source + '</label></div>';
+                html += '<div class="txt">' + item.abstractZY + '</div>';
+                html += '<div class="txt" style="float: right;margin-right: 10px;"><a class="layui-btn layui-btn-xs layui-btn-danger" href="#" onclick="scDel(' + item.id + ')"><i class="layui-icon"></i>删除</a></div></li>';
+                html += '</li>';
             });
             $("#personalSCId").append(html);
         },

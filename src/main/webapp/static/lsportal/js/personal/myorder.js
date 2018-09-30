@@ -57,7 +57,9 @@ function orderPaginationCallback(pageIndex, jq) {
                 $("#List").html("");
                 var html = "";
                 $.each(result, function (i, item) {
-                    html += '<tr><td><a href="#">'+item.defineName+'</a></td><td>' + item.createTime.substr(0,10) + '</td><td>'+item.abstractInfo+'</td><td><a class="a1" href="' + item.url + '">检索</a><a class="a2" href="#" onclick="orderDel('+item.id +')">删除</a></td></tr>';
+                    html += '<li style="padding: 3px 10px 35px 10px;"><div class="aa"><a href="#" target="_blank">' + item.defineName + '</a><span style="float: right;margin-right: 10px;"><i>' + item.createTime.substr(0, 10) + '</i></span></div>';
+                    html += '<div class="txt">' + item.abstractInfo + '</div>';
+                    html += '<div class="txt" style="float: right;margin-right: 10px;"><a class="layui-btn layui-btn-xs layui-btn-normal" href="' + item.url + '"><i class="layui-icon"></i>检索</a>&nbsp&nbsp<a class="layui-btn layui-btn-xs layui-btn-danger" href="#" onclick="orderDel(' + item.id + ')"><i class="layui-icon"></i>删除</a></div></li>';
                 });
                 $("#personalOrderId").html(html);
             },

@@ -11,6 +11,8 @@
 	<script charset="utf-8"	src="${staticPath }/static/lsportal/js/personal/mysc.js"></script>
     <script charset="utf-8" src="${staticPath }/static/lsportal/js/personal/myrecomend.js"></script>
 	<script charset="utf-8"	src="${staticPath }/static/lsportal/js/personal/myorder.js"></script>
+	<script charset="utf-8" src="${staticPath }/static/lsportal/js/personal/mydeliver.js"></script>
+	<script charset="utf-8" src="${staticPath }/static/js/tagcloud.js"></script>
 	<script type="text/javascript">
 		function select(sel) {
 			if ($("#personCentreID .current").html() != sel.value) {
@@ -53,11 +55,17 @@
 					$(".LS2018_Aright").css({display: 'none'});
 					$("#sCDIVID").css({display: 'inline'});
 					personalScInit();
-				}
+                } else if (sel.id == "dCID") {
+                    //我的收藏修改选中状态
+                    $("#personCentreID .current").removeClass("current");
+                    $("#dCID").addClass("current");
+                    //将body中其他模块不显示，只显示我的收藏的模块
+                    $(".LS2018_Aright").css({display: 'none'});
+                    $("#dCDIVID").css({display: 'inline'});
+                    personalDeliverInit();
+                }
 			}
 		}
-	</script>
-	<script type="text/javascript">
 		//修改个人资料
 		function centre(){
 			var logName = $("#centreLogNameID").val(); 
@@ -150,8 +158,39 @@
         em {
             font-style: normal;
         }
+
+		.tagcloud {
+			position: relative;
+			margin-top: 35px;
+		}
+
+		.tagcloud a {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: block;
+			/*padding: 11px 30px; color: #333; font-size:16px; */
+			/*border: 1px solid #e6e7e8;*/
+			/*border-radius: 18px;*/
+			/*background-color: #f2f4f8; */
+			text-decoration: none;
+			white-space: nowrap;
+			-o-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+			-ms-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+			-moz-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+			-webkit-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+			box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+			-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135, Color='#000000')"; /*兼容ie7/8*/
+			filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=125, Strength=9);
+			/*strength是阴影大小，direction是阴影方位，单位为度，可以为负数，color是阴影颜色 （尽量使用数字）使用IE滤镜实现盒子阴影的盒子必须是行元素或以行元素显示（block或inline-block;）*/
+		}
+
+		.tagcloud a:hover {
+			color: #3385cf;
+		}
 	</style>
 </head>
+
 <body class="LS2018_body">
 	<div class="LS2018_main">
 		<%@ include file="/commons/head.jsp" %>
@@ -159,10 +198,18 @@
 			<div class="LS2018_MBX">
 				当前位置：&nbsp;<a href="${staticPath}/">首 页</a><span class="gt">&gt;</span>个人中心
 			</div>
-			<div class="LS2018_GRZX Z_clearfix">
+			<div class="LS2018_GRZX2 Z_clearfix">
 				<div class="LS2018_Aleft">
+					<div class="LS2018_Cloud">
+						<div class="main">
+							<div class="tagcloud fl" id="tagcloud">
+
+							</div>
+						</div>
+					</div>
 					<div class="LS2018_GRZX_lefttop">个人中心</div>
 					<ul class="LS2018_GRZX_left_list" id="personCentreID">
+						<li><a id="ZXZY" value="最新资源" onclick="select(this);" style="cursor: pointer;">最新资源</a></li>
 						<li><span>账户设置</span>
 							<ul>
 								<li><a class="current" id="centreID" value="个人资料" onclick="select(this);" style="cursor: pointer;">个人资料</a></li>
@@ -172,10 +219,16 @@
 						<li><a id="dYID" value="我的订阅" onclick="select(this);" style="cursor: pointer;">我的订阅</a></li>
 						<li><a id="tJID" value="我的推荐" onclick="select(this);" style="cursor: pointer;">我的推荐</a></li>
 						<li><a id="sCID" value="我的收藏" onclick="select(this);" style="cursor: pointer;">我的收藏</a></li>
+						<li><a id="dCID" value="原文传递" onclick="select(this);" style="cursor: pointer;">原文传递</a></li>
 					</ul>
 				</div>
 				<%--个人资料--%>
 				<div class="LS2018_Aright" id="centreDIVID" style="display: inline;">
+					<div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
+						<span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 个人资料</h2></span>
+						<span style="float:right;margin-right: 10px;">
+						</span>
+					</div>
 					<form method="post" id="registform" class="layui-form">
 					<table class="LS2018_GRZX_TB1">
 						<tr>
@@ -270,6 +323,11 @@
 				</div>
 				<!-- 密码修改 -->
 				<div class="LS2018_Aright" id="pswEditDIVID" style="display: none;">
+					<div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
+						<span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 密码修改</h2></span>
+						<span style="float:right;margin-right: 10px;">
+						</span>
+					</div>
 					<table class="LS2018_GRZX_TB1">
 						<tr>
 							<td class="td1" style="width: 150px;">用户名：</td>
@@ -296,71 +354,71 @@
 				</div>
 				<!-- 我的订阅 -->
 				<div class="LS2018_Aright" id="dYDIVID" style="display: none;">
-					<table class="LS2018_GRZX_TB2" >
-						<tr>
-							<th style="width: 170px">名称
-								<select id="defineNameID" onchange="personalOrder('defineName',this)">
-									<option value="asc">升序</option>
-									<option value="desc">降序</option>
-								</select>
-							</th>
-							<th style="width: 100px">时间
-								<select id="createTimeID" onchange="personalOrder('createTime',this)">
-									<option value="desc">降序</option>
-									<option value="asc">升序</option>
-								</select>
-							</th>
-							<th>摘要</th>
-							<th style="width: 100px">操作</th>
-						</tr>
-						<tbody id="personalOrderId"></tbody>
-					</table>
+					<div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
+						<span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 我的订阅</h2></span>
+						<span style="float:right;margin-right: 10px;">
+						名称
+						<select id="defineNameID" onchange="personalOrder('defineName',this)">
+							<option value="asc">升序</option>
+							<option value="desc">降序</option>
+						</select>
+						时间
+						<select id="createTimeID" onchange="personalOrder('createTime',this)">
+							<option value="desc">降序</option>
+							<option value="asc">升序</option>
+						</select>
+					</span></div>
+					<ul class="LS2018_List2" id="personalOrderId">
+					</ul>
 					<div id="OrderPagination" class="dataTables_paginate paging_bootstrap pagination center"></div>
 				</div>
 				<!-- 我的推荐 -->
 				<div class="LS2018_Aright" id="tJDIVID" style="display: none;">
-					<table class="LS2018_GRZX_TB2">
-						<tr>
-							<th style="width: 170px">标题
-							</th>
-							<th style="width: 90px">时间
-							</th>
-							<th style="min-width: 120px;">来源</th>
-							<th>摘要</th>
-						</tr>
-
-                        <tbody id="recomendList"></tbody>
-					</table>
+					<div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
+						<span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 我的推荐</h2></span>
+						<span style="float:right;margin-right: 10px;">
+						</span>
+					</div>
+					<ul class="LS2018_List2" id="recomendList">
+					</ul>
                     <div id="RecomendPagination" class="dataTables_paginate paging_bootstrap pagination center"></div>
 				</div>
 				<!-- 我的收藏 -->
 				<div class="LS2018_Aright" id="sCDIVID" style="display: none;">
-					<table class="LS2018_GRZX_TB2" id="personalSCId">
-						<tr>
-							<th style="width: 150px">标题
-								<select id="titleSelectID" onchange="personalSC('title',this)">
-									<option value="desc">降序</option>
-									<option value="asc">升序</option>
-								</select>
-							</th>
-							<th style="width: 90px">作者
-								<select id="authorSelectID" onchange="personalSC('author',this)">
-									<option value="desc">降序</option>
-									<option value="asc">升序</option>
-								</select>
-							</th>
-							<th style="width: 90px">时间
-								<select id="timeSelectID" onchange="personalSC('time',this)">
-									<option value="desc">降序</option>
-									<option value="asc">升序</option>
-								</select>
-							</th>
-							<th style="width: 110px">来源</th>
-							<th>摘要</th>
-							<th style="width: 50px"></th>
-						</tr>
-					</table>
+					<div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
+						<span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 我的收藏</h2></span>
+						<span style="float:right;margin-right: 10px;">
+							标题
+					<select id="titleSelectID" onchange="personalSC('title',this)">
+						<option value="desc">降序</option>
+						<option value="asc">升序</option>
+					</select>
+					作者
+					<select id="authorSelectID" onchange="personalSC('author',this)">
+						<option value="desc">降序</option>
+						<option value="asc">升序</option>
+					</select>
+					时间
+					<select id="timeSelectID" onchange="personalSC('time',this)">
+						<option value="desc">降序</option>
+						<option value="asc">升序</option>
+					</select>
+						</span>
+					</div>
+					<ul class="LS2018_List2" id="personalSCId">
+					</ul>
 					<div id="Pagination" class="dataTables_paginate paging_bootstrap pagination center"></div>
+				</div>
+				<%--原文传递--%>
+				<div class="LS2018_Aright" id="dCDIVID" style="display: none;">
+					<div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
+						<span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 原文传递</h2></span>
+						<span style="float:right;margin-right: 10px;">
+						</span>
+					</div>
+					<ul class="LS2018_List2" id="personalDeliverId">
+					</ul>
+					<div id="DeliverPagination" class="dataTables_paginate paging_bootstrap pagination center"></div>
 				</div>
 			</div>
 		</div>
@@ -369,6 +427,30 @@
 </body>
 </html>
 <script type="text/javascript">
+    $.ajax({
+        type: "get",
+        url: "${staticPath }/forehead/keyword/getTopSixKeyWordLog",
+        dataType: "json",
+        async: false,
+        success: function (result) {
+            $.each(result, function (i, item) {
+                $("#tagcloud").append("<a href='http://2018.lsnetlib.com:7007/search?source=baidu&q=" + item + "&returnFilter=true' target='_blank'>" + item + "</a>")
+            });
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            layer.msg('加载异常!');
+        }
+    });
+	/*3D标签云*/
+    tagcloud({
+        selector: "#tagcloud",  //元素选择器
+        fontsize: 8,       //基本字体大小, 单位px
+        radius: 40,         //滚动半径, 单位px
+        mspeed: "normal",   //滚动最大速度, 取值: slow, normal(默认), fast
+        ispeed: "normal",   //滚动初速度, 取值: slow, normal(默认), fast
+        direction: 135,     //初始滚动方向, 取值角度(顺时针360): 0对应top, 90对应left, 135对应right-bottom(默认)...
+        keep: false          //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
+    });
     layui.use([ 'layer', 'form'], function() {
         var form = layui.form
             ,layer = layui.layer;

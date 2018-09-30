@@ -56,6 +56,9 @@ public class LogController extends BaseController{
         if (request != null) {
             logStatistics.setUserIp(IpUtils.getRemoteIp(request));//用户ip
         }
+        if (request.getParameter("k") != null) {
+            logStatistics.setKeyWord(request.getParameter("k"));//检索词
+        }
         logStatistics.setAccessTime(new Date());//添加时间
         logStatistics.setUserBrower(BrowerUtils.getOsAndBrowserInfo(request));//操作系统及浏览器信息
         logService.insert(logStatistics);
@@ -104,6 +107,7 @@ public class LogController extends BaseController{
         titleMap.put("accessType", "浏览内容");
         titleMap.put("userBrower", "操作系统&浏览器");
         titleMap.put("url", "URL");
+        titleMap.put("keyWord", "检索词");
         titleMap.put("accessTime", "浏览时间");
         String sheetName = "统计表单";
 
@@ -114,4 +118,6 @@ public class LogController extends BaseController{
         System.out.println("end导出");
         System.out.println("耗时："+(end-start)+"ms");
     }
+
+
 }

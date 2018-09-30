@@ -7,6 +7,8 @@ import com.wf.commons.base.BaseController;
 import com.wf.commons.redis.serialize.sessionUtil.UserSessionUtil;
 import com.wf.commons.result.PageInfo;
 import com.wf.commons.utils.StringUtils;
+import com.wf.deliver.service.IDeliverService;
+import com.wf.model.Deliver;
 import com.wf.model.PersonalOrder;
 import com.wf.model.PersonalSc;
 import com.wf.model.User;
@@ -20,9 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +44,9 @@ public class PersonalController  extends BaseController {
     private IPersonalScService personalScService;
     @Autowired
     private IPersonalOrderService personalOrderService;
+	@Autowired
+	private IDeliverService deliverService;
+
 
 	/*
 	 * 个人中心
@@ -78,11 +85,13 @@ public class PersonalController  extends BaseController {
 			return renderError("当前用户状态已失效，修改失败，请重新登录");
 		}
 	}
+
+	//region 我的收藏
 	//点击文献简介页，收藏/未收藏 判断
 	@CrossOrigin(origins = "*", maxAge = 3600)
 	@ResponseBody
-    @PostMapping("/selectScOrNsc")
-	public  Object selectScOrNsc(HttpServletRequest request,HttpServletResponse response){
+	@PostMapping("/selectScOrNsc")
+	public  Object selectScOrNsc(HttpServletRequest request, HttpServletResponse response){
 		String sessionId = request.getParameter("sid");
 		UserSessionUtil userSessionUtil = new UserSessionUtil(sessionId, request, response);
 		try {
@@ -90,12 +99,12 @@ public class PersonalController  extends BaseController {
 			String essayId = request.getParameter("EssayId");
 			//根据userId和EssayId去数据库查该条记录，如果查询到说明已收藏，未查到说明未收藏
 			if (essayId != null && essayId != "") {
-		        List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,essayId);
-		        if (list != null && !list.isEmpty()) {
-		            return renderSuccess("已收藏！");
-		        } else {
-		        	return renderError("未收藏！");
-		        }
+				List<PersonalSc> list = personalScService.selectByUIdAndEId(userId,essayId);
+				if (list != null && !list.isEmpty()) {
+					return renderSuccess("已收藏！");
+				} else {
+					return renderError("未收藏！");
+				}
 			}else{
 				return renderError("请上传文章Id！");
 			}
@@ -160,6 +169,8 @@ public class PersonalController  extends BaseController {
 		return pageInfo;
 	}
 
+	//endregion
+	//region 个人订阅
 	//插入我的订阅
 	@CrossOrigin(origins = "*", maxAge = 3600)
 	@ResponseBody
@@ -202,4 +213,52 @@ public class PersonalController  extends BaseController {
 		personalOrderService.deleteById(id);
 		return renderSuccess("删除成功！");
 	}
+	//endregion
+	//region 原文传递信息
+
+	/**
+	 * 保存原文传递信息
+	 *
+	 * @param deliver
+	 */
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	@PostMapping("insertdeliver")
+	@ResponseBody
+	public Object save(HttpServletRequest request, HttpServletResponse response, @Valid Deliver deliver) {
+		String sessionId = request.getParameter("sid");
+		UserSessionUtil userSessionUtil = new UserSessionUtil(sessionId, request, response);
+		long userId = userSessionUtil.getUserIdfromRedis();
+		deliver.setUserId(userId);
+		deliver.setCreateTime(new Date());
+		//// TODO: 2018/9/26 接入原文传递接口
+		boolean isAdded = deliverService.insert(deliver);
+		if (isAdded) {
+			return renderSuccess("申请成功！");
+		} else {
+			return renderError("申请失败！");
+		}
+	}
+
+	//	原文传递前台数据获取
+	@PostMapping("deliverlistdata")
+	@ResponseBody
+	public PageInfo deliverListData(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "sort", defaultValue = "create_time") String sort, @RequestParam(value = "order", defaultValue = "desc") String order, Integer pageIndex, Integer pageSize) {
+		PageInfo pageInfo = new PageInfo(pageIndex, pageSize, sort, order);
+		Map<String, Object> condition = new HashMap<>();
+		Long userId = getUserId();
+		condition.put("userId", userId);
+		pageInfo.setCondition(condition);
+		deliverService.selectByID(pageInfo);
+		return pageInfo;
+	}
+
+	// 原文传递详细页面加载
+	@GetMapping("deliverdetail")
+	public ModelAndView deliverdetail(ModelAndView model, Long id) {
+		Deliver deliver = deliverService.selectById(id);
+		model.addObject("deliver", deliver);
+		model.setViewName("website/deliver/detail");
+		return model;
+	}
+	//endregion
 }

@@ -242,7 +242,7 @@
     }
     //专利数据分页
     function ZLPaginationInit(pageIndex, pageSize) {
-        $.get('http://115.29.2.102:7007/api/search?source=patent_lsnetlib&q=${nav.title}&page=' + pageIndex + '&pageSize=' + pageSize, {}, function (data) {
+        $.get('http://115.29.2.102:7007/api/search?source=patent_lsnetlib&q=${nav.topicKey}&page=' + pageIndex + '&pageSize=' + pageSize, {}, function (data) {
             data = JSON.parse(data);
             // 创建分页
             $("#Pagination").pagination(data.total, {
@@ -261,7 +261,7 @@
         var index;
         $.ajax({
             type: "get",
-            url: "http://115.29.2.102:7007/api/search?source=patent_lsnetlib&q=${nav.title}&page=" + (pageIndex + 1) + "&pageSize=" + pageSize,
+            url: "http://115.29.2.102:7007/api/search?source=patent_lsnetlib&q=${nav.topicKey}&page=" + (pageIndex + 1) + "&pageSize=" + pageSize,
             dataType: "json",
             async: true,
             beforeSend: function () {
