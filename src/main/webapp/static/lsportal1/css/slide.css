@@ -1,0 +1,142 @@
+
+.slide_box {
+    width: 94vw;
+    height: 400px;
+    margin: 10vh auto;
+    background-color: rgba(230, 230, 230, 0.11);
+    position: relative;
+}
+
+.slide_box h1 {
+    width: 25vw;
+    height: 6vh;
+    line-height: 6vh;
+    margin: 0 auto 5vh;
+    text-align: center;
+    font-size: 1.5rem;
+    border-bottom: 2px solid rgba(84, 153, 255, 0.55);
+}
+
+.slide_list {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    /*position:inherit;*/
+    /*left: 50%;*/
+    /*margin-left: -66vw;*/
+}
+
+.slide_list h3 {
+    width: 100%;
+    background-color: #ffffff;
+    position: absolute;
+    height: 5vh;
+    font-size: 18px;
+    color: #333333;
+    line-height: 5vh;
+    bottom: 5vh;
+    text-align: center;
+
+}
+
+.slide_btn {
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    width: 60px;
+    height: 100px;
+    line-height: 100px;
+    font-size: 30px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    background: rgba(84, 153, 255, 0.42);
+    cursor: pointer;
+}
+
+.slide_next {
+    right: 0;
+}
+
+.slide_list li {
+    position: absolute;
+    top: 0;
+    left: 0;
+    list-style: none;
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+.slide_list img {
+    width: 60vw;
+    height: 45vh;
+    border: none;
+    float: left;
+    box-shadow: 1px 3px 20px rgba(4, 13, 43, 0.69);
+}
+
+.slide_list .slide_p1 {
+    transform: translate3d(-20vw, 0, 0) scale(0.81);
+}
+
+.slide_list .slide_p2 {
+    transform: translate3d(0px, 0, 0) scale(0.81);
+    transform-origin: 0 50%;
+    opacity: 0.8;
+    z-index: 2;
+}
+
+.slide_list .slide_p3 {
+    transform: translate3d(20vw, 0, 0) scale(1);
+    z-index: 3;
+    opacity: 1;
+}
+
+.slide_list .slide_p4 {
+    transform: translate3d(40vw, 0, 0) scale(0.81);
+    transform-origin: 100% 50%;
+    opacity: 0.8;
+    z-index: 2;
+}
+
+.slide_list .slide_p5 {
+    transform: translate3d(60vw, 0, 0) scale(0.81);
+}
+
+.slide_list .slide_p6 {
+    transform: translate3d(80vw, 0, 0) scale(0.81);
+}
+
+.slide_list .slide_p7 {
+    transform: translate3d(100vw, 0, 0) scale(0.81);
+}
+
+.slide_buttons {
+    position: absolute;
+    width: 1200px;
+    height: 30px;
+    bottom: 0;
+    left: 50%;
+    margin-left: -600px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.slide_buttons a {
+    display: inline-block;
+    width: 35px;
+    height: 5px;
+    padding-top: 4px;
+    cursor: pointer;
+}
+
+.slide_list span {
+    display: block;
+    width: 35px;
+    height: 1px;
+    background: red;
+}
+
+.slide_blue {
+    background: blue;
+}

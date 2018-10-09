@@ -63,6 +63,14 @@
                     $(".LS2018_Aright").css({display: 'none'});
                     $("#dCDIVID").css({display: 'inline'});
                     personalDeliverInit();
+                } else if (sel.id == "ZXZY") {
+                    //我的收藏修改选中状态
+                    $("#personCentreID .current").removeClass("current");
+                    $("#ZXZY").addClass("current");
+                    //将body中其他模块不显示，只显示我的收藏的模块
+                    $(".LS2018_Aright").css({display: 'none'});
+                    $("#newResource").css({display: 'inline'});
+                    personalDeliverInit();
                 }
 			}
 		}
@@ -169,10 +177,12 @@
 			top: 0;
 			left: 0;
 			display: block;
-			/*padding: 11px 30px; color: #333; font-size:16px; */
-			/*border: 1px solid #e6e7e8;*/
-			/*border-radius: 18px;*/
-			/*background-color: #f2f4f8; */
+            padding: 6px 15px;
+            color: #333;
+            /* font-size:16px; */
+            border: 1px solid #e6e7e8;
+            border-radius: 18px;
+            background-color: #f2f4f8;
 			text-decoration: none;
 			white-space: nowrap;
 			-o-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
@@ -200,6 +210,7 @@
 			</div>
 			<div class="LS2018_GRZX2 Z_clearfix">
 				<div class="LS2018_Aleft">
+                    <div class="LS2018_GRZX_lefttop">热门检索词</div>
 					<div class="LS2018_Cloud">
 						<div class="main">
 							<div class="tagcloud fl" id="tagcloud">
@@ -209,10 +220,12 @@
 					</div>
 					<div class="LS2018_GRZX_lefttop">个人中心</div>
 					<ul class="LS2018_GRZX_left_list" id="personCentreID">
-						<li><a id="ZXZY" value="最新资源" onclick="select(this);" style="cursor: pointer;">最新资源</a></li>
+                        <li><a id="ZXZY" class="current" value="最新资源" onclick="select(this);" style="cursor: pointer;">最新资源</a>
+                        </li>
 						<li><span>账户设置</span>
 							<ul>
-								<li><a class="current" id="centreID" value="个人资料" onclick="select(this);" style="cursor: pointer;">个人资料</a></li>
+                                <li><a id="centreID" value="个人资料" onclick="select(this);"
+                                       style="cursor: pointer;">个人资料</a></li>
 								<li><a id="pswEditID" value="密码修改" onclick="select(this);" style="cursor: pointer;">密码修改</a></li>
 							</ul>
 						</li>
@@ -222,8 +235,19 @@
 						<li><a id="dCID" value="原文传递" onclick="select(this);" style="cursor: pointer;">原文传递</a></li>
 					</ul>
 				</div>
+                <div class="LS2018_Aright" id="newResource" style="display: inline;">
+                    <div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
+                        <span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 最新资源</h2></span>
+                        <span style="float:right;margin-right: 10px;">
+						</span>
+                    </div>
+                    <ul class="LS2018_List2" id="newResourceId">
+                        数据整合中……
+                    </ul>
+                    <div id="newRPagination" class="dataTables_paginate paging_bootstrap pagination center"></div>
+                </div>
 				<%--个人资料--%>
-				<div class="LS2018_Aright" id="centreDIVID" style="display: inline;">
+                <div class="LS2018_Aright" id="centreDIVID" style="display: none;">
 					<div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
 						<span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 个人资料</h2></span>
 						<span style="float:right;margin-right: 10px;">

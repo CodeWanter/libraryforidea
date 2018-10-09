@@ -64,7 +64,7 @@ public class LoginController extends BaseController {
     	List<Industry> selectAll = industryService.selectAll();
     	model.addAttribute("industrys", selectAll);
     	model.addAttribute("size", selectAll.size());
-        return "homepage";
+        return "home";
     }
 
     /**

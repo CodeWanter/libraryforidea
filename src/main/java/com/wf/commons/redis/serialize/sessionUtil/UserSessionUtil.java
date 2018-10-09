@@ -19,6 +19,10 @@ public class UserSessionUtil {
 
     private ShiroUser userInfo;
 
+    public ShiroUser getUserInfo() {
+        return userInfo;
+    }
+
     public UserSessionUtil(String sessionId,HttpServletRequest request,  HttpServletResponse response){
         this.userInfo = this.getUserInfo(sessionId, request, response);
         System.out.println(sessionId);
