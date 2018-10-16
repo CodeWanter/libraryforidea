@@ -4,6 +4,7 @@ import com.wf.commons.utils.ConfigProperties;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import sun.misc.BASE64Encoder;
@@ -20,7 +21,7 @@ import java.util.Properties;
 public class CrossCheckController {
     private static Map<String, String> cookies = null;
     @GetMapping("/index")
-    public String crossCheck() throws Exception {
+    public String crossCheck(Model model) throws Exception {
         Properties properties = ConfigProperties.getProperties();
         String account = properties.getProperty("connect.api.apiAccount");
         String logintime = new Date().toString();
@@ -30,7 +31,10 @@ public class CrossCheckController {
         String secCode = (new BASE64Encoder()).encodeBuffer(bt);
         secCode = secCode.replace("\r\n", "");
         System.out.println("---------华丽的分割线-----------");
-        return "redirect:http://115.29.2.102:8092/ky/Login/LoginSSO?Account=" + account + "&LoginTime=" + logintime + "&SecCode=" + secCode + "&returnUrl=http://115.29.2.102:8092/ky/Home";
+        model.addAttribute("account", account);
+        model.addAttribute("logintime", logintime);
+        model.addAttribute("seccode", secCode);
+        return "website/crosscheck/index";
     }
 
     /**

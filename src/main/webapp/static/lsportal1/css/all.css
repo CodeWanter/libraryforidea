@@ -4,6 +4,7 @@
     -webkit-text-size-adjust: none;
 }
 
+
 /*body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl, dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td,iframe{*/
 /**/
 /*}*/
@@ -150,6 +151,7 @@ html, body {
     -webkit-transform: translateY(-500%);
 }
 
+
 /*.marsk-container:hover{*/
 /*background: none;*/
 
@@ -168,47 +170,27 @@ html, body {
 
 /*第一屏css代码开始*/
 
-.logo {
-    /*width: 100%;*/
-    /*height: 6vh;*/
-    /*background-color: #d0f5ff;*/
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2%;
-    margin-top: 1%;
-}
-
-.logo img {
-    width: 16vw;
-}
-
-/*.list1{*/
-/*width: 38vw;*/
-/*font-size: 1rem;*/
-/*margin-top:2%;*/
+/*.logo{*/
+/*width: 100%;*/
+/*height: 6vh;*/
+/*background-color: #d0f5ff;*/
 /*display: flex;*/
 /*flex-direction:row;*/
-/*align-items: center;*/
 /*justify-content: center;*/
+/*align-items: center;*/
+/*margin-bottom: 2%;*/
+/*margin-top: 1%;*/
 /*}*/
-/*.list1 li{*/
-/*cursor: pointer;*/
-/*color: white;*/
-/*padding:0.5vh 1.5vw;*/
-/*}*/
-
-/*.list1 li:hover{*/
-/*color: white;*/
-/*background-color: #000000;*/
+/*.logo img{*/
+/*width: 16vw;*/
 /*}*/
 
 .search {
-    width: 40vw;
-    margin: 0 auto;
+    width: 44vw;
+    margin: 7vh auto;
     height: 18vh;
     color: #333333;
+    /*background-color: #ffc1a9;*/
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -216,7 +198,7 @@ html, body {
 }
 
 .ser {
-
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -229,7 +211,7 @@ html, body {
 }
 
 .ser input {
-    width: 30vw;
+    width: 37vw;
     flex: 3 0 auto;
     font-size: 12px;
     vertical-align: top;
@@ -262,7 +244,6 @@ html, body {
     align-items: center;
     justify-content: center;
 }
-
 /*第一屏css代码结束*/
 
 /*第二屏css代码开始*/
@@ -338,7 +319,6 @@ html, body {
     margin: .5vh 4px;
     cursor: pointer;
 }
-
 .ih-item {
     position: relative;
     -webkit-transition: all 0.35s ease-in-out;
@@ -385,6 +365,7 @@ html, body {
     backface-visibility: hidden;
 }
 
+
 .ih-item.square.effect15 {
     position: relative;
     overflow: hidden;
@@ -412,7 +393,6 @@ html, body {
     -moz-transition: all 0.35s ease-in-out;
     transition: all 0.35s ease-in-out;
 }
-
 .ih-item.square.effect15 .info {
     opacity: 0;
     display: flex;
@@ -471,6 +451,7 @@ html, body {
     font-size: 17px;
 }
 
+
 .ih-item.square.effect15.right_to_left .img {
     -webkit-transform: translateY(0);
     -moz-transform: translateY(0);
@@ -519,8 +500,10 @@ html, body {
 /*第三屏css代码开始*/
 
 .kuang {
-    width: 90vw;
-    margin: 30vh auto 18vh;
+    width: 96vw;
+    margin: 0 auto;
+    position: absolute;
+    top: 14vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -530,11 +513,11 @@ html, body {
 
 .k {
 
-    width: 40vw;
+    width: 30vw;
     height: 19vh;
     /*border: 1px solid #3385ff;*/
     box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.78);
-    border-radius: 50px;
+    border-radius: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -542,14 +525,13 @@ html, body {
     overflow: hidden;
     /*background-color: #13ff00;*/
     background-color: rgba(255, 255, 255, 0.36);
-    margin: 4vh 0.5% 0 0.5%;
+    margin: 0.5% 0 0.5%;
 }
 
 .k:hover {
     background-color: rgba(224, 224, 224, 0.04);
-    color: black;
-    width: 75vw;
-    height: 30vh;
+    width: 60vw;
+    height: 26vh;
     border-radius: 2px;
 }
 
@@ -875,7 +857,6 @@ html, body {
     margin-top: 0.5vh;
     width: 1.4vw;
 }
-
 /*右侧导航css代码结束*/
 
 /*第四屏css代码结束*/
