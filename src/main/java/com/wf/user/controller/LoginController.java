@@ -67,6 +67,11 @@ public class LoginController extends BaseController {
         return "home";
     }
 
+    @GetMapping("/forehead/login")
+    public String login_frame() {
+        return "login_frame";
+    }
+
     /**
      * 首页
      *

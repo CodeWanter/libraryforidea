@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="${staticPath }/static/js/pagination_zh/lib/pagination.css" />
 	<script charset="utf-8"	src="${staticPath }/static/js/pagination_zh/lib/jquery.pagination.js"></script>
 
+    <script charset="utf-8" src="${staticPath }/static/lsportal/js/personal/newresourse.js"></script>
 	<script charset="utf-8"	src="${staticPath }/static/lsportal/js/personal/mysc.js"></script>
     <script charset="utf-8" src="${staticPath }/static/lsportal/js/personal/myrecomend.js"></script>
 	<script charset="utf-8"	src="${staticPath }/static/lsportal/js/personal/myorder.js"></script>
 	<script charset="utf-8" src="${staticPath }/static/lsportal/js/personal/mydeliver.js"></script>
 	<script charset="utf-8" src="${staticPath }/static/js/tagcloud.js"></script>
 	<script type="text/javascript">
+        newResourseInit();
 		function select(sel) {
 			if ($("#personCentreID .current").html() != sel.value) {
 				if (sel.id == "centreID") {
@@ -23,7 +25,6 @@
 					//将body中其他模块不显示，只显示个人资料的模块
 					$(".LS2018_Aright").css({display: 'none'});
 					$("#centreDIVID").css({display: 'inline'});
-
 				} else if(sel.id == "pswEditID"){
 					//密码修改选中状态
 					$("#personCentreID .current").removeClass("current");
@@ -64,13 +65,13 @@
                     $("#dCDIVID").css({display: 'inline'});
                     personalDeliverInit();
                 } else if (sel.id == "ZXZY") {
-                    //我的收藏修改选中状态
+                    //最新资源修改选中状态
                     $("#personCentreID .current").removeClass("current");
                     $("#ZXZY").addClass("current");
                     //将body中其他模块不显示，只显示我的收藏的模块
                     $(".LS2018_Aright").css({display: 'none'});
                     $("#newResource").css({display: 'inline'});
-                    personalDeliverInit();
+                    newResourseInit();
                 }
 			}
 		}

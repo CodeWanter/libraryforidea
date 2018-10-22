@@ -46,7 +46,7 @@ function recomendPaginationCallback(rpageIndex, jq) {
             $("#recomendList").html("");
             $.each(result, function (i, item) {
                 var html = "";
-                html += '<li><div class="aa"><a href="http://115.29.2.102:7007' + item.url + '" target="_blank">' + item.title + '</a></div>';
+                html += '<li><div class="aa"><a href="http://2018.lsnetlib.com:7007' + item.url + '" target="_blank">' + item.title + '</a></div>';
                 html += '<div class="txt"><label><span class="t1">时间：</span>' + item.timeStr + '</label><label><span class="t1">来源：</span>' + item.publisher + '</label></div>';
                 html += '<div class="txt">' + item.desc + '</div>';
                 html += '</li>';

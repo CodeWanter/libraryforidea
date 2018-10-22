@@ -135,7 +135,6 @@
 					</ul>
 				</form>
 			</div>
-
 		</div>
 
 		<div class="container">
@@ -157,7 +156,7 @@
 					<div class="bannerfcon" style="display:none">
 						<div class="text">
 							<h2><a href="http://www.drcnet.com.cn/#g=library" target="_blank">政策资讯</a></h2>
-							以国务院发展研究中心丰富的信息资源和强大的专家阵容为依托，全面汇集、整合国内外经济金融领域的经济信息和研究成果，为中国各级政府部门、研究机构和企业准确把握国内外宏观环境、经济金融运行特征、发展趋势及政策走向。。
+                            以国务院发展研究中心丰富的信息资源和强大的专家阵容为依托，全面汇集、整合国内外经济金融领域的经济信息和研究成果，为中国各级政府部门、研究机构和企业准确把握国内外宏观环境、经济金融运行特征、发展趋势及政策走向。
 						</div>
 					</div>
 					<!--<div class="bannerfcon" style="display:none">-->
@@ -490,13 +489,16 @@
 				<h1>通知资讯</h1>
 				<ul>
 					<li class="section_active" id="bt1">最新动态
-						<span style="background: linear-gradient(to top right, rgba(255, 0, 0, 0),rgba(255, 0, 0, 0), #46c7ff);">••• </span>
+                        <span style="background: linear-gradient(to top right, rgba(255, 0, 0, 0),rgba(255, 0, 0, 0), #46c7ff);"><a
+                                href="${staticPath }/forehead/article/articlelist">••• </a></span>
 					</li>
 					<li id="bt2">每日更新
-						<span style="background: linear-gradient(to top right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 0),#43ffad);">••• </span>
+                        <span style="background: linear-gradient(to top right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 0),#43ffad);"><a
+                                href="${staticPath}/forehead/collect/collectlist">•••</a> </span>
 					</li>
 					<li id="bt3">试用资源
-						<span style="background: linear-gradient(to top right, rgba(255, 0, 0, 0),rgba(255, 0, 0, 0), #d7ff86);">••• </span>
+                        <span style="background: linear-gradient(to top right, rgba(255, 0, 0, 0),rgba(255, 0, 0, 0), #d7ff86);"><a
+                                href="${staticPath}/forehead/collect/articlelist#a02">•••</a> </span>
 					</li>
 				</ul>
 			</div>
@@ -513,8 +515,6 @@
 					</ul>
 					<ul class="thr-r" id="collect2">
 					</ul>
-					<span style="position: absolute;right: 1vw;bottom:7vh"><a class="biaoqian" href="" target="_blank"
-																			  style="font-size: 12px;font-weight: 400;color: #479fc8">. . .查看更多. . .</a></span>
 				</div>
 				<div class="three_contentItem">
 					<ul class="thr-l">

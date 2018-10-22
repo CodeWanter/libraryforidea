@@ -18,6 +18,8 @@ import com.wf.personal.service.IPersonalScService;
 import com.wf.user.service.IUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.SessionException;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -260,5 +262,28 @@ public class PersonalController  extends BaseController {
 		model.setViewName("website/deliver/detail");
 		return model;
 	}
-	//endregion
+
+    //最新资源
+    @PostMapping("getNewResourse")
+    @ResponseBody
+    public Object getNewResourse() throws Exception {
+        String urlLogin = "http://my.cnki.net/RCDService/api/MyPapers/similar?clientID=8180918092302531226&userIP=210.22.176.35&userID=-1&top=30";
+        Connection connect = Jsoup.connect(urlLogin);
+        // 伪造请求头
+        connect.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+        connect.header("Accept-Encoding", "gzip, deflate");
+        connect.header("Accept-Language", "zh-CN,zh;q=0.9");
+        connect.header("Connection", "keep-alive");
+        connect.header("Cookie", "SID=020101; Ecp_ClientId=3181018112001153935; UM_distinctid=166853066dd38-06751dcb5f70e7-335c4f7f-1fa400-166853066de393; Ecp_IpLoginFail=181018106.37.240.36; cnkiUserKey=1343bf8c-ee9d-3139-5ba1-4468e3c93121");
+        connect.header("Host", "my.cnki.net");
+        connect.header("Upgrade-Insecure-Requests", "1");
+        connect.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.26 Safari/537.36 Core/1.63.6756.400 QQBrowser/10.2.2457.400");
+        connect.followRedirects(true);
+
+        Connection.Response res = connect.ignoreContentType(true).method(Connection.Method.GET).execute();// 执行请求
+
+        String body = res.body();// 获取响应体
+        return body;
+    }
+    //endregion
 }
