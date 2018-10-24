@@ -155,10 +155,10 @@
         });
     }
 
-    function searchpolicyFun() {
+    function searchpolicySc() {
         policyScDataGrid.datagrid('load', $.serializeObject($('#searchpolicyScForm')));
     }
-    function cleanpolicyFun() {
+    function cleanpolicyScFun() {
         $('#searchpolicyScForm input').val('');
         policyScDataGrid.datagrid('load', {});
     }
@@ -187,10 +187,10 @@
                             <option value="2">禁用</option>
                         </select>
                         <a href="javascript:void(0);" class="easyui-linkbutton"
-                           data-options="iconCls:'glyphicon-search',plain:true" onclick="searchpolicyFun();">查询</a>
+                           data-options="iconCls:'glyphicon-search',plain:true" onclick="searchpolicySc();">查询</a>
                         <a href="javascript:void(0);" class="easyui-linkbutton"
                            data-options="iconCls:'glyphicon-remove-circle',plain:true"
-                           onclick="cleanpolicyFun();">清空</a>
+                           onclick="cleanpolicyScFun();">清空</a>
                     </td>
                 </tr>
             </table>
