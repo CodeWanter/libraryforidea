@@ -25,8 +25,8 @@
 					<td>分类:</td>
 					<td><select class="easyui-combobox type" name="articleType"
 						id="articletype">
-							<option value="1">通知资讯</option>
-							<option value="2">最新动态</option>
+                        <option value="1">双创平台</option>
+                        <option value="2">市图平台</option>
 					</select></td>
 				</tr>
 			</table>

@@ -37,4 +37,9 @@ public interface LogMapper extends BaseMapper<LogStatistics>{
             "        l.key_word AS keyWord\n" +
             "        from log_statistics l where key_word is NOT NULL and key_word  <> \"\"  GROUP BY l.key_word limit 0,10")
     List<String> getTopSixKeyWordLog();
+
+    @Select(" SELECT\n" +
+            "        l.key_word AS keyWord\n" +
+            "        from log_statistics l where industry='${industry}' and key_word is NOT NULL and key_word  <> \"\"  GROUP BY l.key_word limit 0,10")
+    List<String> getTopSixKeyWordLogById(@Param("industry") String industry);
 }

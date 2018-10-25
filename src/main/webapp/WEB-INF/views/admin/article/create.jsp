@@ -20,10 +20,10 @@
 							class="xt_textarea"></textarea> <br /></td>
 				</tr>
 				<tr>
-					<td>分类:</td>
+                    <td>平台:</td>
 					<td><select class="easyui-combobox" name="articleType" id="articleType">
-							<option value="1">通知资讯</option>
-							<option value="2">最新动态</option>
+                        <option value="1">双创平台</option>
+                        <option value="2">市图平台</option>
 					</select></td>
 				</tr>
 			</table>

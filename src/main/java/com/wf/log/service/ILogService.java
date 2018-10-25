@@ -22,4 +22,7 @@ public interface ILogService extends IService<LogStatistics> {
     List<LogStatistics> selectlogList(String startTime,String endTime);
 
     List<String> getTopSixKeyWordLog();
+
+    List<String> getTopSixKeyWordLogById(String industry);
+
 }

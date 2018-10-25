@@ -74,4 +74,9 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, LogStatistics> implem
     public List<String> getTopSixKeyWordLog() {
         return logMapper.getTopSixKeyWordLog();
     }
+
+    @Override
+    public List<String> getTopSixKeyWordLogById(String industry) {
+        return logMapper.getTopSixKeyWordLogById(industry);
+    }
 }

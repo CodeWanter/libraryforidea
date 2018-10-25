@@ -59,7 +59,7 @@
 <body>
 <div id="main">
     <div class="txt">
-        <a href="#"><img src="${staticPath }/static/lsportal1/image/logo.png">
+        <a href="${staticPath }/" title="点此处返回首页"><img src="${staticPath }/static/lsportal1/image/logo.png">
             <a href="http://www.lsnetlib.com" target="_blank" style="cursor: pointer;color: #0d78d3;">返回旧版</a>
         </a>
     </div>
@@ -121,24 +121,28 @@
             <a href="#0" class="cd-close-form">关闭</a>
         </div>
     </div>
-
 </div>
 <div class="section-wrap">
-    <iframe src="http://webstads.sciinfo.cn/stads.do?index" width="100%" height="100%" frameborder="0"></iframe>
-    <div class="layui-clear"></div>
-    <%--<div class="x">--%>
-    <%--<ul class="x2">--%>
-    <%--<li>主办单位:丽水市人民政府</li>--%>
-    <%--<li>承办单位:丽水市科技信息中心</li>--%>
-    <%--<li>技术支持:上海万方数据有限公司</li>--%>
-    <%--<li>免费咨询电话: 400-889-9177</li>--%>
-    <%--<li>COPYRIGHT ©2007 LSNETLIB.COM INCORPORATED. ALL RIGHTS RESERVED.</li>--%>
-    <%--<li>--%>
-    <%--<span>浙ICP备09054032号</span>--%>
-    <%--<img src="${staticPath }/static/lsportal1/image/icon-8.png">--%>
-    <%--</li>--%>
-    <%--</ul>--%>
-    <%--</div>--%>
+    <shiro:hasRole name="admin">
+        <iframe src="http://webstads.sciinfo.cn/stads.do?index" width="100%" height="100%" frameborder="0"></iframe>
+        <div class="layui-clear"></div>
+    </shiro:hasRole>
+    <shior:user>
+        <shiro:lacksRole name="admin">
+            <div style="margin-top: 15%"></div>
+            <div style="border:1px solid gray;background-color:orange;margin:auto;height: 80px;
+    width: 280px;line-height: 80px;text-align: center;
+    border-radius: 6px;">抱歉，您没有权限！
+            </div>
+        </shiro:lacksRole>
+    </shior:user>
+    <shiro:guest>
+        <div style="margin-top: 15%"></div>
+        <div style="border:1px solid gray;background-color:orange;margin:auto;height: 80px;
+    width: 280px;line-height: 80px;text-align: center;
+    border-radius: 6px;">您还没有权限，请登录后访问！
+        </div>
+    </shiro:guest>
 </div>
 </div>
 </body>
@@ -166,7 +170,7 @@
             result = $.parseJSON(result);
             if (result.success) {
                 progressClose();
-                window.location.href = basePath + '/forehead/stads/index';
+                window.location.href = basePath + '/forehead/index';
             }
         }, 'text');
     }

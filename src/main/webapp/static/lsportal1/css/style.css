@@ -39,7 +39,9 @@
 
 .txt a:first-child img {
     height: 11vh;
-    margin-top: 10px;
+    margin-top: 21px;
+    width: 175px;
+    height: 92px;
 }
 
 .demo {
@@ -281,7 +283,6 @@
     background: #a7cbf6;
     outline: none;
 }
-
 
 @media only screen and (min-width: 600px) {
     .cd-form {

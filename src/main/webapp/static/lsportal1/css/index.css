@@ -144,19 +144,19 @@
 }
 
 .BrainMapMain .qikan {
-    width: 95px;
-    height: 95px;
-    line-height: 95px;
-    font-size: 100%;
+    width: 85px;
+    height: 85px;
+    line-height: 85px;
+    font-size: 95%;
     top: 18%;
     left: 45%;
 }
 
 .BrainMapMain .xuewei {
-    width: 76px;
-    height: 76px;
-    line-height: 76px;
-    font-size: 90%;
+    width: 65px;
+    height: 65px;
+    line-height: 67px;
+    font-size: 80%;
     top: 38%;
     left: 10%;
 }
@@ -189,12 +189,12 @@
 }
 
 .BrainMapMain .kjcg {
-    width: 66px;
-    height: 66px;
-    line-height: 66px;
-    font-size: 90%;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 85%;
     bottom: 17%;
-    right: 43%
+    right: 43%;
 }
 
 .BrainMapMain .fagui {
@@ -893,8 +893,8 @@
     color: #fff;
     font-size: 16px;
     line-height: 2.25;
-    left: -60px;
-    top: 40px;
+    left: -45px;
+    top: 55px;
 }
 
 .bannerfocus .text strong {

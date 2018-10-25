@@ -21,6 +21,7 @@ public class LogStatistics implements Serializable {
     private String userBrower;//浏览器
     private String url;//浏览地址
     private String keyWord;//检索词
+    private String industry;
 
     public Long getId() {
         return id;
@@ -92,5 +93,13 @@ public class LogStatistics implements Serializable {
 
     public void setKeyWord(String keyWord) {
         this.keyWord = keyWord;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
     }
 }

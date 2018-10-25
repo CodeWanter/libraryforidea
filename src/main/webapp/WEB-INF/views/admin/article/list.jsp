@@ -23,14 +23,14 @@
                 sortable : true
             }, {
                 width : '250',
-                title : '文章类型',
+                title: '发布平台',
                 field : 'articleType',
                 sortable : true,
                 formatter: function (value, rec) {
                     if(value==1){
-                        return '通知资讯';
+                        return '双创平台';
                     }else{
-                        return '最新动态';
+                        return '市图平台';
                     }
                 }
             },{
@@ -148,12 +148,12 @@
                 <tr>
                     <th>文章标题:</th>
                     <td><input type="text" name="title" placeholder="请输入文章标题"/></td>
-                    <th>文章类型:</th>
+                    <th>发布平台:</th>
                     <td>
 						<select class="easyui-combobox" name="articleType">
 							<option value="">全部</option>
-							<option value="1">通知资讯</option>
-							<option value="2">最新动态</option>
+                            <option value="1">双创平台</option>
+                            <option value="2">市图平台</option>
 						</select>
                         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'glyphicon-search',plain:true" onclick="searchArticleFun();">查询</a>
                         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'glyphicon-remove-circle',plain:true" onclick="cleanArticleFun();">清空</a>
