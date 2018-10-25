@@ -449,9 +449,14 @@
 		</div>
 		<%@ include file="/commons/footer.jsp" %>
 	</div>
+<%
+	String id = request.getSession().getId();
+%>
+<input type="hidden" id="sid" value="<%=id%>"/>
 </body>
 </html>
 <script type="text/javascript">
+	var sid = $("#sid").val();
     $.ajax({
         type: "get",
         url: "${staticPath }/forehead/keyword/getTopSixKeyWordLog",
@@ -459,13 +464,18 @@
         async: false,
         success: function (result) {
             $.each(result, function (i, item) {
-                $("#tagcloud").append("<a href='http://2018.lsnetlib.com:7007/search?source=baidu&q=" + item + "&returnFilter=true' target='_blank'>" + item + "</a>")
+                $("#tagcloud").append("<a onclick='tagSearch(\""+item+"\");' href='javascript:void(0)' target='_blank'>" + item + "</a>")
             });
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             layer.msg('加载异常!');
         }
     });
+    function tagSearch(str){
+    	
+    	window.open("http://2018.lsnetlib.com:7007/search?source=baidu&q="+ str + "&returnFilter=true&sid="+sid)
+    }
+    
 	/*3D标签云*/
     tagcloud({
         selector: "#tagcloud",  //元素选择器
