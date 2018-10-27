@@ -61,6 +61,10 @@ public class User implements Serializable {
 
 	//	职称
 	private String professor;
+	
+	//机构主键
+	private Integer org_id;
+	
 
 	public Long getId() {
 		return this.id;
@@ -185,6 +189,16 @@ public class User implements Serializable {
 	public String getProfessor() {
 		return professor;
 	}
+	
+
+	public Integer getOrg_id() {
+		return org_id;
+	}
+
+	public void setOrg_id(Integer org_id) {
+		this.org_id = org_id;
+	}
+	
 
 	public void setProfessor(String professor) {
 		this.professor = professor;
@@ -194,4 +208,6 @@ public class User implements Serializable {
 	public String toString() {
 		return JsonUtils.toJson(this);
 	}
+
+	
 }

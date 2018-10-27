@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wf.intermed.mapper.IntermedOrgMapper">
+	
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+        id, org_name AS orgName, pubflag, contact_name AS contactName,contact_tel AS contactTel,
+        contact_email AS contactEmail, business_license AS businessLicense, org_code AS orgCode, 
+        show_fields AS showFields, org_intro AS orgIntro, create_time AS createTime, modify_time AS modifyTime
+	</sql>
+
+	<select id="selectPageIntermedOrg" resultType="Map">
+		select t.id, t.org_name as orgName, t.pubflag, t.contact_name as contactName, 
+		t.create_time AS createTime, t.modify_time AS modifyTime from intermed_org t where true
+		<if test=" orgName != null and orgName != '' ">
+			and t.org_name like concat('%',#{orgName},'%')
+		</if>
+		<if test=" pubflag != null and pubflag != '' ">
+			and t.pubflag = #{pubflag}
+		</if>
+	</select>
+
+</mapper>

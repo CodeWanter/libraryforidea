@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wf.intermed.mapper.OrgServiceMapper">
+	
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+        id,org_id as orgId, pubflag, service_name AS serviceName, service_type AS serviceType, service_intro AS serviceIntro, 
+        service_contact AS serviceContact, contact_way AS contactWay, service_fee AS serviceFee, service_guide AS serviceGuide, 
+        create_time AS createTime, modify_time AS modifyTime
+	</sql>
+	
+	<select id="selectOrgServicePage" resultType="Map">
+		select t.id,t.org_id as orgId, t.pubflag, t.service_name AS serviceName, t.service_type AS serviceType, t.service_intro AS serviceIntro, 
+        t.service_contact AS serviceContact, t.contact_way AS contactWay, t.service_fee AS serviceFee, t.service_guide AS serviceGuide, 
+        t.create_time AS createTime, t.modify_time AS modifyTime from org_service t where true
+		<if test="orgId != null and orgId != ''">
+			and t.org_id = #{orgId}
+		</if>
+		<if test=" serviceName != null and serviceName != '' ">
+			and t.service_name like concat('%',#{serviceName},'%')
+		</if>
+	</select>
+
+</mapper>
