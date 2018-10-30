@@ -3,17 +3,12 @@
  */
 package com.wf.article.controller;
 
-import com.wf.article.service.IArticleService;
 import com.wf.article.service.ICollectService;
 import com.wf.commons.result.PageInfo;
 import com.wf.commons.utils.StringUtils;
-import com.wf.model.Article;
-import com.wf.model.CollectData;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +32,16 @@ public class CollectHeadController {
 	public String collectlist() {
 		return "website/collect/collectlist";
 	}
-	/*
+
+    /*
+ * H5每日推荐列表页
+ */
+    @GetMapping("dailylist")
+    public String dailylist() {
+        return "website/H5/dailylist";
+    }
+
+    /*
 	 * 文章前台列表页
 	 */
 	@GetMapping("articlelist")

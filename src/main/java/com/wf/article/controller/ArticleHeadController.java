@@ -3,22 +3,17 @@
  */
 package com.wf.article.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.wf.model.Article;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.wf.article.service.IArticleService;
 import com.wf.commons.result.PageInfo;
 import com.wf.commons.utils.StringUtils;
+import com.wf.model.Article;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author zhanghuaiyu
@@ -40,6 +35,14 @@ public class ArticleHeadController {
 		return "website/article/articlelist";
 	}
 
+	/*
+	 * H5文章前台列表页
+	 */
+	@GetMapping("noticelist")
+	public String noticelist() {
+		return "website/H5/noticelist";
+	}
+
 //	详细页面加载
 	@GetMapping("detail")
 	public ModelAndView detail(ModelAndView model, Long id) {
@@ -47,6 +50,16 @@ public class ArticleHeadController {
 		//article.setContent(HtmlUtils.htmlUnescape(article.getContent()));
 		model.addObject("article",article);
 		model.setViewName("website/article/detail");
+		return model;
+	}
+
+	//H5详细页面加载
+	@GetMapping("noticedetail")
+	public ModelAndView noticedetail(ModelAndView model, Long id) {
+		Article article = articleService.selectById(id);
+		//article.setContent(HtmlUtils.htmlUnescape(article.getContent()));
+		model.addObject("article", article);
+		model.setViewName("website/H5/noticedetail");
 		return model;
 	}
 
