@@ -36,6 +36,8 @@ public class OrgService implements Serializable {
     private String serviceFee;
     //服务指南(附件)
     private String serviceGuide;
+    //显示字段
+    private String showFields;
     //创建时间
     private Date createTime;
     //修改时间
@@ -112,6 +114,12 @@ public class OrgService implements Serializable {
 	}
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+	public String getShowFields() {
+		return showFields;
+	}
+	public void setShowFields(String showFields) {
+		this.showFields = showFields;
 	}
     
     

@@ -120,7 +120,6 @@ public class IntermedOrgBackController extends BaseController  {
     		if(!msg.equals("")) {
     			intermedOrg.setBusinessLicense(msg);
     		}
-    		
     	}
     	
     	intermedOrg.setCreateTime(new Date());

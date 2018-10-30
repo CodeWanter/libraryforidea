@@ -54,7 +54,7 @@
             }, {
                 width : '130',
                 title : '修改时间',
-                field : 'editTime',
+                field : 'modifyTime',
                 sortable : true
             },  {
                 field : 'action',
@@ -83,14 +83,14 @@
     function addOrgServiceFun() {
         parent.$.modalDialog({
             title : '添加',
-            width : 900,
-            height : 600,
+            width : 700,
+            height : 400,
             href : '${path}/orgService/back/create',
             buttons : [ {
                 text : '添加',
                 handler : function() {
                     parent.$.modalDialog.openner_dataGrid = orgServiceDataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
-                    var f = parent.$.modalDialog.handler.find('#eachAddForm');
+                    var f = parent.$.modalDialog.handler.find('#orgServiceForm');
                     f.submit();
                 }
             } ]
@@ -132,14 +132,14 @@
         }
         parent.$.modalDialog({
             title : '编辑',
-            width : 900,
-            height : 600,
+            width : 700,
+            height : 400,
             href : '${path}/orgService/back/edit?id=' + id,
             buttons : [ {
                 text : '确定',
                 handler : function() {
                     parent.$.modalDialog.openner_dataGrid = orgServiceDataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
-                    var f = parent.$.modalDialog.handler.find('#eachEditForm');
+                    var f = parent.$.modalDialog.handler.find('#orgServiceEditForm');
                     f.submit();
                 }
             } ]
@@ -147,6 +147,11 @@
     }
     
     function searchOrgServiceFun() {
+    	var orgIdV = $("#orgId").val();
+    	if(orgIdV=null||orgIdV==''){
+    		$("#orgId").val(0);
+    	}
+    	
     	orgServiceDataGrid.datagrid('load', $.serializeObject($('#searchOrgServiceForm')));
     }
     function cleanOrgServiceFun() {
@@ -160,7 +165,7 @@
             <table>
                 <tr>
                     <th>服务名称:</th>
-                    <td><input name="title" placeholder="请输入服务名称"/></td>
+                    <td><input name="serviceName" placeholder="请输入服务名称"/></td>
                     <th>审核状态:</th>
                     <td>
                     	<select class="easyui-combobox" name="pubflag">

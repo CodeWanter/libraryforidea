@@ -19,6 +19,9 @@
 		<if test=" serviceName != null and serviceName != '' ">
 			and t.service_name like concat('%',#{serviceName},'%')
 		</if>
+		<if test=" pubflag != null and pubflag != '' ">
+			and t.pubflag =#{pubflag}
+		</if>
 	</select>
 
 </mapper>

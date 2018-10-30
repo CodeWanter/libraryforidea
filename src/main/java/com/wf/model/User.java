@@ -63,7 +63,7 @@ public class User implements Serializable {
 	private String professor;
 	
 	//机构主键
-	private Integer org_id;
+	private Integer orgId;
 	
 
 	public Long getId() {
@@ -191,12 +191,12 @@ public class User implements Serializable {
 	}
 	
 
-	public Integer getOrg_id() {
-		return org_id;
+	public Integer getOrgId() {
+		return orgId;
 	}
 
-	public void setOrg_id(Integer org_id) {
-		this.org_id = org_id;
+	public void setOrgId(Integer orgId) {
+		this.orgId = orgId;
 	}
 	
 

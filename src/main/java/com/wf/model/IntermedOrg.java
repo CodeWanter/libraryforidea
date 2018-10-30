@@ -115,8 +115,80 @@ public class IntermedOrg implements Serializable {
 		this.showFields = showFields;
 	}
     
-    
-    
+    @Override
+    public boolean equals(Object obj) {
+    	if (this == obj)
+    		return true;
+    	if (obj == null)
+    		return false;
+    	if (getClass() != obj.getClass())
+    		return false;
+    	
+    	IntermedOrg intermedOrg = (IntermedOrg) obj;
+    	
+    	if(id!=intermedOrg.getId()) {
+    		return false;
+    	}
+    	
+    	if(orgName==null) {
+    		if(intermedOrg.getOrgName()!=null) {
+    			return false;
+    		}
+    	}else if(!orgName.equals(intermedOrg.getOrgName())){
+    		return false;
+    	}
+    	
+    	if(contactName==null) {
+    		if(intermedOrg.getContactName()!=null) {
+    			return false;
+    		}
+    	}else if(!contactName.equals(intermedOrg.getContactName())){
+    		return false;
+    	}
+    	
+    	if(contactTel==null) {
+    		if(intermedOrg.getContactTel()!=null) {
+    			return false;
+    		}
+    	}else if(!contactTel.equals(intermedOrg.getContactTel())){
+    		return false;
+    	}
+    	
+    	if(contactEmail==null) {
+    		if(intermedOrg.getContactEmail()!=null) {
+    			return false;
+    		}
+    	}else if(!contactEmail.equals(intermedOrg.getContactEmail())){
+    		return false;
+    	}
+    	
+    	if(businessLicense==null) {
+    		if(intermedOrg.getBusinessLicense()!=null) {
+    			return false;
+    		}
+    	}else if(!businessLicense.equals(intermedOrg.getBusinessLicense())){
+    		return false;
+    	}
+    	
+    	if(orgCode==null) {
+    		if(intermedOrg.getOrgCode()!=null) {
+    			return false;
+    		}
+    	}else if(!orgCode.equals(intermedOrg.getOrgCode())){
+    		return false;
+    	}
+    	
+    	if(orgIntro==null) {
+    		if(intermedOrg.getOrgIntro()!=null) {
+    			return false;
+    		}
+    	}else if(!orgIntro.equals(intermedOrg.getOrgIntro())){
+    		return false;
+    	}
+    	
+    	return true;
+    	
+    }
     
     
 

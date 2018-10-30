@@ -74,7 +74,7 @@
                 <tr>
                     <td>营业执照:</td>
                     <td>
-                    	<c:if test="${intermedOrg.businessLicense != ''}">
+                    	<c:if test="${intermedOrg.businessLicense != null && intermedOrg.businessLicense != ''}">
                     		<a target="_blank" download="" href="${intermedOrg.businessLicense}" style="color: #00b2ff;" >机构营业执照下载</a>
                     		<input type="hidden" name="businessLicense" value="${intermedOrg.businessLicense}"/>
                     	</c:if>
