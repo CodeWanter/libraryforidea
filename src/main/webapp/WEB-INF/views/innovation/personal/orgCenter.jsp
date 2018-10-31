@@ -28,6 +28,14 @@
                     //将body中其他模块不显示，只显示密码修改的模块
                     $(".LS2018_Aright").css({display: 'none'});
                     $("#pswEditDIVID").css({display: 'inline'});
+                } else if (sel.id == "dYID") {
+                    //我的服务
+                    $("#personCentreID .current").removeClass("current");
+                    $("#dYID").addClass("current");
+                    //将body中其他模块不显示，只显示我的订阅的模块
+                    $(".LS2018_Aright").css({display: 'none'});
+                    $("#dYDIVID").css({display: 'inline'});
+                    servicePageInit();
                 }
             }
         }
@@ -224,7 +232,6 @@
                     layer.msg('检索异常!');
                 }
             });
-
         }
         //添加service
         function addService() {
@@ -415,7 +422,6 @@
                         </ul>
                     </li>
                     <li><a id="dYID" value="我的服务" onclick="select(this);" style="cursor: pointer;">我的服务</a></li>
-
                 </ul>
             </div>
             <%--个人资料--%>
