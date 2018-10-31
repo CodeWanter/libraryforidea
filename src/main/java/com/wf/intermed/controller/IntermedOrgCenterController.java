@@ -76,7 +76,7 @@ public class IntermedOrgCenterController extends BaseController  {
 				model.addAttribute("intermedOrg", intermedOrg);
 			}
 			model.addAttribute("user", user);
-			return "website/personal/orgCenter";
+			return "innovation/personal/orgCenter";
 		}else{
 			return "redirect:/forehead/index";
 		}

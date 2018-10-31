@@ -40,7 +40,9 @@ import com.wf.commons.utils.StringUtils;
 import com.wf.intermed.service.IIntermedOrgService;
 import com.wf.model.IntermedOrg;
 import com.wf.model.User;
+import com.wf.model.UserRole;
 import com.wf.model.vo.UserVo;
+import com.wf.user.service.IUserRoleService;
 import com.wf.user.service.IUserService;
 /**
  * 后台中介机构管理
@@ -55,7 +57,8 @@ public class IntermedOrgBackController extends BaseController  {
 	private IIntermedOrgService intermedOrgService;
 	@Autowired
 	private IUserService userService;
-	
+	@Autowired
+	private IUserRoleService userRoleService;
 	@Autowired
     private PasswordHash passwordHash;
 	
@@ -218,6 +221,7 @@ public class IntermedOrgBackController extends BaseController  {
     		cool.setLoginName(creatUserName);
     		cool.setCreateTime(new Date());
     		cool.setName(intermedOrg.getOrgName());
+    		
     		String salt = StringUtils.getUUId();
             String pwd = passwordHash.toHex(pwdStr, salt);
             cool.setPassword(pwd);
@@ -226,6 +230,11 @@ public class IntermedOrgBackController extends BaseController  {
     		cool.setUserType(1);
     		boolean insert = userService.insert(cool);
     		if(insert) {
+    			UserRole userRole = new UserRole();
+    			userRole.setUserId(cool.getId());
+    			long roleid = 9;
+    			userRole.setRoleId(roleid);
+    			userRoleService.insert(userRole);
     			result.put("success", true);
     			result.put("msg", "创建成功！");
     			result.put("userName", creatUserName);
