@@ -5,14 +5,9 @@
 <head>
     <title>机构中心</title>
     <link rel="stylesheet" type="text/css" href="${staticPath}/static/lsportal/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="${staticPath }/static/innovation/css/main.css"/>
     <link rel="stylesheet" href="${staticPath }/static/js/pagination_zh/lib/pagination.css"/>
     <script charset="utf-8" src="${staticPath }/static/js/pagination_zh/lib/jquery.pagination.js"></script>
-
-    <script charset="utf-8" src="${staticPath }/static/lsportal/js/personal/newresourse.js"></script>
-    <script charset="utf-8" src="${staticPath }/static/lsportal/js/personal/mysc.js"></script>
-    <script charset="utf-8" src="${staticPath }/static/lsportal/js/personal/myrecomend.js"></script>
-    <script charset="utf-8" src="${staticPath }/static/lsportal/js/personal/myorder.js"></script>
-    <script charset="utf-8" src="${staticPath }/static/lsportal/js/personal/mydeliver.js"></script>
 
     <script type="text/javascript">
 
@@ -33,46 +28,6 @@
                     //将body中其他模块不显示，只显示密码修改的模块
                     $(".LS2018_Aright").css({display: 'none'});
                     $("#pswEditDIVID").css({display: 'inline'});
-                } else if (sel.id == "dYID") {
-                    //我的订阅修改选中状态
-                    $("#personCentreID .current").removeClass("current");
-                    $("#dYID").addClass("current");
-                    //将body中其他模块不显示，只显示我的订阅的模块
-                    $(".LS2018_Aright").css({display: 'none'});
-                    $("#dYDIVID").css({display: 'inline'});
-                    servicePageInit();
-                } else if (sel.id == "tJID") {
-                    //我的推荐修改选中状态
-                    $("#personCentreID .current").removeClass("current");
-                    $("#tJID").addClass("current");
-                    //将body中其他模块不显示，只显示我的推荐的模块
-                    $(".LS2018_Aright").css({display: 'none'});
-                    $("#tJDIVID").css({display: 'inline'});
-                    personalRecommendInit();
-                } else if (sel.id == "sCID") {
-                    //我的收藏修改选中状态
-                    $("#personCentreID .current").removeClass("current");
-                    $("#sCID").addClass("current");
-                    //将body中其他模块不显示，只显示我的收藏的模块
-                    $(".LS2018_Aright").css({display: 'none'});
-                    $("#sCDIVID").css({display: 'inline'});
-                    personalScInit();
-                } else if (sel.id == "dCID") {
-                    //我的收藏修改选中状态
-                    $("#personCentreID .current").removeClass("current");
-                    $("#dCID").addClass("current");
-                    //将body中其他模块不显示，只显示我的收藏的模块
-                    $(".LS2018_Aright").css({display: 'none'});
-                    $("#dCDIVID").css({display: 'inline'});
-                    personalDeliverInit();
-                } else if (sel.id == "ZXZY") {
-                    //最新资源修改选中状态
-                    $("#personCentreID .current").removeClass("current");
-                    $("#ZXZY").addClass("current");
-                    //将body中其他模块不显示，只显示我的收藏的模块
-                    $(".LS2018_Aright").css({display: 'none'});
-                    $("#newResource").css({display: 'inline'});
-                    newResourseInit();
                 }
             }
         }
@@ -439,10 +394,9 @@
     </style>
 </head>
 
-<body class="LS2018_body" onload="select($('#centreID'));">
-<div class="LS2018_main">
-    <%@ include file="/commons/head.jsp" %>
-    <div class="LS2018_bd Z_clearfix">
+<body onload="select($('#centreID'));">
+<%@ include file="/commons/ihead.jsp" %>
+<div class="LSKJ2018_bd Z_clearfix">
         <div class="LS2018_MBX">
             当前位置：&nbsp;<a href="${staticPath}/">首 页</a><span class="gt">&gt;</span>机构中心
         </div>
@@ -464,19 +418,8 @@
 
                 </ul>
             </div>
-            <div class="LS2018_Aright" id="newResource" style="display: none;">
-                <div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
-                    <span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 最新资源</h2></span>
-                    <span style="float:right;margin-right: 10px;">
-						</span>
-                </div>
-                <ul class="LS2018_List2" id="newResourceId">
-                    数据整合中……
-                </ul>
-                <div id="newRPagination" class="dataTables_paginate paging_bootstrap pagination center"></div>
-            </div>
             <%--个人资料--%>
-            <div class="LS2018_Aright" id="centreDIVID" style="display: inline;">
+            <div class="LS2018_Aright" id="centreDIVID" style="display: inline;width: 820px;">
                 <div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
                     <span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 机构资料</h2></span>
                     <span style="float:right;margin-right: 10px;">
@@ -560,7 +503,7 @@
                 </form>
             </div>
             <!-- 密码修改 -->
-            <div class="LS2018_Aright" id="pswEditDIVID" style="display: none;">
+            <div class="LS2018_Aright" id="pswEditDIVID" style="display: none;width: 820px;">
                 <div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
                     <span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 密码修改</h2></span>
                     <span style="float:right;margin-right: 10px;">
@@ -594,7 +537,7 @@
                 </div>
             </div>
             <!-- 我的服务 -->
-            <div class="LS2018_Aright" id="dYDIVID" style="display: none;">
+            <div class="LS2018_Aright" id="dYDIVID" style="display: none;width: 820px;">
                 <div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
                     <span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 我的服务</h2></span>
                     <c:if test="${intermedOrg.pubflag=='1'}">
@@ -621,7 +564,7 @@
                 <div id="servicePagination" class="dataTables_paginate paging_bootstrap pagination center"></div>
             </div>
             <!-- 添加服务 -->
-            <div class="LS2018_Aright" id="addService" style="display: none;">
+            <div class="LS2018_Aright" id="addService" style="display: none;width: 820px;">
                 <div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
                     <span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 服务添加</h2></span>
                     <span style="float:right;margin-right: 10px;">
@@ -683,7 +626,7 @@
                 </form>
             </div>
             <!-- 服务修改 -->
-            <div class="LS2018_Aright" id="editService" style="display: none;">
+            <div class="LS2018_Aright" id="editService" style="display: none;width: 820px;">
                 <div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
                     <span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 服务编辑</h2></span>
                     <span style="float:right;margin-right: 10px;">
@@ -745,60 +688,9 @@
                     </div>
                 </form>
             </div>
-
-
-            <!-- 我的推荐 -->
-            <div class="LS2018_Aright" id="tJDIVID" style="display: none;">
-                <div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
-                    <span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 我的推荐</h2></span>
-                    <span style="float:right;margin-right: 10px;">
-						</span>
-                </div>
-                <ul class="LS2018_List2" id="recomendList">
-                </ul>
-                <div id="RecomendPagination" class="dataTables_paginate paging_bootstrap pagination center"></div>
-            </div>
-            <!-- 我的收藏 -->
-            <div class="LS2018_Aright" id="sCDIVID" style="display: none;">
-                <div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
-                    <span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 我的收藏</h2></span>
-                    <span style="float:right;margin-right: 10px;">
-							标题
-					<select id="titleSelectID" onchange="personalSC('title',this)">
-						<option value="desc">降序</option>
-						<option value="asc">升序</option>
-					</select>
-					作者
-					<select id="authorSelectID" onchange="personalSC('author',this)">
-						<option value="desc">降序</option>
-						<option value="asc">升序</option>
-					</select>
-					时间
-					<select id="timeSelectID" onchange="personalSC('time',this)">
-						<option value="desc">降序</option>
-						<option value="asc">升序</option>
-					</select>
-						</span>
-                </div>
-                <ul class="LS2018_List2" id="personalSCId">
-                </ul>
-                <div id="Pagination" class="dataTables_paginate paging_bootstrap pagination center"></div>
-            </div>
-            <%--原文传递--%>
-            <div class="LS2018_Aright" id="dCDIVID" style="display: none;">
-                <div style="border-bottom:solid 1px tomato;height: 45px;margin-bottom: 10px;">
-                    <span style="float:left;"><h2><i class="layui-icon layui-icon-app"></i>&nbsp 原文传递</h2></span>
-                    <span style="float:right;margin-right: 10px;">
-						</span>
-                </div>
-                <ul class="LS2018_List2" id="personalDeliverId">
-                </ul>
-                <div id="DeliverPagination" class="dataTables_paginate paging_bootstrap pagination center"></div>
-            </div>
         </div>
     </div>
-    <%@ include file="/commons/footer.jsp" %>
-</div>
+<%@ include file="/commons/ifooter.jsp" %>
 <%
     String id = request.getSession().getId();
 %>
@@ -806,8 +698,6 @@
 </body>
 </html>
 <script type="text/javascript">
-
-
     layui.use(['layer', 'form'], function () {
         var form = layui.form
             , layer = layui.layer;
