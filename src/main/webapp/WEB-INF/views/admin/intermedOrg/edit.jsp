@@ -108,9 +108,9 @@
                         <option value="2">不通过</option>
                     </select></td>
                 </tr>
-                <tr>
+                <tr id="userTr" style="display:none;">
                     <td>用户信息:</td>
-                    <td id="userInfo"><input type="button" value="创建/查看用户" onclick="creatUser()"/></td>
+                    <td id="userInfo"></td>
                 </tr>
             </table>
         </form>
@@ -160,6 +160,14 @@
                 }
             }
         });
+        
+        $("#pubflag").combobox({
+            onChange: function (n, o) {
+                if(n==1){
+                	creatUser();
+                }
+            }
+        });
     });
     function kedit(keid) {
         keditor = KindEditor.create('#' + keid, {
@@ -190,6 +198,7 @@
     				userStr = "用户名："+data.userName;
     			}
     			$("#userInfo").append(userStr);
+    			$("#userTr").show();
     		}
     	})
     }

@@ -170,7 +170,7 @@
             </table>
         </form>
     </div>
-    <div data-options="region:'center',border:true,title:'政策法规列表'">
+    <div data-options="region:'center',border:true,title:'中介机构列表'">
         <table id="intermedDataGrid" data-options="fit:true,border:false"></table>
     </div>
 </div>
