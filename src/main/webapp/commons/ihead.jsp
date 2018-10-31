@@ -57,5 +57,10 @@
                 <li><a href="#">机构服务中心</a></li>
             </ul>
         </li>
+        <shiro:hasRole name="机构用户">
+            <li>
+                <a href="${staticPath}/intermedOrg/index">我的服务</a>
+            </li>
+        </shiro:hasRole>
     </ul>
 </div>
