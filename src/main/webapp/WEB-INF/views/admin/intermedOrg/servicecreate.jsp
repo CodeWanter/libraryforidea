@@ -67,7 +67,7 @@
                     </td>
                 	
                 <tr>
-                    <td>机构联系人:</td>
+                    <td>服务联系人:</td>
                     <td><input class="easyui-textbox" type="text" name="serviceContact"
                                id="serviceContact" data-options="required:true"></input>
                     </td>

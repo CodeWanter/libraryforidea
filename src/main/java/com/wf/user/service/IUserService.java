@@ -1,6 +1,7 @@
 package com.wf.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.wf.commons.result.PageInfo;
@@ -27,4 +28,6 @@ public interface IUserService extends IService<User> {
     void selectDataGrid(PageInfo pageInfo);
 
     void deleteUserById(Long id);
+    
+    List<Map<String, Object>> selectUserByOrgId(Map<String, Object> params);
 }

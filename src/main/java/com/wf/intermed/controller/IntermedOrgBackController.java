@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -22,7 +23,6 @@ import javax.validation.Valid;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,8 +35,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.wf.commons.base.BaseController;
 import com.wf.commons.result.PageInfo;
+import com.wf.commons.shiro.PasswordHash;
+import com.wf.commons.utils.StringUtils;
 import com.wf.intermed.service.IIntermedOrgService;
 import com.wf.model.IntermedOrg;
+import com.wf.model.User;
+import com.wf.model.vo.UserVo;
+import com.wf.user.service.IUserService;
 /**
  * 后台中介机构管理
  * @author Administrator
@@ -48,6 +53,11 @@ public class IntermedOrgBackController extends BaseController  {
 	
 	@Autowired
 	private IIntermedOrgService intermedOrgService;
+	@Autowired
+	private IUserService userService;
+	
+	@Autowired
+    private PasswordHash passwordHash;
 	
 	/**
      * 后台列表页
@@ -188,7 +198,83 @@ public class IntermedOrgBackController extends BaseController  {
     	return intermedOrgService.selectTree();
     }
     
+    /**
+     * 为审核通过的机构查询或生成用户名及密码
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/addOrSelectUser")
+    public Object addOrSelectUser(@Valid Integer orgId) {
+    	Map<String, Object> result = new HashMap<String, Object>();
+    	Map<String, Object> condition = new HashMap<String, Object>();
+    	condition.put("orgId", orgId);
+    	IntermedOrg intermedOrg = intermedOrgService.selectById(orgId);
+    	List<Map<String, Object>> selectUserByOrgId = userService.selectUserByOrgId(condition);
+    	if(selectUserByOrgId==null||selectUserByOrgId.isEmpty()) {
+    		User cool = new User();
+    		String creatUserName = creatUserName();
+    		String pwdStr = creatUserName+"institution";
+    		cool.setOrgId(orgId);
+    		cool.setLoginName(creatUserName);
+    		cool.setCreateTime(new Date());
+    		cool.setName(intermedOrg.getOrgName());
+    		String salt = StringUtils.getUUId();
+            String pwd = passwordHash.toHex(pwdStr, salt);
+            cool.setPassword(pwd);
+    		cool.setSalt(salt);
+    		cool.setStatus(0);
+    		cool.setUserType(1);
+    		boolean insert = userService.insert(cool);
+    		if(insert) {
+    			result.put("success", true);
+    			result.put("msg", "创建成功！");
+    			result.put("userName", creatUserName);
+    			result.put("pwd", pwdStr);
+    		}else {
+    			result.put("success", false);
+    			result.put("msg", "创建失败！");
+    		}
+    	}else {
+    		Map<String,Object> hs= selectUserByOrgId.get(0);
+    		String loginName = (String) hs.get("loginName");
+    		result.put("success", true);
+			result.put("msg", "查询成功！");
+			result.put("userName", loginName);
+    	}
+    	return result;
+    }
     
+    public String creatUserName() {
+    	String randomName = getStringRandom(10);
+    	UserVo user = new UserVo();
+    	user.setLoginName(randomName);
+    	List<User> selectByLoginName = userService.selectByLoginName(user);
+    	if(selectByLoginName!=null&&selectByLoginName.size()>0) {
+    		randomName = creatUserName();
+    	}
+    	return randomName;
+    }
+    
+    public String getStringRandom(int length) {  
+           
+         String val = "";  
+         Random random = new Random();  
+           
+         //参数length，表示生成几位随机数  
+         for(int i = 0; i < length; i++) {  
+               
+             String charOrNum = random.nextInt(2) % 2 == 0 ? "char" : "num";  
+             //输出字母还是数字  
+             if( "char".equalsIgnoreCase(charOrNum) ) {  
+                 //输出是大写字母还是小写字母  
+                 int temp = random.nextInt(2) % 2 == 0 ? 65 : 97;  
+                 val += (char)(random.nextInt(26) + temp);  
+             } else if( "num".equalsIgnoreCase(charOrNum) ) {  
+                 val += String.valueOf(random.nextInt(10));  
+             }  
+         }  
+         return val;  
+    }       
     
 	/**
 	 * 上传机构营业执照

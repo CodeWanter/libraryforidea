@@ -122,4 +122,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 		userRoleMapper.deleteByUserId(id);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectUserByOrgId(Map<String, Object> params) {
+		List<Map<String, Object>> selectUserByOrgId = userMapper.selectUserByOrgId(params);
+		return selectUserByOrgId;
+	}
+
 }

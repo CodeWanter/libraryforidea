@@ -8,7 +8,7 @@
 <div style="width: 100%">
     <div style="padding: 10px 20px 10px 20px">
         <form id="intermedEditForm" method="post">
-            <input type="hidden" value="${intermedOrg.id }" name="id"/>
+            <input type="hidden" value="${intermedOrg.id }" name="id" id="intermedId"/>
             <table>
                 <tr>
                     <td>机构名称:</td>
@@ -104,9 +104,13 @@
                     <td>审核:</td>
                     <td><select class="easyui-combobox type" name="pubflag"
                                 id="pubflag">
-                        <option value="1">通过</option>
+                        <option value="1" >通过</option>
                         <option value="2">不通过</option>
                     </select></td>
+                </tr>
+                <tr>
+                    <td>用户信息:</td>
+                    <td id="userInfo"><input type="button" value="创建/查看用户" onclick="creatUser()"/></td>
                 </tr>
             </table>
         </form>
@@ -171,4 +175,22 @@
             fileManagerJson: '${staticPath }/editor/fileManager',//指定浏览远程图片的服务器端程序
         });
     };
+    
+    function creatUser(){
+    	$.ajax({
+    		url:'${path }/intermedOrg/back/addOrSelectUser',
+    		data:{"orgId":$("#intermedId").val()},
+    		success:function(data){
+    			data = eval("("+data+")");
+    			var userStr = "";
+    			if(data.pwd!=null){
+    				alert("新创建用户请留意用户名及密码！");
+    				userStr = "新建用户名："+data.userName+"  用户密码："+data.pwd;
+    			}else{
+    				userStr = "用户名："+data.userName;
+    			}
+    			$("#userInfo").append(userStr);
+    		}
+    	})
+    }
 </script>

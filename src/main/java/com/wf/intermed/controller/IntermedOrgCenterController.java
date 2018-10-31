@@ -168,6 +168,7 @@ public class IntermedOrgCenterController extends BaseController  {
 		boolean equals = before.equals(intermedOrg);
 		
 		if(!equals) {
+			intermedOrg.setModifyTime(new Date());
 			boolean updateById = intermedOrgService.updateById(intermedOrg);
 			if (updateById) {
 	            return renderSuccess("修改成功！");

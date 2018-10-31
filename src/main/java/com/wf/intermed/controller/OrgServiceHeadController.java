@@ -131,10 +131,21 @@ public class OrgServiceHeadController extends BaseController {
         orgServiceService.selectDataGrid(pageInfo);
     	return pageInfo;
     }
+    /**
+     * 获取详细信息
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/detail")
+    public Object getDetail(long id) {
+    	OrgService orgService = orgServiceService.selectById(id);
+    	return orgService;
+    }
     
     
     @ResponseBody
-    @RequestMapping("/save")
+    @RequestMapping("/myService/save")
     public Object save(@Valid OrgService orgService,HttpServletRequest request, HttpServletResponse response) {
     	
     	HashMap<String, String> uploadLicenseFile = uploadServiceGuideFile(request, response);
@@ -166,8 +177,10 @@ public class OrgServiceHeadController extends BaseController {
      * @throws Exception 
      */
     @ResponseBody
-    @RequestMapping("/update")
+    @RequestMapping("/myService/update")
     public Object update(@Valid OrgService orgService,HttpServletRequest request, HttpServletResponse response){
+    	Boolean updateFlag = false;
+    	OrgService before = orgServiceService.selectById(orgService.getId());
     	
     	HashMap<String, String> uploadLicenseFile = uploadServiceGuideFile(request, response);
     	String code = uploadLicenseFile.get("code");
@@ -179,15 +192,18 @@ public class OrgServiceHeadController extends BaseController {
     			orgService.setServiceGuide(msg);
     		}
     	}
-    	
-    	orgService.setModifyTime(new Date());
-    	boolean updateById = orgServiceService.updateById(orgService);
-    	
-    	if (updateById) {
-            return renderSuccess("修改成功！");
-        } else {
-            return renderError("修改失败！");
-        }
+    	boolean equals = before.equals(orgService);
+    	if(!equals) {
+    		orgService.setModifyTime(new Date());
+        	boolean updateById = orgServiceService.updateById(orgService);
+        	
+        	if (updateById) {
+                return renderSuccess("修改成功！");
+            } else {
+                return renderError("修改失败！");
+            }
+    	}
+    	return renderSuccess("保存成功！");
     }
     
     /**
