@@ -1,9 +1,12 @@
 package com.wf.log.controller;
 
 import com.wf.commons.base.BaseController;
+import com.wf.commons.shiro.ShiroUser;
 import com.wf.log.service.ILogService;
 import com.wf.user.service.IUserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +30,10 @@ public class KeyWordController extends BaseController {
     @GetMapping("/getTopSixKeyWordLog")
     public Object getTopSixKeyWordLog() {
         List<String> keyWords = new ArrayList<>();
-        if (SecurityUtils.getSubject() == null) {
+        Subject currentUser = SecurityUtils.getSubject();
+        Session session = currentUser.getSession();
+        ShiroUser user = (ShiroUser) session.getAttribute("user");
+        if (user == null) {
             keyWords = logService.getTopSixKeyWordLog();
         } else {
             Long userid = getShiroUser().getId();

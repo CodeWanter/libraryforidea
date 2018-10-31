@@ -74,4 +74,21 @@ public class PolicyHeadController {
         policyService.selectDataGrid(pageInfo);
         return pageInfo;
     }
+
+    //region 双创平台政策法规展示
+    @GetMapping("plist")
+    public String pList() {
+        return "innovation/policy/list";
+    }
+
+    @GetMapping("pdetail/{id}")
+    public ModelAndView pDetial(ModelAndView model, @PathVariable("id") Long id) {
+        Policy policy = policyService.selectById(id);
+        model.addObject("policy", policy);
+        model.setViewName("innovation/policy/detail");
+        return model;
+    }
+
+    //endregion
+
 }

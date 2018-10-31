@@ -13,6 +13,7 @@
 <head>
     <title>丽水市科技创新云服务平台</title>
     <link rel="stylesheet" type="text/css" href="${staticPath }/static/innovation/css/main.css"/>
+    <script type="text/javascript" src="${staticPath }/static/lsportal1/js/jquery-1.12.1.min.js"></script>
 </head>
 <body>
 <%@ include file="/commons/ihead.jsp" %>
@@ -27,8 +28,6 @@
             <td><input class="btn1" type="button" value="搜 索" onclick="lslibSearch();"/></td>
             <td class="hotwords" id="hotwords">
                 热门搜索词：
-                <a href="#" target="_blank">科技</a><a href="#" target="_blank">生态</a><a href="#" target="_blank">机械</a><a
-                    href="#" target="_blank">钢材</a><a href="#" target="_blank">石雕</a>
             </td>
         </tr>
     </table>
@@ -36,7 +35,7 @@
     <div class="LSKJ2018_home_moduleL">
         <div class="top">
             <span class="tt">政策法规</span>
-            <a class="more">更多&nbsp;&gt;</a>
+            <a class="more" href="${staticPath}/forehead/policy/plist">更多&nbsp;&gt;</a>
         </div>
         <div class="middle">
             <ul id="policy6">
@@ -48,7 +47,7 @@
     <div class="LSKJ2018_home_moduleR">
         <div class="top">
             <span class="tt">通知公告</span>
-            <a class="more">更多&nbsp;&gt;</a>
+            <a class="more" href="${staticPath }/forehead/article/nlist">更多&nbsp;&gt;</a>
         </div>
         <div class="middle">
             <ul id="notice6">
@@ -229,20 +228,7 @@
         </ul>
     </div>
 </div>
-
-
-<div class="LSKJ2018_ft">
-    <div class="main Z_clearfix">
-        <div class="left">
-            <a href="#">关于我们</a>|<a href="#">版权声明</a>|<a href="#">免责声明</a>|<a href="#">联系我们</a>
-        </div>
-
-        <div class="right">
-            版权所有：丽水市科技信息中心&nbsp;&nbsp;&nbsp;&nbsp;技术支持：北京万方数据股份有限公司
-        </div>
-    </div>
-</div>
-
+<%@ include file="/commons/ifooter.jsp" %>
 </body>
 </html>
 <script type="application/javascript">
@@ -255,8 +241,11 @@
             dataType: "json",
             async: false,
             success: function (result) {
+                console.log(result);
                 $.each(result, function (i, item) {
+                    //while (i < 6){
                     $("#hotwords").append("<a onclick='tagSearch(\"" + item + "\");' href='javascript:void(0)' target='_blank'>" + item + "</a>")
+                    //}
                 });
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -277,7 +266,7 @@
             var htmll = "";
             var htmlr = "";
             $.each(result.rows, function (i, item) {
-                htmll += '<li><a href="${path }/forehead/article/detail?id=' + item.id + '">' + item.title + '</a><span class="time">' + item.createTime.substr(0, 10) + '</span></li>';
+                htmll += '<li><a href="${path }/forehead/article/ndetail?id=' + item.id + '">' + item.title + '</a><span class="time">' + item.createTime.substr(0, 10) + '</span></li>';
             });
             $("#notice6").append(htmll);
         });
@@ -294,7 +283,7 @@
             var htmll = "";
             var htmlr = "";
             $.each(result.rows, function (i, item) {
-                htmll += '<li><a href="${path }/forehead/article/detail?id=' + item.id + '">' + item.title + '</a><span class="time">' + item.createTime.substr(0, 10) + '</span></li>';
+                htmll += '<li><a href="${path }/forehead/policy/ndetail?id=' + item.id + '">' + item.title + '</a><span class="time">' + item.createTime.substr(0, 10) + '</span></li>';
             });
             $("#policy6").append(htmll);
         });

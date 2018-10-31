@@ -117,6 +117,7 @@ function PaginationInit(pageIndex, pageSize) {
     }
     $.post("${path }/forehead/article/articlelistdata", {
         "title": title,
+        "type": "2",
         "sort":"createTime",
         "order":"desc",
         "pageIndex": pageIndex,
@@ -146,7 +147,14 @@ function paginationCallback(pageIndex, jq) {
     $.ajax({
         type: "post",
         url: "${path }/forehead/article/articlelistdata",
-        data: {"title":title, "sort":"createTime","order":"desc", "pageIndex": pageIndex+1, "pageSize": pageSize},
+        data: {
+            "title": title,
+            "type": "2",
+            "sort": "createTime",
+            "order": "desc",
+            "pageIndex": pageIndex + 1,
+            "pageSize": pageSize
+        },
         dataType: "json",
         async: true,
         beforeSend: function () {

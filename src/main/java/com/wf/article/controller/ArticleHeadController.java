@@ -97,4 +97,22 @@ public class ArticleHeadController {
 		articleService.selectDataGrid(pageInfo);
 		return pageInfo;
 	}
+
+    //region 双创通知通告相关action
+    //通知公告列表页
+    @GetMapping("nlist")
+    public String noticeList() {
+        return "innovation/notice/list";
+    }
+
+    //通知公告详情页
+    @GetMapping("ndetail/{id}")
+    public ModelAndView noticeDetail(ModelAndView model, @PathVariable("id") Long id) {
+        Article article = articleService.selectById(id);
+        model.addObject("article", article);
+        model.setViewName("innovation/notice/detail");
+        return model;
+    }
+    //endregion
+
 }

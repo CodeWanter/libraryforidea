@@ -56,7 +56,6 @@ a:hover {
     display: block;
     font-size: 0;
 }
-
 /* 苹果浏览器按钮XXX */
 button, input[type="button"], input[type="reset"], input[type="submit"] {
     -webkit-appearance: none;
@@ -94,7 +93,7 @@ textarea, select, input {
 
 .LSKJ2018_hd .main .links {
     float: right;
-    width: 350px;
+    width: 300px;
     text-align: right;
     padding-top: 48px;
 }
@@ -590,6 +589,109 @@ textarea, select, input {
     width: 500px;
     text-align: right;
 }
+
+/*###############  2018-10-30  ################*/
+.LSKJ2018_hd .main .links {
+    width: 400px;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.LSKJ2018_MBX {
+    line-height: 25px;
+    height: 35px;
+    font-size: 13px;
+    color: #777777;
+}
+
+.LSKJ2018_MBX a {
+    font-size: 13px;
+    color: #777777;
+}
+
+.LSKJ2018_MBX a:hover {
+    color: #FF0000;
+}
+
+.LSKJ2018_MBX .gt {
+    margin: 0 10px;
+}
+
+.LSKJ2018_List1 {
+    margin: 10px;
+    padding-bottom: 15px;
+}
+
+.LSKJ2018_List1 li {
+    background: url('../images/ico_2.png') no-repeat 10px center;
+    border-bottom: 1px #CCCCCC dashed;
+    line-height: 26px;
+    margin-bottom: 5px;
+    padding: 10px 5px 10px 28px;
+}
+
+.LSKJ2018_List1 li a {
+    float: left;
+    display: inline-block;
+    width: auto;
+    max-width: 85%;
+    font-size: 15px;
+}
+
+.LSKJ2018_List1 li .time {
+    float: right;
+    font-size: 14px;
+    color: #999999;
+}
+
+.LS2018_Txt {
+    margin: 15px 0;
+}
+
+.LS2018_Txt h1 {
+    text-align: center;
+    padding: 10px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    font-size: 25px;
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+}
+
+.LS2018_Txt .time {
+    border-top: 1px #B7C9DB solid;
+    line-height: 25px;
+    padding: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #3B6898;
+}
+
+.LS2018_Txt .time .t1 {
+    margin: 0 15px;
+}
+
+.LS2018_Txt .txt {
+    margin: 0;
+    padding: 15px;
+    font-size: 16px;
+    color: #333333;
+    line-height: 210%;
+}
+
+.LS2018_Txt .txt p {
+    text-indent: 2em;
+    margin: 0 0 1.2em 0;
+}
+
+.LS2018_Txt .txt .t_right {
+    text-align: right;
+}
+
+
+
 
 
 
