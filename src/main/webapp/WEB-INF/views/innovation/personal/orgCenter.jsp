@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="${staticPath }/static/innovation/css/main.css"/>
     <link rel="stylesheet" href="${staticPath }/static/js/pagination_zh/lib/pagination.css"/>
     <script charset="utf-8" src="${staticPath }/static/js/pagination_zh/lib/jquery.pagination.js"></script>
-
+	<script charset="utf-8" src="${staticPath }/static/lsportal/js/jquery.form.js"></script>
     <script type="text/javascript">
 
         $("#centreID").trigger("click");
@@ -141,24 +141,46 @@
 
         }
         function update() {
-            var load = layer.load();
-            $.ajax({
-                type: "post",
-                url: '${path }/intermedOrg/update',
-                data: $("#editOrgForm").serialize(),
-
-                success: function (result) {
-                    layer.close(load);
-                    result = eval("(" + result + ")");
-
-                    if (result.success) {
-                        layer.msg(result.msg)
-                    } else {
-                        layer.msg(result.msg);
-                    }
-                    window.location.reload();
+        	var sss = confirm('重新编辑机构信息后需要再次进行审核，您确定要编辑吗？');
+        	if (sss) {
+	            var load = layer.load();
+	            /* $.ajax({
+	                type: "post",
+	                url: '${path }/intermedOrg/update',
+	                data: $("#editOrgForm").serialize(),
+	
+	                success: function (result) {
+	                    layer.close(load);
+	                    result = eval("(" + result + ")");
+	
+	                    if (result.success) {
+	                        layer.msg(result.msg)
+	                    } else {
+	                        layer.msg(result.msg);
+	                    }
+	                    window.location.reload();
+	                }
+	            }); */
+	            
+	            var option = {
+                		url : "${path }/intermedOrg/update",
+                		type : "POST",
+                		dataType : "json",
+                		headers : {"ClientCallMode" : "ajax"}, 
+                		success : function(data) {
+                			layer.close(load);
+                			result = eval( data );
+                            layer.msg(result.msg);
+                            window.location.reload();
+                		},
+                		error : function(data) {
+                			alert("保存出错！");
+                		}
                 }
-            });
+                $("#editOrgForm").ajaxSubmit(option);
+                return false;
+	            
+        	}
         }
 
         var servicePage = 1;
@@ -193,7 +215,7 @@
             var index;
             $.ajax({
                 type: "post",
-                url: "${path }/orgService/myService?page=" + servicePage + 1 + "&rows=" + servicePageSize + "&orgId=" + orgId + "&sort=createTime&order=desc",
+                url: "${path }/orgService/myService?page=" + (servicePage + 1) + "&rows=" + servicePageSize + "&orgId=" + orgId + "&sort=createTime&order=desc",
                 dataType: "json",
                 async: true,
                 beforeSend: function () {
@@ -248,17 +270,36 @@
         //添加service 保存
         function saveService() {
             if (checkService("addServiceForm")) {
+            	/* var formData =  document.getElementById("addServiceForm");
                 $.ajax({
                     type: "post",
                     async: true,
                     url: "${path }/orgService/myService/save",
-                    data: $("#addServiceForm").serialize(),
+                    data: formData,
                     success: function (result) {
                         result = eval("(" + result + ")");
                         layer.msg(result.msg);
                     }
-                });
+                }); */
+                
+                var option = {
+                		url : "${path }/orgService/myService/save",
+                		type : "POST",
+                		dataType : "json",
+                		headers : {"ClientCallMode" : "ajax"}, 
+                		success : function(data) {
+                			result = eval( data );
+                            layer.msg(result.msg);
+                            $("#dYID").click();
+                		},
+                		error : function(data) {
+                			alert("保存出错！");
+                		}
+                }
+                $("#addServiceForm").ajaxSubmit(option);
+                return false;
             }
+            
         }
 
         //编辑service
@@ -300,6 +341,7 @@
                             $("#editServiceForm #contactWay").val(contactWay);
                             $("#editServiceForm #serviceIntro").text(serviceIntro);
                             $("#editServiceForm #serviceFee").val(serviceFee);
+                            $("#editServiceForm #serviceGuideFile").val("");
                             if (serviceGuide != null && serviceGuide != "") {
                                 var Astr = "<a href=" + serviceGuide + " download=''>查看已上传服务指南</a>"
                                 $("#editServiceForm #yscfwzn").html(Astr);
@@ -312,10 +354,10 @@
         }
         //编辑service 保存
         function updateService() {
-            var baocun = confirm("编辑信息保存后需重新审核，您确定要编辑吗？")
+            var baocun = confirm("编辑信息保存后需重新审核，您确定要保存吗？")
             if (baocun) {
                 if (checkService("editServiceForm")) {
-                    $.ajax({
+                    /* $.ajax({
                         type: "post",
                         async: true,
                         url: "${path }/orgService/myService/update",
@@ -323,13 +365,46 @@
                         success: function (result) {
                             result = eval("(" + result + ")");
                             layer.msg(result.msg);
+                            
                         }
-                    });
+                    }); */
+                    
+                    var option = {
+                    		url : "${path }/orgService/myService/update",
+                    		type : "POST",
+                    		dataType : "json",
+                    		headers : {"ClientCallMode" : "ajax"}, 
+                    		success : function(data) {
+                    			result = eval( data );
+                                layer.msg(result.msg);
+                                $("#dYID").click();
+                    		},
+                    		error : function(data) {
+                    			alert("保存出错！");
+                    		}
+                    }
+                    $("#editServiceForm").ajaxSubmit(option);
+                    return false;
                 }
+                
             }
+            
         }
         function delService(sId) {
-            alert(sId);
+        	var sc = confirm("您确定要删除这项服务吗？")
+            if (sc) {
+	            $.ajax({
+	                type: "post",
+	                async: true,
+	                url: "${path }/orgService/myService/delete",
+	                data: {"id":sId},
+	                success: function (result) {
+	                    result = eval("(" + result + ")");
+	                    layer.msg(result.msg);
+	                }
+	            });
+	            $("#dYID").click();
+            }
         }
         //添加保存前的校验
         function checkService(formid) {
@@ -576,7 +651,7 @@
                     <span style="float:right;margin-right: 10px;">
 						</span>
                 </div>
-                <form method="post" id="addServiceForm" onsubmit="checkSave()">
+                <form method="post" id="addServiceForm" enctype="multipart/form-data">
                     <input type="hidden" name="id"/>
                     <input type="hidden" name="orgId" value="${intermedOrg.id}"/>
                     <input type="hidden" name="pubflag" value="0"/>
@@ -638,7 +713,7 @@
                     <span style="float:right;margin-right: 10px;">
 						</span>
                 </div>
-                <form method="post" id="editServiceForm">
+                <form method="post" id="editServiceForm" enctype="multipart/form-data">
                     <input type="hidden" id="serviceId" name="id"/>
                     <input type="hidden" id="serviceOrgId" name="orgId"/>
                     <input type="hidden" id="servicePubflag" name="pubflag" value="0"/>

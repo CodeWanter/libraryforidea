@@ -95,7 +95,7 @@
         } else {//点击操作里面的删除图标会触发这个
         	intermedDataGrid.datagrid('unselectAll').datagrid('uncheckAll');
         }
-        parent.$.messager.confirm('询问', '您是否要删除该文章？', function (b) {
+        parent.$.messager.confirm('询问', '您是否要删除该中介机构？', function (b) {
             if (b) {
                 progressLoad();
                 $.post('${path }/intermedOrg/back/delete', {

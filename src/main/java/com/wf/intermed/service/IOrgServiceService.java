@@ -12,4 +12,5 @@ public interface IOrgServiceService extends IService<OrgService> {
 	
 	public void selectDataGrid(PageInfo pageInfo);
 	
+	
 }
