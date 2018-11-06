@@ -21,7 +21,7 @@
 <%@ include file="/commons/ihead.jsp" %>
 <div class="LSKJ2018_bd">
     <div class="LS2018_MBX">
-        当前位置：&nbsp;<a href="${staticPath}//innovation/index">首 页</a><span class="gt">&gt;</span>政策法规
+        当前位置：&nbsp;<a href="${staticPath}/innovation/index">首 页</a><span class="gt">&gt;</span>政策法规
     </div>
     <ul class="LSKJ2018_List1" id="List">
 
@@ -91,7 +91,7 @@
                 $("#List").html("");
                 $.each(result, function (i, item) {
                     var html = "";
-                    html += '<li class="Z_clearfix"><a  href="${path }/forehead/policy/pdetail/' + item.id + '">' + (pageIndex * 10 + i + 1) + '、' + item.title + '</a><span class="time"><i>' + item.createTime.substr(0, 10) + '</i></span></li>';
+                    html += '<li class="Z_clearfix"><a  href="${path }/forehead/policy/pdetail/' + item.id + '">' + item.title + '</a><span class="time"><i>' + item.createTime.substr(0, 10) + '</i></span></li>';
                     $("#List").append(html);
                 });
             },

@@ -22,6 +22,9 @@
 		<if test=" pubflag != null and pubflag != '' ">
 			and t.pubflag =#{pubflag}
 		</if>
+        <if test=" serviceType != null and serviceType != '' ">
+            and t.service_type =#{serviceType}
+        </if>
 	</select>
 
 </mapper>

@@ -106,8 +106,8 @@
                 <tr>
                     <td>服务指南:</td>
                     <td>
-                        <input name="serviceGuideFile" data-options="required:true" class="easyui-filebox"
-                                    data-options="prompt:'Choose a file...'">
+                        <input name="serviceGuideFile" class="easyui-filebox"
+                               data-options="prompt:'Choose a file...'">
                     </td>
                     <td>
                     	<select class="easyui-combobox" name="showFields" >
@@ -185,5 +185,5 @@
             uploadJson: '${staticPath }/editor/fileUpload',
             fileManagerJson: '${staticPath }/editor/fileManager',//指定浏览远程图片的服务器端程序
         });
-    };
+    }
 </script>

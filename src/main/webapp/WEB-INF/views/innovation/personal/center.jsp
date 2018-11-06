@@ -168,7 +168,7 @@
 <div class="LSKJ2018_bd">
     <div class="LS2018_bd Z_clearfix">
         <div class="LS2018_MBX">
-            当前位置：&nbsp;<a href="${staticPath}/">首 页</a><span class="gt">&gt;</span>个人中心
+            当前位置：&nbsp;<a href="${staticPath}/innovation/index">首 页</a><span class="gt">&gt;</span>个人中心
         </div>
         <div class="LS2018_GRZX2 Z_clearfix">
             <div class="LS2018_Aleft">
@@ -373,7 +373,7 @@
                 var select = 'dd[lay-value=' + industry[0] + ']';
                 $('select[name=industry1]').siblings("div.layui-form-select").find('dl').find(select).click();
             }
-        })
+        });
         form.on('select(industry)', function (data) {
             $("select[name=industry2]").empty();
             form.render();

@@ -14,6 +14,7 @@
     <title>丽水市科技创新云服务平台</title>
     <link rel="stylesheet" type="text/css" href="${staticPath }/static/innovation/css/main.css"/>
     <script type="text/javascript" src="${staticPath }/static/lsportal1/js/jquery-1.12.1.min.js"></script>
+
 </head>
 <body>
 <%@ include file="/commons/ihead.jsp" %>
@@ -70,15 +71,10 @@
                 <div class="top">
                     <a href="#">技术培训</a>
                 </div>
-                <div class="links Z_clearfix">
-                    <label>· <a href="#" target="_blank">技术人才委培</a></label>
-                    <label>· <a href="#" target="_blank">委培需求分析</a></label>
-                    <label>· <a href="#" target="_blank">培训课程设计</a></label>
-                    <label>· <a href="#" target="_blank">信息筛选</a></label>
+                <div class="links Z_clearfix" id="fw1">
+
                 </div>
-                <div class="price">
-                    价格：<span class="money">1980</span>元起
-                </div>
+
             </div>
         </li>
         <li class="Z_clearfix">
@@ -87,14 +83,8 @@
                 <div class="top">
                     <a href="#">知识产权</a>
                 </div>
-                <div class="links Z_clearfix">
-                    <label>· <a href="#" target="_blank">技术人才委培</a></label>
-                    <label>· <a href="#" target="_blank">委培需求分析</a></label>
-                    <label>· <a href="#" target="_blank">培训课程设计</a></label>
-                    <label>· <a href="#" target="_blank">信息筛选</a></label>
-                </div>
-                <div class="price">
-                    价格：<span class="money">1980</span>元起
+                <div class="links Z_clearfix" id="fw2">
+
                 </div>
             </div>
         </li>
@@ -104,14 +94,8 @@
                 <div class="top">
                     <a href="#">产学研合作</a>
                 </div>
-                <div class="links Z_clearfix">
-                    <label>· <a href="#" target="_blank">技术人才委培</a></label>
-                    <label>· <a href="#" target="_blank">委培需求分析</a></label>
-                    <label>· <a href="#" target="_blank">培训课程设计</a></label>
-                    <label>· <a href="#" target="_blank">信息筛选</a></label>
-                </div>
-                <div class="price">
-                    价格：<span class="money">1980</span>元起
+                <div class="links Z_clearfix" id="fw3">
+
                 </div>
             </div>
         </li>
@@ -121,14 +105,8 @@
                 <div class="top">
                     <a href="#">项目申报</a>
                 </div>
-                <div class="links Z_clearfix">
-                    <label>· <a href="#" target="_blank">技术人才委培</a></label>
-                    <label>· <a href="#" target="_blank">委培需求分析</a></label>
-                    <label>· <a href="#" target="_blank">培训课程设计</a></label>
-                    <label>· <a href="#" target="_blank">信息筛选</a></label>
-                </div>
-                <div class="price">
-                    价格：<span class="money">1980</span>元起
+                <div class="links Z_clearfix" id="fw4">
+
                 </div>
             </div>
         </li>
@@ -138,14 +116,8 @@
                 <div class="top">
                     <a href="#">查新鉴定</a>
                 </div>
-                <div class="links Z_clearfix">
-                    <label>· <a href="#" target="_blank">技术人才委培</a></label>
-                    <label>· <a href="#" target="_blank">委培需求分析</a></label>
-                    <label>· <a href="#" target="_blank">培训课程设计</a></label>
-                    <label>· <a href="#" target="_blank">信息筛选</a></label>
-                </div>
-                <div class="price">
-                    价格：<span class="money">1980</span>元起
+                <div class="links Z_clearfix" id="fw5">
+
                 </div>
             </div>
         </li>
@@ -155,14 +127,8 @@
                 <div class="top">
                     <a href="#">政策咨询</a>
                 </div>
-                <div class="links Z_clearfix">
-                    <label>· <a href="#" target="_blank">技术人才委培</a></label>
-                    <label>· <a href="#" target="_blank">委培需求分析</a></label>
-                    <label>· <a href="#" target="_blank">培训课程设计</a></label>
-                    <label>· <a href="#" target="_blank">信息筛选</a></label>
-                </div>
-                <div class="price">
-                    价格：<span class="money">1980</span>元起
+                <div class="links Z_clearfix" id="fw6">
+
                 </div>
             </div>
         </li>
@@ -231,6 +197,7 @@
 <%@ include file="/commons/ifooter.jsp" %>
 </body>
 </html>
+<script type="text/javascript" src="${staticPath }/static/lsportal1/js/orgService/orgLoad.js"></script>
 <script type="application/javascript">
 
     $(function () {
@@ -264,9 +231,8 @@
             result = eval('(' + result + ')');
             var data = result.rows;
             var htmll = "";
-            var htmlr = "";
             $.each(result.rows, function (i, item) {
-                htmll += '<li><a href="${path }/forehead/article/ndetail?id=' + item.id + '">' + item.title + '</a><span class="time">' + item.createTime.substr(0, 10) + '</span></li>';
+                htmll += '<li><a href="${path }/forehead/article/ndetail/' + item.id + '">' + item.title + '</a><span class="time">' + item.createTime.substr(0, 10) + '</span></li>';
             });
             $("#notice6").append(htmll);
         });
@@ -281,9 +247,8 @@
             result = eval('(' + result + ')');
             var data = result.rows;
             var htmll = "";
-            var htmlr = "";
             $.each(result.rows, function (i, item) {
-                htmll += '<li><a href="${path }/forehead/policy/ndetail?id=' + item.id + '">' + item.title + '</a><span class="time">' + item.createTime.substr(0, 10) + '</span></li>';
+                htmll += '<li><a href="${path }/forehead/policy/pdetail/' + item.id + '">' + item.title + '</a><span class="time">' + item.createTime.substr(0, 10) + '</span></li>';
             });
             $("#policy6").append(htmll);
         });

@@ -7,6 +7,7 @@
       href="${staticPath }/static/js/kindeditor/plugins/code/prettify.css"/>
       <script type="text/javascript">
       $(function() {
+
     	  $("#orgNameId").combotree({
     		  url :"${path}/intermedOrg/back/tree",
     		  valueField: 'id',
@@ -16,7 +17,7 @@
     		      $("#orgNameId").combotree('setValue', temid);
     		  }
     	  })
-    	  
+
     	//设置机构的回显
     	 
       });
@@ -156,6 +157,7 @@
     var keditor;
     $(function () {
         kedit("kindeditor");
+        document.getElementById("serviceType").value = "${orgService.serviceType }";
         document.getElementById("pubflag").value = "${orgService.pubflag }";
         var showfields = "${orgService.showFields }";
         var fields = showfields.split(",");
@@ -205,5 +207,5 @@
             uploadJson: '${staticPath }/editor/fileUpload',
             fileManagerJson: '${staticPath }/editor/fileManager',//指定浏览远程图片的服务器端程序
         });
-    };
+    }
 </script>

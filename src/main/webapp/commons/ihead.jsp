@@ -39,7 +39,7 @@
 
     <ul class="LSKJ2018_nav">
         <li>
-            <a href="${staticPath}//innovation/index">首 页</a>
+            <a href="${staticPath}/innovation/index">首 页</a>
         </li>
         <li>
             <a href="${staticPath}/forehead/article/nlist">通知公告</a>
@@ -53,7 +53,7 @@
         <li>
             <a href="#">中介服务</a>
             <ul>
-                <li><a href="#">申请机构注册</a></li>
+                <li><a href="${staticPath}/forehead/intermedOrg/add">申请机构注册</a></li>
                 <li><a href="#">机构服务中心</a></li>
             </ul>
         </li>

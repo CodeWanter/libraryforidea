@@ -1,23 +1,11 @@
 package com.wf.intermed.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Random;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
+import com.wf.commons.base.BaseController;
+import com.wf.commons.shiro.captcha.DreamCaptcha;
+import com.wf.intermed.service.IIntermedOrgService;
+import com.wf.model.IntermedOrg;
+import com.wf.model.User;
+import com.wf.user.service.IUserService;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -29,13 +17,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.wf.commons.base.BaseController;
-import com.wf.commons.shiro.captcha.DreamCaptcha;
-import com.wf.intermed.service.IIntermedOrgService;
-import com.wf.model.IntermedOrg;
-import com.wf.model.User;
-import com.wf.model.vo.UserVo;
-import com.wf.user.service.IUserService;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Random;
 /**
  * 中介机构  中心
  * @author Administrator
@@ -58,16 +49,16 @@ public class IntermedOrgCenterController extends BaseController  {
 	 */
 	@RequestMapping("/forehead/intermedOrg/add")
 	public String orgRegister() {
-		
-		return "website/account/jgrz";
-	}
-	
-	/*
-	 * 中介机构中心  主页
-	 */
-	@RequestMapping("/intermedOrg/index")
-	public String center(Model model) {
-		Long userId = getUserId();
+
+        return "innovation/account/jgrz";
+    }
+
+    /*
+     * 中介机构中心  主页
+     */
+    @RequestMapping("/intermedOrg/index")
+    public String center(Model model) {
+        Long userId = getUserId();
 		if(userId!=null) {
 			User user = userService.selectById(userId);
 			Integer orgId = user.getOrgId();

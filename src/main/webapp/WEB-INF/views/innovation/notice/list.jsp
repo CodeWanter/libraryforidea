@@ -21,7 +21,7 @@
 <%@ include file="/commons/ihead.jsp" %>
 <div class="LSKJ2018_bd">
     <div class="LS2018_MBX">
-        当前位置：&nbsp;<a href="${staticPath}//innovation/index">首 页</a><span class="gt">&gt;</span>通知公告
+        当前位置：&nbsp;<a href="${staticPath}/innovation/index">首 页</a><span class="gt">&gt;</span>通知公告
     </div>
     <ul class="LSKJ2018_List1" id="List">
 

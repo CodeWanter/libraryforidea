@@ -1,24 +1,9 @@
 package com.wf.intermed.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
+import com.wf.commons.base.BaseController;
+import com.wf.commons.result.PageInfo;
+import com.wf.intermed.service.IOrgServiceService;
+import com.wf.model.OrgService;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -32,11 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.wf.commons.base.BaseController;
-import com.wf.commons.result.PageInfo;
-import com.wf.intermed.service.IOrgServiceService;
-import com.wf.model.OrgService;
-import com.wf.user.service.IUserService;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/orgService")
@@ -100,14 +87,17 @@ public class OrgServiceHeadController extends BaseController {
         if(orgService.getPubflag() != null) {
         	condition.put("pubflag", String.valueOf(orgService.getPubflag()));
         }
-        
-        pageInfo.setCondition(condition);
-        orgServiceService.selectDataGrid(pageInfo);
-    	return pageInfo;
-    }
-    
-    /**
-     * 数据列表
+		if (orgService.getServiceType() != null) {
+			condition.put("serviceType", String.valueOf(orgService.getServiceType()));
+		}
+
+		pageInfo.setCondition(condition);
+		orgServiceService.selectDataGrid(pageInfo);
+		return pageInfo;
+	}
+
+	/**
+	 * 数据列表
      * @param orgService
      * @param page
      * @param rows
