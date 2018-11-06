@@ -33,12 +33,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.mysql.jdbc.Wrapper;
 import com.wf.commons.base.BaseController;
 import com.wf.commons.result.PageInfo;
 import com.wf.commons.shiro.PasswordHash;
 import com.wf.commons.utils.StringUtils;
 import com.wf.intermed.service.IIntermedOrgService;
+import com.wf.intermed.service.IOrgServiceService;
 import com.wf.model.IntermedOrg;
+import com.wf.model.OrgService;
+import com.wf.model.Organization;
 import com.wf.model.User;
 import com.wf.model.UserRole;
 import com.wf.model.vo.UserVo;
@@ -61,6 +66,9 @@ public class IntermedOrgBackController extends BaseController  {
 	private IUserRoleService userRoleService;
 	@Autowired
     private PasswordHash passwordHash;
+	
+	@Autowired
+	private IOrgServiceService orgServiceService;
 	
 	/**
      * 后台列表页
@@ -182,7 +190,25 @@ public class IntermedOrgBackController extends BaseController  {
     @ResponseBody
     @RequestMapping("/delete")
     public Object delete(Long id) {
-    	boolean deleteById = intermedOrgService.deleteById(id);
+    	
+    	/*//删除机构前删除机构服务
+        EntityWrapper<OrgService> wrapper = new EntityWrapper<OrgService>();
+        wrapper.where("org_id = {0}", id);
+        List<OrgService> selectList = orgServiceService.selectList(wrapper);
+        for (OrgService orgService : selectList) {
+        	orgServiceService.deleteById(orgService.getId());
+		}
+        //把机构用户停用
+        EntityWrapper<User> wrapper2 = new EntityWrapper<User>();
+        wrapper.where("org_id = {0}", id);
+        List<User> selectList2 = userService.selectList(wrapper2);
+        for (User user : selectList2) {
+        	user.setStatus(1);
+        	userService.updateById(user);
+		}*/
+        
+        
+    	boolean deleteById = intermedOrgService.deleteOrgAndService(id);
     	if (deleteById) {
             return renderSuccess("删除成功！");
         } else {

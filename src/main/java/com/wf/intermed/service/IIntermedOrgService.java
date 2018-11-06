@@ -13,4 +13,6 @@ public interface IIntermedOrgService extends IService<IntermedOrg> {
 	
 	public List<Tree> selectTree();
 	public List<IntermedOrg> selectTreeGrid();
+	
+	public Boolean deleteOrgAndService(long orgId);
 }

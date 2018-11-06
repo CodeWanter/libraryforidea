@@ -1,6 +1,7 @@
 package com.wf.intermed.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +14,15 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.wf.commons.result.PageInfo;
 import com.wf.commons.result.Tree;
 import com.wf.intermed.mapper.IntermedOrgMapper;
+import com.wf.intermed.mapper.OrgServiceMapper;
 import com.wf.intermed.service.IIntermedOrgService;
+import com.wf.intermed.service.IOrgServiceService;
 import com.wf.model.Industry;
 import com.wf.model.IntermedOrg;
+import com.wf.model.OrgService;
+import com.wf.model.User;
+import com.wf.user.mapper.UserMapper;
+import com.wf.user.service.IUserService;
 
 
 @Service
@@ -23,6 +30,12 @@ public class IntermedOrgServiceImpl extends ServiceImpl<IntermedOrgMapper,Interm
 	
 	@Autowired
 	private IntermedOrgMapper intermedOrgMapper;
+	
+	@Autowired
+	private IUserService userService;
+	
+	@Autowired
+	private IOrgServiceService orgServiceService;
 	
 	@Override
 	public void selectDataGrid(PageInfo pageInfo) {
@@ -58,7 +71,33 @@ public class IntermedOrgServiceImpl extends ServiceImpl<IntermedOrgMapper,Interm
 		wrapper.orderBy("create_time");
 		return intermedOrgMapper.selectList(wrapper);
 	}
-	
-	
+	/**
+	 * 删除机构同时删除机构下的服务和把用户状态禁用
+	 */
+	@Override
+	public Boolean deleteOrgAndService(long orgId) {
+		
+		//设置之前的机构用户禁用
+		Map<String, Object> condition = new HashMap<String, Object>();
+    	condition.put("orgId", orgId);
+		List<Map<String, Object>> selectUserByOrgId = userService.selectUserByOrgId(condition);
+		for (Map<String, Object> map : selectUserByOrgId) {
+			long uid = (long) map.get("id");
+			User user = userService.selectById(uid);
+			user.setStatus(1);
+			userService.updateById(user);
+		}
+		
+		//删除现有服务
+		EntityWrapper<OrgService> wrapper = new EntityWrapper<OrgService>();
+		wrapper.and("org_id = {0}", orgId);
+		List<OrgService> selectList = orgServiceService.selectList(wrapper);
+		for (OrgService orgService : selectList) {
+			orgServiceService.deleteById(orgService.getId());
+		}
+		//删除机构
+		boolean deleteById = this.deleteById(orgId);
+		return deleteById;
+	}
 
 }

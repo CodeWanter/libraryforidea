@@ -202,7 +202,7 @@ public class OrgServiceHeadController extends BaseController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/delete")
+    @RequestMapping("/myService/delete")
     public Object delete(Long id) {
     	boolean deleteById = orgServiceService.deleteById(id);
     	if (deleteById) {
